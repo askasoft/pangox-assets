@@ -322,19 +322,23 @@
 	}
 
 	function _ajaxFail(xhr, status, err) {
-		var $c = $(this), $e = $('<div class="ui-popup-error">');
+		var $e = $('<div class="ui-popup-error">');
 
-		var j = xhr.responseJSON, t = xhr.responseText;
-		if (j) {
-			var e = j.error;
-			$e.addClass('text').text(typeof(e) == 'string' ? e : JSON.stringify(j, null, 4));
-		} else if (t) {
-			$e.html(t);
+		if (xhr.readyState != XMLHttpRequest.DONE) {
+			$e.addClass('text').text('Failed to connect to the server.')
 		} else {
-			$e.addClass('text').text((xhr.status ? (xhr.status + ' ') : '')  + (err || status || 'error'));
+			var j = xhr.responseJSON, t = xhr.responseText;
+			if (j) {
+				var e = j.error;
+				$e.addClass('text').text(typeof(e) == 'string' ? e : JSON.stringify(j, null, 4));
+			} else if (t) {
+				$e.html(t);
+			} else {
+				$e.addClass('text').text((xhr.status ? (xhr.status + ' ') : '')  + (err || status || 'error'));
+			}
 		}
 
-		$c.empty().append($e);
+		$(this).empty().append($e);
 	}
 
 	function _ajaxDone(data, status, xhr) {
