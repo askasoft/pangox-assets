@@ -3309,16 +3309,13 @@
 			$fit.find('.ui-uploader-text').text(fnm + ' ' + _filesize(fsz));
 			if (durl) {
 				var $fif = $fit.find('.ui-uploader-info');
-				$('<a>', { href: durl }).append($fif).appendTo($fit);
+				$('<a>', { href: durl, target: uc.dnloadTarget }).append($fif).appendTo($fit);
 			}
 		}
 
 		if (uc.dnloadView && durl && fct == 'image') {
 			var $fim = $('<div>').addClass('ui-uploader-image').appendTo($fit);
-			$('<a>', { href: durl })
-				.append($('<img>', { src: durl }))
-				.appendTo($fim)
-				.fadeIn();
+			$('<a>', { href: durl, target: uc.dnloadTarget }).append($('<img>', { src: durl })).appendTo($fim).fadeIn();
 		}
 	}
 
@@ -3515,6 +3512,7 @@
 				'uploadRemover',
 				'dnloadUrl',
 				'dnloadHolder',
+				'dnloadTarget',
 				'dnloadView',
 				'pgbarFgcolor',
 				'pgbarBgcolor'
@@ -3553,6 +3551,9 @@
 
 			// show uploader remover icon
 			uploadRemover: false,
+
+			// download link target
+			dnloadTarget: '_blank',
 
 			// download file id/name placeholder
 			dnloadHolder: '$',

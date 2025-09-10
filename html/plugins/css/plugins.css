@@ -1138,7 +1138,7 @@ ul.ui-tree.sticky li > .item {
 .ui-uploader-item {
 	border: 1px dashed #ccc;
 	display: inline-block;
-	padding: 0.5em 1em 0.5em 2.2em;
+	padding: 0.5em 2.2em;
 	margin: 0 0.5em 0.5em 0;
 	vertical-align: top;
 	position: relative;
