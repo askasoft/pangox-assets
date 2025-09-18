@@ -205,12 +205,24 @@
 	if (typeof String.prototype.substrAfter != 'function') {
 		String.prototype.substrAfter = function(c) {
 			var s = this, i = s.indexOf(c);
-			return (i >= 0) ? s.slice(i + 1) : "";
+			return (i >= 0) ? s.slice(i + c.length) : "";
+		};
+	}
+	if (typeof String.prototype.substrAfterLast != 'function') {
+		String.prototype.substrAfterLast = function(c) {
+			var s = this, i = s.lastIndexOf(c);
+			return (i >= 0) ? s.slice(i + c.length) : "";
 		};
 	}
 	if (typeof String.prototype.substrBefore != 'function') {
 		String.prototype.substrBefore = function(c) {
 			var s = this, i = s.indexOf(c);
+			return (i >= 0) ? s.slice(0, i) : s;
+		};
+	}
+	if (typeof String.prototype.substrBeforeLast != 'function') {
+		String.prototype.substrBeforeLast = function(c) {
+			var s = this, i = s.lastIndexOf(c);
 			return (i >= 0) ? s.slice(0, i) : s;
 		};
 	}
@@ -231,10 +243,7 @@
 		String.prototype.ellipsiz = function(n) {
 			var s = this, z = 0;
 			for (var i = 0; i < s.length; i++) {
-				z++;
-				if (s.charCodeAt(i) > 0xFF) {
-					z++;
-				}
+				z += (s.charCodeAt(i) > 0xFF ? 2 : 1);
 				if (z > n) {
 					return s.slice(0, i) + '...';
 				}
