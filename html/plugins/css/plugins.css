@@ -1214,13 +1214,28 @@ ul.ui-tree.sticky li > .item {
 	90%  { background-color: #eee; }
 	100% { background-color: #fff; }
 }
+/* bootstrap alert */
+.alert.alert-dismissible {
+	padding-right: 3em;
+}
+.alert > ul:last-child {
+	margin-bottom: 0;
+}
+.alert .fa-ul li {
+	padding: 0.25em 0;
+}
+.alert .fa-ul .fa-li {
+	font-size: 1.5em;
+	top: -0.1em;
+}
+/** bootstrap buttons */
 .btn-xs {
 	--bs-btn-padding-y: 0.15rem;
 	--bs-btn-padding-x: 0.25rem;
 	--bs-btn-font-size: 0.75rem;
 	--bs-btn-border-radius: var(--bs-border-radius-sm);
 }
-/** grid fix */
+/** bootstrap grid fix */
 .container {
 	width: 100%;
 }
@@ -1267,6 +1282,7 @@ ul.ui-tree.sticky li > .item {
 	}
 }
 
+/** bootstrap forms **/
 :root {
 	--ui-lined-color: #ccc;
 	--ui-input-py: calc(0.375rem + var(--bs-border-width, 1px));
@@ -1391,7 +1407,7 @@ form.lined > .form-group:last-of-type, form.lined > .row:last-of-type {
 	border-bottom: 0;
 }
 
-/** pagination **/
+/** bootstrap pagination **/
 .ui-pager {
 	display: flex;
 	align-items: center;

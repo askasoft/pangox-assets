@@ -1,0 +1,14 @@
+/* bootstrap alert */
+.alert.alert-dismissible {
+	padding-right: 3em;
+}
+.alert > ul:last-child {
+	margin-bottom: 0;
+}
+.alert .fa-ul li {
+	padding: 0.25em 0;
+}
+.alert .fa-ul .fa-li {
+	font-size: 1.5em;
+	top: -0.1em;
+}

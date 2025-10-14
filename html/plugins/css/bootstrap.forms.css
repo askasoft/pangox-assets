@@ -1,3 +1,4 @@
+/** bootstrap forms **/
 :root {
 	--ui-lined-color: #ccc;
 	--ui-input-py: calc(0.375rem + var(--bs-border-width, 1px));
