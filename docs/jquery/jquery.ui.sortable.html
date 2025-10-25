@@ -18,11 +18,11 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th class="sortable sorted asc" data-sort-col="first_name">First Name</th>
-					<th class="sortable sorted desc" data-sort-col="last_name">Last Name</th>
-					<th class="sortable" data-sort-col="first_asc"  data-sort-dir="asc" >First Asc</th>
-					<th class="sortable" data-sort-col="first_desc" data-sort-dir="desc">First Desc</th>
-					<th class="sortable" data-sort-col="username">Username</th>
+					<th class="sortable sorted asc" data-order="first_name">First Name</th>
+					<th class="sortable sorted desc" data-order="last_name">Last Name</th>
+					<th class="sortable" data-order="first_asc">First Asc</th>
+					<th class="sortable" data-order="-first_desc">First Desc</th>
+					<th class="sortable" data-order="username">Username</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -83,11 +83,11 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th class="sortable sorted asc" data-sort-col="first_name">First Name</th>
-					<th class="sortable sorted desc" data-sort-col="last_name">Last Name</th>
-					<th class="sortable" data-sort-col="first_asc"  data-sort-dir="asc" >First Asc</th>
-					<th class="sortable" data-sort-col="first_desc" data-sort-dir="desc">First Desc</th>
-					<th class="sortable" data-sort-col="username">Username</th>
+					<th class="sortable sorted asc" data-order="first_name">First Name</th>
+					<th class="sortable sorted desc" data-order="last_name">Last Name</th>
+					<th class="sortable" data-order="first_asc">First Asc</th>
+					<th class="sortable" data-order="-first_desc">First Desc</th>
+					<th class="sortable" data-order="username">Username</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -146,13 +146,13 @@
 	<script src="../../html/plugins/js/jquery.ui.sortable.js"></script>
 	<script>
 		$(function() {
-			$('#sortable').on('sort.sortable', function(evt, col, dir) {
-				$('#event').text(col + ' ' + dir);
-				$(this).sortable('sorted', col, dir);
+			$('#sortable').on('sort.sortable', function(evt, order) {
+				$('#event').text(order);
+				$(this).sortable('order', order);
 			})
-			$('#sortable2').on('sort.sortable', function(evt, col, dir) {
-				$('#event2').text(col + ' ' + dir);
-				$(this).sortable('sorted', col, dir);
+			$('#sortable2').on('sort.sortable', function(evt, order) {
+				$('#event2').text(order);
+				$(this).sortable('order', order);
 			})
 		});
 	</script>

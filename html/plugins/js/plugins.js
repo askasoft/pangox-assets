@@ -2634,25 +2634,56 @@
 	'use strict';
 
 	function sortable_onclick(evt) {
-		var $e = $(evt.target),
-			col = $e.data('sortCol') || $e.text(),
-			dir = $e.data('sortDir') || '';
+		var $e = $(this), o = $e.data('order');
 
-		if ($e.hasClass('sorted')) {
-			dir = $e.hasClass('asc') ? 'desc' : 'asc';
+		if (o) {
+			if ($e.hasClass('sorted')) {
+				if ($e.hasClass('asc')) {
+					if (o.charAt(0) != '-') {
+						o = '-' + o;
+					}
+				} else {
+					if (o.charAt(0) == '-') {
+						o = o.substring(1);
+					}
+				}
+			}
+
+			$e.trigger('sort.sortable', [ o ]);
 		}
-
-		$(this).trigger('sort.sortable', [ col, dir ]);
 	}
 
-	function set_sorted($s, col, dir) {
-		$s.find('.sortable').removeClass('sorted desc asc')
-			.filter('[data-sort-col="' + col + '"]').addClass('sorted ' + (dir || 'asc'));
+	function get_field(o) {
+		if (o && o.charAt(0) == '-') {
+			o = o.substring(1);
+		}
+		return o;
 	}
 
-	$.fn.sortable = function(api, col, dir) {
-		if (api == 'sorted') {
-			set_sorted(this, col, dir);
+	function set_order($s, o) {
+		if (o) {
+			var os = o.split(',');
+
+			$s.find('.sortable').removeClass('sorted desc asc').each(function() {
+				var $t = $(this), s = $t.data('order');
+
+				if (s) {
+					var f = get_field(s);
+
+					$.each(os, function(i, o) {
+						if (o && (s == o || f == get_field(o))) {
+							$t.addClass('sorted ' + (o.charAt(0) == '-' ? 'desc' : 'asc'));
+							return false;
+						}
+					});
+				}
+			});
+		}
+	}
+
+	$.fn.sortable = function(api, arg) {
+		if (api == 'order') {
+			set_order(this, arg);
 			return this;
 		}
 
@@ -2660,10 +2691,8 @@
 			.off('click.sortable')
 			.on('click.sortable', '.sortable', sortable_onclick)
 			.each(function() {
-				var $t = $(this), c = $t.data('sortedCol');
-				if (c) {
-					set_sorted($t, c, $t.data('sortedDir'));
-				}
+				var $t = $(this);
+				set_order($t, $t.data('order'));
 			});
 	};
 
