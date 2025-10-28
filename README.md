@@ -1,11 +1,9 @@
-Pangox Assets
-================
+# Pangox Assets
 
-A HTML/JavaScript/CSS library.
+A HTML/CSS/JavaScript library.
 
 
-Features
-----------
+## Features
 
  - Bootstrap2
  - Bootstrap3
@@ -40,23 +38,23 @@ Features
 
 
 
-Acknowledgements
-----------------
+## Notices
 
-Pango Assets use the following software packages:
+Pango Assets use or fork the following open source libraries:
 
-| Name                    | License                                                       | Source                                                 |
-|-------------------------|---------------------------------------------------------------|--------------------------------------------------------|
-| Bootstrap               | [MIT](https://opensource.org/licenses/MIT)                    | [http://getbootstrap.com/](http://getbootstrap.com/) |
-| bootstrap-datepicker    | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)      | [http://www.eyecon.ro/bootstrap-datepicker/](http://www.eyecon.ro/bootstrap-datepicker/) |
-| Chart.js                | [MIT](https://opensource.org/licenses/MIT)                    | [https://github.com/chartjs/Chart.js](https://github.com/chartjs/Chart.js) |
-| docxjs | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) | [https://github.com/VolodymyrBaydalka/docxjs](https://github.com/VolodymyrBaydalka/docxjs) |
-| Font Awesome            | [Font Awesome](http://fontawesome.io/license/)                | [http://fontawesome.io/](http://fontawesome.io/) |
-| jQuery                  | [jQuery](https://jquery.org/license/)                         | [https://jquery.com/](https://jquery.com/) |
-| jquery-lightbox         |                                                               | [http://leandrovieira.com](http://leandrovieira.com) |
-| jquery-toast            | [MIT](https://opensource.org/licenses/MIT)                    | [https://github.com/kamranahmedse/jquery-toast-plugin](https://github.com/kamranahmedse/jquery-toast-plugin) |
-| jquery-nice-select      |  | [https://github.com/hernansartorio/jquery-nice-select](https://github.com/hernansartorio/jquery-nice-select) |
-| jquery-simple-color-picker | [MIT](https://opensource.org/licenses/MIT) | [https://github.com/rachel-carvalho/simple-color-picker](https://github.com/rachel-carvalho/simple-color-picker) |
-| jzip | [MIT GPLv3](https://github.com/Stuk/jszip/blob/main/LICENSE.markdown) | [https://github.com/Stuk/jszip](https://github.com/Stuk/jszip) |
-| pdfjs                   | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)       | [https://github.com/mozilla/pdf.js](https://github.com/mozilla/pdf.js) |
-| summernote              | [MIT](https://opensource.org/licenses/MIT)       | [https://summernote.org](https://summernote.org) |
+| Name                       | Source                                                 | License                                                       |
+|----------------------------|--------------------------------------------------------|---------------------------------------------------------------|
+| Bootstrap                  | http://getbootstrap.com/                               | [MIT](https://github.com/twbs/bootstrap/blob/main/LICENSE)    |
+| bootstrap-datepicker       | http://www.eyecon.ro/bootstrap-datepicker/             | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)      |
+| Bootswatch                 | https://github.com/thomaspark/bootswatch               | [MIT](https://github.com/thomaspark/bootswatch/blob/v5/LICENSE) |
+| Chart.js                   | https://github.com/chartjs/Chart.js                    | [MIT](https://github.com/chartjs/Chart.js/blob/master/LICENSE.md) |
+| docxjs                     | https://github.com/VolodymyrBaydalka/docxjs            | [Apache 2.0](https://github.com/VolodymyrBaydalka/docxjs/blob/master/LICENSE) |
+| Font Awesome               | http://fontawesome.io/                                 | [Font Awesome](http://fontawesome.io/license/)                |
+| jQuery                     | https://jquery.com/                                    | [jQuery](https://jquery.org/license/)                         |
+| jquery-lightbox            | http://leandrovieira.com                               |                                                               |
+| jquery-toast               | https://github.com/kamranahmedse/jquery-toast-plugin   |                                                               |
+| jquery-nice-select         | https://github.com/hernansartorio/jquery-nice-select   |                                                               |
+| jquery-simple-color-picker | https://github.com/rachel-carvalho/simple-color-picker | [MIT](https://github.com/rachel-carvalho/simple-color-picker/blob/master/LICENSE) |
+| jzip                       | https://github.com/Stuk/jszip                          | [MIT GPLv3](https://github.com/Stuk/jszip/blob/main/LICENSE.markdown) |
+| pdfjs                      | https://github.com/mozilla/pdf.js                      | [Apache 2.0](https://github.com/mozilla/pdf.js/blob/master/LICENSE) |
+| summernote                 | https://summernote.org                                 | [MIT](https://github.com/summernote/summernote/blob/main/LICENSE) |
