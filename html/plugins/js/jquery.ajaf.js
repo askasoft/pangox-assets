@@ -23,13 +23,13 @@
 				fs = $(fs);
 			}
 
-			if ($.isArray(fs)) {
+			if (Array.isArray(fs)) {
 				$.each(fs, function(i, f) {
 					fadd(f);
 				});
 			} else {
 				$.each(fs, function(n, f) {
-					if ($.isArray(f)) {
+					if (Array.isArray(f)) {
 						$.each(f, function(i, f) {
 							fadd(f, n);
 						});
@@ -44,7 +44,7 @@
 	function addParams(ps, padd) {
 		if (ps) {
 			function _addParams(n, v) {
-				if ($.isArray(v)) {
+				if (Array.isArray(v)) {
 					$.each(v, function(i, v) {
 						padd(n, v);
 					});
@@ -53,7 +53,7 @@
 				}
 			}
 
-			if ($.isArray(ps)) {
+			if (Array.isArray(ps)) {
 				$.each(ps, function(i, d) {
 					_addParams(d.name, d.value);
 				});

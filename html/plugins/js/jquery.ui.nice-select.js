@@ -123,7 +123,7 @@
 			var $select = $(this), vs = $select.val();
 			var $dropdown = $select.next('.ui-nice-select');
 
-			var eq = $.isArray(vs)
+			var eq = Array.isArray(vs)
 				? function(v, a) {
 					for (var i = 0; i < a.length; i++) {
 						if (v == a[i]) {

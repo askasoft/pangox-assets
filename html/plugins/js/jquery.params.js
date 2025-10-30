@@ -27,7 +27,7 @@
 				k = decodeURIComponent(p[0]),
 				v = p.length > 1 ? decodeURIComponent(p[1]) : '';
 			if (k in qs) {
-				if (!$.isArray(qs[k])) {
+				if (!Array.isArray(qs[k])) {
 					qs[k] = [ qs[k] ];
 				}
 				qs[k].push(v);

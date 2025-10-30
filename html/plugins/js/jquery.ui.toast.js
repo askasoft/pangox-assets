@@ -5,7 +5,7 @@
 	function setOptions(os, base, options) {
 		var o = {};
 
-		if ((typeof(options) == 'string') || $.isArray(options)) {
+		if ((typeof(options) == 'string') || Array.isArray(options)) {
 			o.message = options;
 		} else {
 			o = options;
@@ -32,7 +32,7 @@
 
 		var $c = $('<div class="ui-toast-content">').appendTo($t);
 		var t = os.message || os.text;
-		if ($.isArray(t)) {
+		if (Array.isArray(t)) {
 			var $ul = $('<ul class="ui-toast-list">');
 			$.each(t, function(i, t) {
 				if (t) {

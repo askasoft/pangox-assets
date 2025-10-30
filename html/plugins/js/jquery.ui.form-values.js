@@ -50,7 +50,7 @@
 					case 'reset':
 						break;
 					case 'checkbox':
-						var va = $.isArray(v) ? v : [ v ];
+						var va = Array.isArray(v) ? v : [ v ];
 						var oc = $i.prop('checked'), nc = $.inArray($i.val(), va) >= 0;
 						$i.prop('checked', nc);
 						if (trigger && nc != oc) {
@@ -80,7 +80,7 @@
 				m[v.name] = v.value;
 				return;
 			}
-			if ($.isArray(ov)) {
+			if (Array.isArray(ov)) {
 				ov.push(v.value);
 				return;
 			}

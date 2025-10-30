@@ -59,7 +59,7 @@
 	};
 
 	$.fn.markup = function(o) {
-		if ($.isArray(o)) {
+		if (Array.isArray(o)) {
 			o = { markups: o };
 		} else if (typeof(o) == 'string') {
 			o = { markup: o };

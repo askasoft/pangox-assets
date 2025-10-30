@@ -23,13 +23,13 @@
 				fs = $(fs);
 			}
 
-			if ($.isArray(fs)) {
+			if (Array.isArray(fs)) {
 				$.each(fs, function(i, f) {
 					fadd(f);
 				});
 			} else {
 				$.each(fs, function(n, f) {
-					if ($.isArray(f)) {
+					if (Array.isArray(f)) {
 						$.each(f, function(i, f) {
 							fadd(f, n);
 						});
@@ -44,7 +44,7 @@
 	function addParams(ps, padd) {
 		if (ps) {
 			function _addParams(n, v) {
-				if ($.isArray(v)) {
+				if (Array.isArray(v)) {
 					$.each(v, function(i, v) {
 						padd(n, v);
 					});
@@ -53,7 +53,7 @@
 				}
 			}
 
-			if ($.isArray(ps)) {
+			if (Array.isArray(ps)) {
 				$.each(ps, function(i, d) {
 					_addParams(d.name, d.value);
 				});
@@ -609,7 +609,7 @@
 				k = decodeURIComponent(p[0]),
 				v = p.length > 1 ? decodeURIComponent(p[1]) : '';
 			if (k in qs) {
-				if (!$.isArray(qs[k])) {
+				if (!Array.isArray(qs[k])) {
 					qs[k] = [ qs[k] ];
 				}
 				qs[k].push(v);
@@ -979,7 +979,7 @@
 					case 'reset':
 						break;
 					case 'checkbox':
-						var va = $.isArray(v) ? v : [ v ];
+						var va = Array.isArray(v) ? v : [ v ];
 						var oc = $i.prop('checked'), nc = $.inArray($i.val(), va) >= 0;
 						$i.prop('checked', nc);
 						if (trigger && nc != oc) {
@@ -1009,7 +1009,7 @@
 				m[v.name] = v.value;
 				return;
 			}
-			if ($.isArray(ov)) {
+			if (Array.isArray(ov)) {
 				ov.push(v.value);
 				return;
 			}
@@ -1610,7 +1610,7 @@
 	};
 
 	$.fn.markup = function(o) {
-		if ($.isArray(o)) {
+		if (Array.isArray(o)) {
 			o = { markups: o };
 		} else if (typeof(o) == 'string') {
 			o = { markup: o };
@@ -1763,7 +1763,7 @@
 			var $select = $(this), vs = $select.val();
 			var $dropdown = $select.next('.ui-nice-select');
 
-			var eq = $.isArray(vs)
+			var eq = Array.isArray(vs)
 				? function(v, a) {
 					for (var i = 0; i < a.length; i++) {
 						if (v == a[i]) {
@@ -2806,7 +2806,7 @@
 	function setOptions(os, base, options) {
 		var o = {};
 
-		if ((typeof(options) == 'string') || $.isArray(options)) {
+		if ((typeof(options) == 'string') || Array.isArray(options)) {
 			o.message = options;
 		} else {
 			o = options;
@@ -2833,7 +2833,7 @@
 
 		var $c = $('<div class="ui-toast-content">').appendTo($t);
 		var t = os.message || os.text;
-		if ($.isArray(t)) {
+		if (Array.isArray(t)) {
 			var $ul = $('<ul class="ui-toast-list">');
 			$.each(t, function(i, t) {
 				if (t) {
