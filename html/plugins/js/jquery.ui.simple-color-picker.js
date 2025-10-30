@@ -52,7 +52,7 @@
 		var $box = $('<div>', {
 			'id': 'color_picker_' + ($txt.attr('id') || new Date().getTime()),
 			'class': 'ui-simple-color-picker'
-		}).hide().appendTo('body');
+		}).hide();
 
 		var $ul;
 		for (var i = 0; i < opts.colors.length; i++) {
@@ -68,7 +68,7 @@
 			}));
 		}
 
-		$box.data('opts', opts);
+		$box.data('opts', opts).appendTo('body');
 		$txt.data('simpleColorPicker', $box);
 		return $box;
 	}
@@ -97,21 +97,22 @@
 				$box = initBox($txt, opts);
 
 			$box.find('li').click(function() {
+				var c = $(this).attr('title');
 				if ($txt.is('input')) {
-					$txt.val($(this).attr('title'));
+					$txt.val(c);
 				}
-				$txt.trigger('change', $(this).attr('title'));
+				$txt.trigger('change', c);
 				hideBox($box);
 			});
 
-			$box.click(function(evt) {
+			$box.on('click', function(evt) {
 				evt.stopPropagation();
 			});
 
 			$txt.on('click.simple_color_picker', function() {
 				setTimeout(function() {
 					positionAndShowBox($txt, $box);
-				})
+				});
 			});
 
 			if ($txt.is('input')) {

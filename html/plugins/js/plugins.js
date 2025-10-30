@@ -2553,7 +2553,7 @@
 		var $box = $('<div>', {
 			'id': 'color_picker_' + ($txt.attr('id') || new Date().getTime()),
 			'class': 'ui-simple-color-picker'
-		}).hide().appendTo('body');
+		}).hide();
 
 		var $ul;
 		for (var i = 0; i < opts.colors.length; i++) {
@@ -2569,7 +2569,7 @@
 			}));
 		}
 
-		$box.data('opts', opts);
+		$box.data('opts', opts).appendTo('body');
 		$txt.data('simpleColorPicker', $box);
 		return $box;
 	}
@@ -2598,21 +2598,22 @@
 				$box = initBox($txt, opts);
 
 			$box.find('li').click(function() {
+				var c = $(this).attr('title');
 				if ($txt.is('input')) {
-					$txt.val($(this).attr('title'));
+					$txt.val(c);
 				}
-				$txt.trigger('change', $(this).attr('title'));
+				$txt.trigger('change', c);
 				hideBox($box);
 			});
 
-			$box.click(function(evt) {
+			$box.on('click', function(evt) {
 				evt.stopPropagation();
 			});
 
 			$txt.on('click.simple_color_picker', function() {
 				setTimeout(function() {
 					positionAndShowBox($txt, $box);
-				})
+				});
 			});
 
 			if ($txt.is('input')) {
@@ -2727,6 +2728,8 @@
 (function($) {
 	"use strict";
 
+	var E = 'keyup.enterfire';
+
 	function _enterfire(evt) {
 		if (evt.ctrlKey && evt.key == 'Enter') {
 			var $t = $(this), ef = $t.attr('enterfire') || 'true';
@@ -2739,7 +2742,7 @@
 	}
 
 	$.fn.enterfire = function() {
-		return this.off('keyup.enterfire').on('keyup.enterfire', _enterfire);
+		return this.off(E).on(E, _enterfire);
 	};
 
 	$(window).on('load', function() {
@@ -2778,12 +2781,12 @@
 (function($) {
 	"use strict";
 
-	var E = 'blur.textstrip', re = /^[\s\u3000]+|[\s\u3000]+$/g;
+	var E = 'blur.textstrip', R = /^[\s\u0085\u00a0\u2000\u3000]+|[\s\u0085\u00a0\u2000\u3000]+$/g;
 
 	function _textstrip() {
 		var $t = $(this), a = $t.attr('textstrip') || '';
 		if (a != 'false') {
-			$t.val(($t.val() || '').replace(re, ''));
+			$t.val(($t.val() || '').replace(R, ''));
 		}
 	}
 
@@ -3260,7 +3263,7 @@
 		}
 
 		p = Math.pow(10, p || 2);
-		return '(' + Math.round(n * p) / p + ' ' + UNITS[i] + ')';
+		return '(' + Math.round(n * p) / p + UNITS[i] + ')';
 	}
 
 	function _filename(fn) {
@@ -3650,7 +3653,7 @@
 	});
 
 })(jQuery);
-(function() {
+(function($) {
 	"use strict";
 
 	function _onclick(evt) {
@@ -3727,4 +3730,4 @@
 	$(window).on('load', function() {
 		$('[data-spy="pager"]').pager();
 	});
-})();
+})(jQuery);

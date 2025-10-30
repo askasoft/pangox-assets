@@ -1,6 +1,8 @@
 (function($) {
 	"use strict";
 
+	var E = 'keyup.enterfire';
+
 	function _enterfire(evt) {
 		if (evt.ctrlKey && evt.key == 'Enter') {
 			var $t = $(this), ef = $t.attr('enterfire') || 'true';
@@ -13,7 +15,7 @@
 	}
 
 	$.fn.enterfire = function() {
-		return this.off('keyup.enterfire').on('keyup.enterfire', _enterfire);
+		return this.off(E).on(E, _enterfire);
 	};
 
 	$(window).on('load', function() {

@@ -1,4 +1,4 @@
-(function() {
+(function($) {
 	"use strict";
 
 	function _onclick(evt) {
@@ -75,4 +75,4 @@
 	$(window).on('load', function() {
 		$('[data-spy="pager"]').pager();
 	});
-})();
+})(jQuery);
