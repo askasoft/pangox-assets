@@ -12,55 +12,16 @@
 			return h;
 		};
 	}
-	if (typeof String.prototype.isEmpty != "function") {
-		String.prototype.isEmpty = function(s) {
-			return this.length < 1;
-		};
-	}
-	if (typeof String.prototype.contains != "function") {
-		String.prototype.contains = function(s) {
-			return this.indexOf(s) >= 0;
-		};
-	}
-	if (typeof String.prototype.startsWith != "function") {
-		String.prototype.startsWith = function(prefix, toffset) {
-			return this.indexOf(prefix) == (toffset || 0);
-		};
-	}
-	if (typeof String.prototype.endsWith != "function") {
-		String.prototype.endsWith = function(suffix) {
-			return this.startsWith(suffix, this.length - suffix.length);
-		};
-	}
 
-	if (typeof String.prototype.trimLeft != "function") {
-		var re = /^\s+/;
-		String.prototype.trimLeft = function() {
-			return this.replace(re, "");
-		};
-	}
-	if (typeof String.prototype.trimRight != "function") {
-		var re = /\s+$/;
-		String.prototype.trimRight = function() {
-			return this.replace(re, "");
-		};
-	}
-	if (typeof String.prototype.trim != "function") {
-		var re = /^\s+|\s+$/g;
-		String.prototype.trim = function() {
-			return this.replace(re, "");
-		};
-	}
-
-	if (typeof String.prototype.stripLeft != "function") {
+	if (typeof String.prototype.stripStart != "function") {
 		var re = /^[\s\u0085\u00a0\u2000\u3000]+/;
-		String.prototype.stripLeft = function() {
+		String.prototype.stripStart = function() {
 			return this.replace(re, "");
 		};
 	}
-	if (typeof String.prototype.stripRight != "function") {
+	if (typeof String.prototype.stripEnd != "function") {
 		var re = /[\s\u0085\u00a0\u2000\u3000]+$/;
-		String.prototype.stripRight = function() {
+		String.prototype.stripEnd = function() {
 			return this.replace(re, "");
 		};
 	}
@@ -86,47 +47,6 @@
 		};
 	}
 
-	if (typeof String.prototype.left != "function") {
-		String.prototype.left = function(n) {
-			return this.slice(0, n);
-		};
-	}
-	if (typeof String.prototype.mid != "function") {
-		String.prototype.mid = String.prototype.substr;
-	}
-	if (typeof String.prototype.right != "function") {
-		String.prototype.right = function(n) {
-			var s = this;
-			return s.length <= n ? s : s.slice(s.length - n);
-		};
-	}
-
-	if (typeof String.prototype.padLeft != "function") {
-		String.prototype.padLeft = function(n, c) {
-			c = c || ' ';
-			var s = this;
-			if (s.length >= n) {
-				return s;
-			}
-			while (s.length < n) {
-				s = c + s;
-			}
-			return s.right(n);
-		};
-	}
-	if (typeof String.prototype.padRight != "function") {
-		String.prototype.padRight = function(n, c) {
-			c = c || ' ';
-			var s = this;
-			if (s.length >= n) {
-				return s;
-			}
-			while (s.length < n) {
-				s += c;
-			}
-			return s.left(n);
-		};
-	}
 	if (typeof String.prototype.padCenter != "function") {
 		String.prototype.padCenter = function(n, c) {
 			c = c || ' ';
@@ -134,8 +54,8 @@
 			if (p <= 0) {
 				return s;
 			}
-			s = s.padLeft(z+p/2, c);
-			s = s.padRight(n, c);
+			s = s.padStart(z+p/2, c);
+			s = s.padEnd(n, c);
 			return s;
 		};
 	}
@@ -150,7 +70,6 @@
 			return this.charAt(0).toLowerCase() + this.slice(1);
 		};
 	}
-
 
 	if (typeof String.prototype.snakeCase != "function") {
 		String.prototype.snakeCase = function(d) {
@@ -202,6 +121,12 @@
 			});
 		};
 	}
+
+	if (typeof String.prototype.substr != 'function') {
+		String.prototype.substr = function(i, l) {
+			return this.slice(i, l >= 0 ? i+l : undefined);
+		};
+	}
 	if (typeof String.prototype.substrAfter != 'function') {
 		String.prototype.substrAfter = function(c) {
 			var s = this, i = s.indexOf(c);
@@ -226,18 +151,19 @@
 			return (i >= 0) ? s.slice(0, i) : s;
 		};
 	}
+
+	/**
+	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length.
+	 */
 	if (typeof String.prototype.ellipsis != 'function') {
 		String.prototype.ellipsis = function(n) {
 			var s = this;
 			return s.length > n ? s.slice(0, n - 3) + "..." : s;
 		};
 	}
-
 	/**
-	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length
+	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length.
 	 * the length of charCodeAt(i) > 0xFF will be treated as 2. 
-	 * @param {Number} n The maximum length to allow before truncating
-	 * @return {String} The converted text
 	 */
 	if (typeof String.prototype.ellipsiz != 'function') {
 		String.prototype.ellipsiz = function(n) {
@@ -270,24 +196,6 @@
 		String.prototype.escapeHTML = function() {
 			return this.replace(/[&'`"<>]/g, function(c) {
 				return ehm[c];
-			});
-		};
-	}
-	if (typeof String.prototype.unescapeHTML != "function") {
-		// a simple version, complete version: https://stackoverflow.com/questions/994331/how-to-unescape-html-character-entities-in-java
-		var uhm = {
-			'&lt;': '<',
-			'&gt;': '>',
-			'&amp;': '&',
-			'&quot;': '"',
-			'&apos;': "'",
-			'&#x27;': "'",
-			'&#x60;': '`'
-		};
-
-		String.prototype.unescapeHTML = function() {
-			return this.replace(/&(lt|gt|amp|quot|apos|#x27|#x60);/g, function(t) {
-				return uhm[t];
 			});
 		};
 	}
@@ -336,6 +244,7 @@
 			return o;
 		};
 	}
+
 	if (typeof String.prototype.encodeBase64 != "function") {
 		String.prototype.encodeBase64 = function() {
 			return btoa(this.encodeUTF8());

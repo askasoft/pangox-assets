@@ -1,456 +1,26 @@
 (function() {
 	"use strict";
 
-	if (typeof Array.prototype.empty != 'function') {
-		Array.prototype.empty = function() {
-			this.splice(0, this.length);
-			return this;
-		}
-	}
-
-	if (typeof Array.prototype.indexOf != 'function') {
-		Array.prototype.indexOf = function(o) {
-			for (var i = 0; i < this.length; i++) {
-				if (this[i] === o) {
-					return i;
-				}
-			}
-			return -1;
-		}
-	}
-
-	if (typeof Array.prototype.contains != 'function') {
-		Array.prototype.contains = function(o) {
-			return this.indexOf(o) >= 0;
-		}
-	}
-
-	if (typeof Array.prototype.insert != 'function') {
-		Array.prototype.insert = function() {
-			var args = [arguments[0], 0];
-			[].push.apply(args, [].slice.call(arguments, 1));
-			[].splice.apply(this, args);
-			return this;
-		}
-	}
-
-	if (typeof Array.prototype.remove != 'function') {
-		// Remove element o in array, returns removed elements count
-		Array.prototype.remove = function(o) {
-			var a = this, n = 0;
-			for (var i = a.length - 1; i >= 0; i--) {
-				if (a[i] === o) {
-					a.splice(i, 1);
-					n++;
-				}
-			}
-			return n;
-		}
-	}
-
-	if (typeof Array.prototype.removeIf != 'function') {
-		// Remove each element o that satisfied f(o) === true in array, returns removed elements count
-		Array.prototype.removeIf = function(f) {
-			var a = this, n = 0;
-			for (var i = a.length - 1; i >= 0; i--) {
-				if (f(a[i])) {
-					a.splice(i, 1);
-					n++;
-				}
-			}
-			return n;
-		}
-	}
-
-	if (typeof Array.prototype.removeDuplicates != 'function') {
-		Array.prototype.removeDuplicates = function() {
-			var a = this, n = 0;
-			for (var i = 0; i < a.length; i++) {
-				for (var j = a.length - 1; j > i; j--) {
-					if (a[i] === a[j]) {
-						a.splice(j, 1);
-						n++;
-					}
-				}
-			}
-			return n;
-		}
-	}
-
-	if (typeof Array.prototype.each != 'function') {
-		Array.prototype.each = function(fn, scope) {
+	if (typeof Array.prototype.clear != 'function') {
+		Array.prototype.clear = function() {
 			var a = this;
-			scope ||= window;
-			for (var i = 0; i < a.length; i++) {
-				if (fn.call(scope, a[i], i, a) === false) {
-					break;
-				}
-			}
-		}
-	}
-})();
-/*--------------------------------------------------------
- dateformat.js - Simple date formatter
- Version 1.1 (Update 2008/04/02)
-
- Copyright (c) 2007-2008 onozaty (http://www.enjoyxstudy.com)
-
- Released under an MIT-style license.
-
- For details, see the web site:
- http://www.enjoyxstudy.com/javascript/dateformat/
-
- --------------------------------------------------------
- patterns
- y : Year         ex. "yyyy" -> "2007", "yy" -> "07"
- M : Month        ex. "MM" -> "05" "12", "M" -> "5" "12"
- d : Day          ex. "dd" -> "09" "30", "d" -> "9" "30"
- H : Hour (0-23)  ex. "HH" -> "00" "23", "H" -> "0" "23"
- h : Hour (1-12)  ex. "hh" -> "01" "12", "h" -> "1" "12"
- m : Minute       ex. "mm" -> "01" "59", "m" -> "1" "59"
- s : Second       ex. "ss" -> "00" "59", "s" -> "0" "59"
- S : Millisecond  ex. "SSS" -> "000" "012" "999", 
- "SS" -> "00" "12" "999", "S" -> "0" "12" "999"
-
- Text can be quoted using single quotes (') to avoid interpretation.
- "''" represents a single quote. 
-
-
- Useing..
-
- var fmt = new DateFormat("yyyy/MM/dd HH:mm:ss SSS");
-
- var str = fmt.format(new Date()); // "2007/05/10 12:21:19 002"
- var date = fmt.parse("2007/05/10 12:21:19 002"); // return Date object
-
- --------------------------------------------------------*/
-
-var DateFormat = function(pattern) {
-	"use strict";
-
-	this._init(pattern);
-};
-
-(function() {
-	"use strict";
-
-	if (typeof Date.prototype.format != "function") {
-		Date.prototype.format = function(f) {
-			return (new DateFormat(f)).format(this);
+			a.splice(0, a.length);
+			return a;
 		};
 	}
 
-	DateFormat.prototype = {
-		_init: function(pattern) {
-			this.pattern = pattern;
-			this._patterns = [];
-
-			for (var i = 0; i < pattern.length; i++) {
-				var ch = pattern.charAt(i);
-				if (this._patterns.length == 0) {
-					this._patterns[0] = ch;
-				} else {
-					var index = this._patterns.length - 1;
-					if (this._patterns[index].charAt(0) == "'") {
-						if (this._patterns[index].length == 1
-							|| this._patterns[index]
-								.charAt(this._patterns[index].length - 1) != "'") {
-							this._patterns[index] += ch;
-						} else {
-							this._patterns[index + 1] = ch;
-						}
-					} else if (this._patterns[index].charAt(0) == ch) {
-						this._patterns[index] += ch;
-					} else {
-						this._patterns[index + 1] = ch;
-					}
+	if (typeof Array.prototype.remove != 'function') {
+		// Remove each element o that satisfied fn(o) === true in array
+		Array.prototype.remove = function(fn, scope) {
+			var a = this;
+			for (var i = a.length - 1; i >= 0; i--) {
+				if (fn.call(scope, a[i], i, a)) {
+					a.splice(i, 1);
 				}
 			}
-		},
-
-		format: function(date) {
-			var result = [];
-			for (var i = 0; i < this._patterns.length; i++) {
-				result[i] = this._formatWord(date, this._patterns[i]);
-			}
-			return result.join('');
-		},
-
-		_formatWord: function(date, pattern) {
-			var formatter = this._formatter[pattern.charAt(0)];
-			if (formatter) {
-				return formatter.apply(this, [date, pattern]);
-			}
-			return pattern;
-		},
-
-		_formatter: {
-			"y": function(date, pattern) {
-				// Year
-				var year = String(date.getFullYear());
-				if (pattern.length <= 2) {
-					year = year.substring(2, 4);
-				} else {
-					year = this._zeroPadding(year, pattern.length);
-				}
-				return year;
-			},
-			"M": function(date, pattern) {
-				// Month in year
-				return this._zeroPadding(String(date.getMonth() + 1), pattern.length);
-			},
-			"d": function(date, pattern) {
-				// Day in month
-				return this._zeroPadding(String(date.getDate()), pattern.length);
-			},
-			"H": function(date, pattern) {
-				// Hour in day (0-23)
-				return this._zeroPadding(String(date.getHours()), pattern.length);
-			},
-			"h": function(date, pattern) {
-				// Hour in day (1-12)
-				var h = date.getHours();
-				h = h > 12 ? h - 12 : (h == 0 ? 12 : h);
-				return this._zeroPadding(String(h), pattern.length);
-			},
-			"m": function(date, pattern) {
-				// Minute in hour
-				return this._zeroPadding(String(date.getMinutes()), pattern.length);
-			},
-			"s": function(date, pattern) {
-				// Second in minute
-				return this._zeroPadding(String(date.getSeconds()), pattern.length);
-			},
-			"S": function(date, pattern) {
-				// Millisecond
-				return this._zeroPadding(String(date.getMilliseconds()), pattern.length);
-			},
-			"'": function(date, pattern) {
-				// escape
-				if (pattern == "''") {
-					return "'";
-				}
-				return pattern.replace(/'/g, '');
-			}
-		},
-
-		_zeroPadding: function(str, length) {
-			if (str.length >= length) {
-				return str;
-			}
-
-			return new Array(length - str.length + 1).join("0") + str;
-		},
-
-		/// Parser ///
-		parse: function(text) {
-			if (typeof text != 'string' || text == '')
-				return null;
-
-			var result = {
-				year: 1970,
-				month: 1,
-				day: 1,
-				hour: 0,
-				min: 0,
-				sec: 0,
-				msec: 0
-			};
-
-			for (var i = 0; i < this._patterns.length; i++) {
-				if (text == '') {
-					return null; // parse error!!
-				}
-				text = this._parseWord(text, this._patterns[i], result);
-				if (text === null) {
-					return null; // parse error!!
-				}
-			}
-			if (text != '') {
-				return null; // parse error!!
-			}
-
-			return new Date(result.year, result.month - 1, result.day, result.hour,
-				result.min, result.sec, result.msec);
-		},
-
-		_parseWord: function(text, pattern, result) {
-			var parser = this._parser[pattern.charAt(0)];
-			if (parser) {
-				return parser.apply(this, [text, pattern, result]);
-			}
-			if (text.indexOf(pattern) != 0) {
-				return null;
-			}
-			return text.substring(pattern.length);
-		},
-
-		_parser: {
-			"y": function(text, pattern, result) {
-				// Year
-				var year;
-				if (pattern.length <= 2) {
-					year = text.substring(0, 2);
-					year = year < 70 ? '20' + year : '19' + year;
-					text = text.substring(2);
-				} else {
-					var length = (pattern.length == 3) ? 4 : pattern.length;
-					year = text.substring(0, length);
-					text = text.substring(length);
-				}
-				if (!this._isNumber(year)) {
-					return null; // error
-				}
-				result.year = parseInt(year, 10);
-				return text;
-			},
-			"M": function(text, pattern, result) {
-				// Month in year
-				var month;
-				if (pattern.length == 1 && text.length > 1
-					&& text.substring(0, 2).match(/1[0-2]/) != null) {
-					month = text.substring(0, 2);
-					text = text.substring(2);
-				} else {
-					month = text.substring(0, pattern.length);
-					text = text.substring(pattern.length);
-				}
-				if (!this._isNumber(month)) {
-					return null; // error
-				}
-				result.month = parseInt(month, 10);
-				return text;
-			},
-			"d": function(text, pattern, result) {
-				// Day in month
-				var day;
-				if (pattern.length == 1 && text.length > 1
-					&& text.substring(0, 2).match(/1[0-9]|2[0-9]|3[0-1]/) != null) {
-					day = text.substring(0, 2);
-					text = text.substring(2);
-				} else {
-					day = text.substring(0, pattern.length);
-					text = text.substring(pattern.length);
-				}
-				if (!this._isNumber(day)) {
-					return null; // error
-				}
-				result.day = parseInt(day, 10);
-				return text;
-			},
-			"H": function(text, pattern, result) {
-				// Hour in day (0-23)
-				var hour;
-				if (pattern.length == 1 && text.length > 1
-					&& text.substring(0, 2).match(/1[0-9]|2[0-3]/) != null) {
-					hour = text.substring(0, 2);
-					text = text.substring(2);
-				} else {
-					hour = text.substring(0, pattern.length);
-					text = text.substring(pattern.length);
-				}
-				if (!this._isNumber(hour)) {
-					return null; // error
-				}
-				result.hour = parseInt(hour, 10);
-				return text;
-			},
-			"h": function(text, pattern, result) {
-				// Hour in day (1-12)
-				var hour;
-				if (pattern.length == 1 && text.length > 1
-					&& text.substring(0, 2).match(/1[0-2]/) != null) {
-					hour = text.substring(0, 2);
-					text = text.substring(2);
-				} else {
-					hour = text.substring(0, pattern.length);
-					text = text.substring(pattern.length);
-				}
-				if (!this._isNumber(hour)) {
-					return null; // error
-				}
-				result.hour = parseInt(hour, 10);
-				return text;
-			},
-			"m": function(text, pattern, result) {
-				// Minute in hour
-				var min;
-				if (pattern.length == 1 && text.length > 1
-					&& text.substring(0, 2).match(/[1-5][0-9]/) != null) {
-					min = text.substring(0, 2);
-					text = text.substring(2);
-				} else {
-					min = text.substring(0, pattern.length);
-					text = text.substring(pattern.length);
-				}
-				if (!this._isNumber(min)) {
-					return null; // error
-				}
-				result.min = parseInt(min, 10);
-				return text;
-			},
-			"s": function(text, pattern, result) {
-				// Second in minute
-				var sec;
-				if (pattern.length == 1 && text.length > 1
-					&& text.substring(0, 2).match(/[1-5][0-9]/) != null) {
-					sec = text.substring(0, 2);
-					text = text.substring(2);
-				} else {
-					sec = text.substring(0, pattern.length);
-					text = text.substring(pattern.length);
-				}
-				if (!this._isNumber(sec)) {
-					return null; // error
-				}
-				result.sec = parseInt(sec, 10);
-				return text;
-			},
-			"S": function(text, pattern, result) {
-				// Millimsecond
-				var msec;
-				if (pattern.length == 1 || pattern.length == 2) {
-					if (text.length > 2
-						&& text.substring(0, 3).match(/[1-9][0-9][0-9]/) != null) {
-						msec = text.substring(0, 3);
-						text = text.substring(3);
-					} else if (text.length > 1
-						&& text.substring(0, 2).match(/[1-9][0-9]/) != null) {
-						msec = text.substring(0, 2);
-						text = text.substring(2);
-					} else {
-						msec = text.substring(0, pattern.length);
-						text = text.substring(pattern.length);
-					}
-				} else {
-					msec = text.substring(0, pattern.length);
-					text = text.substring(pattern.length);
-				}
-				if (!this._isNumber(msec)) {
-					return null; // error
-				}
-				result.msec = parseInt(msec, 10);
-				return text;
-			},
-			"'": function(text, pattern, result) {
-				// escape
-				if (pattern == "''") {
-					pattern = "'";
-				} else {
-					pattern = pattern.replace(/'/g, '');
-				}
-				if (text.indexOf(pattern) != 0) {
-					return null; // error
-				}
-				return text.substring(pattern.length);
-			}
-		},
-
-		_isNumber: function(str) {
-			return /^[0-9]*$/.test(str);
-		}
-	};
-
+			return a;
+		};
+	}
 })();
 (function() {
 	"use strict";
@@ -650,346 +220,13 @@ var DateFormat = function(pattern) {
 	}
 })();
 
-/**
- * @class DecimalFormat
- * @constructor
- * @param {String} pattern
- * @author Oskan Savli
- */
-function DecimalFormat(pattern) {
-	"use strict";
-
-	/**
-	 * @fieldOf DecimalFormat
-	 * @type String
-	 */
-	this.prefix = '';
-	/**
-	 * @fieldOf DecimalFormat
-	 * @type String
-	 */
-	this.suffix = '';
-	/**
-	 * @description Grouping size
-	 * @fieldOf DecimalFormat
-	 * @type String
-	 */
-	this.comma = 0;
-	/**
-	 * @description Minimum integer digits to be displayed
-	 * @fieldOf DecimalFormat
-	 * @type Number
-	 */
-	this.minInt = 1;
-	/**
-	 * @description Minimum fractional digits to be displayed
-	 * @fieldOf DecimalFormat
-	 * @type String
-	 */
-	this.minFrac = 0;
-	/**
-	 * @description Maximum fractional digits to be displayed
-	 * @fieldOf DecimalFormat
-	 * @type String
-	 */
-	this.maxFrac = 0;
-
-	// get prefix
-	for (var i = 0; i < pattern.length; i++) {
-		if (pattern.charAt(i) == '#' || pattern.charAt(i) == '0') {
-			this.prefix = pattern.substring(0, i);
-			pattern = pattern.substring(i);
-			break;
-		}
-	}
-
-	// get suffix
-	this.suffix = pattern.replace(/[#]|[0]|[,]|[.]/g, '');
-
-	// get number as string
-	var snum = pattern.replace(/[^0#,.]/g, '');
-
-	var sint = '',
-		frac = '',
-		point = snum.indexOf('.');
-	if (point != -1) {
-		sint = snum.substring(0, point);
-		frac = snum.substring(point + 1);
-	} else {
-		sint = snum;
-	}
-
-	var comma = sint.lastIndexOf(',');
-	if (comma != -1) {
-		this.comma = sint.length - 1 - comma;
-	}
-
-	sint = sint.replace(/[,]/g, ''); // remove commas
-
-	frac = frac.replace(/[,]|[.]+/g, '');
-
-	this.maxFrac = frac.length;
-	var tmp = sint.replace(/[^0]/g, ''); // remove all except zero
-	if (tmp.length > this.minInt) {
-		this.minInt = tmp.length;
-	}
-	tmp = frac.replace(/[^0]/g, '');
-	this.minFrac = tmp.length;
-}
-
 (function() {
 	"use strict";
 
-	/**
-	 * @description Formats given value
-	 * @methodOf DecimalFormat
-	 * @param {String} num
-	 * @return {String} Formatted number
-	 * @author Oskan Savli
-	 */
-	DecimalFormat.prototype.format = function(num) {
-		// remove prefix, suffix and commas
-		var snum = this.parse(num).toLowerCase();
-
-		// do not format if not a number
-		if (isNaN(snum) || snum.length == 0) {
-			return num;
-		}
-
-		// scientific numbers
-		if (i = snum.indexOf("e") != -1) {
-			var n = Number(snum);
-			if (n == "Infinity" || n == "-Infinity") {
-				return snum;
-			}
-
-			snum = n + "";
-			if (snum.indexOf('e') != -1) {
-				return snum;
-			}
-		}
-
-		// remove sign
-		var negative = false;
-		if (snum.charAt(0) == '-') {
-			negative = true;
-			snum = snum.substring(1);
-		} else if (snum.charAt(0) == '+') {
-			snum = snum.substring(1);
-		}
-
-		var point = snum.indexOf('.'); // position of point character
-		var sint = '';
-		var frac = '';
-		if (point != -1) {
-			sint = snum.substring(0, point);
-			frac = snum.substring(point + 1);
-		} else {
-			sint = snum;
-		}
-		frac = frac.replace(/[.]/, ''); // remove other point characters
-
-		var isPercentage = this.suffix && this.suffix.charAt(0) === '%';
-		// if percentage, number will be multiplied by 100.
-		var minInt = this.minInt, minFrac = this.minFrac, maxFrac = this.maxFrac;
-		if (isPercentage) {
-			minInt -= 2;
-			minFrac += 2;
-			maxFrac += 2;
-		}
-
-		if (frac.length > maxFrac) { // round
-			// case 6143
-			var num = new Number('0.' + frac);
-			num = (maxFrac == 0) ? Math.round(num) : num.toFixed(maxFrac);
-			// toFixed method has bugs on IE (0.7 --> 0)
-			frac = num.toString(10).substring(2);
-			var c = (num >= 1) ? 1 : 0; // carry
-			var x, i = sint.length - 1;
-			while (c) { // increment sint
-				if (i == -1) {
-					sint = '1' + sint;
-					break;
-				}
-
-				x = sint.charAt(i);
-				if (x == 9) {
-					x = '0';
-					c = 1;
-				} else {
-					x = (++x) + '';
-					c = 0;
-				}
-				sint = sint.substring(0, i) + x + sint.substring(i + 1, sint.length);
-				i--;
-			}
-		}
-
-		for (var i = frac.length; i < minFrac; i++) {
-			// if minFrac=4 then 1.12 --> 1.1200
-			frac = frac + '0';
-		}
-
-		while (frac.length > minFrac && frac.charAt(frac.length - 1) == '0') {
-			// if minInt=4 then 00034 --> 0034)
-			frac = frac.substring(0, frac.length - 1);
-		}
-
-		for (var i = sint.length; i < minInt; i++) {
-			// if minInt=4 then 034 --> 0034
-			sint = '0' + sint;
-		}
-
-		while (sint.length > minInt && sint.charAt(0) == '0') {
-			// if minInt=4 then 00034--> 0034)
-			sint = sint.substring(1);
-		}
-
-		if (isPercentage) {
-			// multiply by 100
-			sint += frac.substring(0, 2);
-			frac = frac.substring(2);
-		}
-
-		var j = 0;
-		for (var i = sint.length; i > 0; i--) {
-			// add commas
-			if (j != 0 && j % this.comma == 0) {
-				sint = sint.substring(0, i) + ',' + sint.substring(i);
-				j = 0;
-			}
-			j++;
-		}
-
-		var result = this.prefix + sint + (frac.length > 0 ? '.' + frac : '') + this.suffix;
-		if (negative) {
-			result = '-' + result;
-		}
-
-		return result;
-	}
-
-
-	/**
-	 * @description Converts formatted value back to non-formatted value
-	 * @methodOf DecimalFormat
-	 * @param {String} snum Formatted number
-	 * @return {String} Original number
-	 * @author Oskan Savli
-	 */
-	DecimalFormat.prototype.parse = function(snum) {
-		// $1,223.06 --> 1223.06
-		snum += ''; // ensure it is string
-		if (!snum) {
-			return ''; // do not return undefined or null
-		}
-
-		if (!isNaN(snum)) {
-			return this.getNumericString(snum);
-		}
-
-		var anum = snum, negative = false;
-		if (snum.charAt(0) == '-') {
-			anum = anum.substring(1);
-			negative = true;
-		}
-
-		var pIndex = anum.indexOf(this.prefix);
-		var sIndex = (this.suffix == '') ? anum.length : anum.indexOf(this.suffix, this.prefix.length + 1);
-
-		if (pIndex == 0 && sIndex > 0) {
-			// remove suffix
-			anum = anum.substring(0, sIndex);
-			// remove prefix
-			anum = anum.substring(this.prefix.length);
-			// remove commas
-			anum = anum.replace(/,/g, '');
-			if (negative) {
-				anum = '-' + anum;
-			}
-			if (!isNaN(anum)) {
-				return this.getNumericString(anum);
-			}
-		}
-		return snum;
-	}
-
-	/**
-	 * @description We shouldn't return strings like 1.000 in parse method.
-	 *              However, using only Number(str) is not enough, because it omits .
-	 *              in big numbers like 23423423423342234.34 => 23423423423342236 .
-	 *              There's a conflict in cases 6143 and 6541.
-	 * @methodOf DecimalFormat
-	 * @param {String}  str Numberic string
-	 * @return {String} Corrected numeric string
-	 * @author Serdar Bicer
-	 */
-	DecimalFormat.prototype.getNumericString = function(str) {
-		// first convert to number string
-		var snum = '' + new Number(str);
-
-		// check if there is a missing dot
-		if (str.indexOf('.') > -1 && snum.indexOf('.') < 0) {
-			// check if original string has all zeros after dot or not
-			for (var i = str.indexOf('.') + 1; i < str.length; i++) {
-				// if not, this means we lost precision
-				if (str.charAt(i) !== '0') {
-					return str;
-				}
-			}
-			return snum;
-		}
-		return str;
-	}
-
-	//--------------------------------------------------
-	if (typeof Number.trim != "function") {
-		Number.trim = function(s) {
-			if (typeof (s) != 'string') {
-				return s;
-			}
-			var h = '1234567890';
-			var z = '１２３４５６７８９０';
-			var ss = s.replace(/,/g, '').split('');
-			for (i = 0; i < ss.length; i++) {
-				var j = z.indexOf(ss[i]);
-				if (j >= 0) {
-					ss[i] = h[j];
-				}
-			}
-			return ss.join('');
-		};
-	}
-
-	if (typeof Number.parseInt != "function") {
-		Number.parseInt = function(s, r) {
-			return parseInt(Number.trim(s), r);
-		};
-	}
-
-	if (typeof Number.parseFloat != "function") {
-		Number.parseFloat = function(s) {
-			return parseFloat(Number.trim(s));
-		};
-	}
-
-	if (typeof Number.format != "function") {
-		Number.format = function(pattern, n) {
-			return (new DecimalFormat(pattern)).format(n);
-		};
-	}
-
-	if (typeof Number.comma != "function") {
-		var CDF = new DecimalFormat('###,###.#########');
-		Number.comma = function(n) {
-			return CDF.format(n);
-		};
-	}
-
-	if (typeof Number.humanSize != "function") {
+	if (typeof Number.prototype.toHumanSize != "function") {
 		var UNITS = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-		Number.humanSize = function(n, p) {
+		Number.prototype.toHumanSize = function(n, p, s) {
 			var i = 0, l = UNITS.length - 1;
 			while (n >= 1024 && i < l) {
 				n /= 1024
@@ -997,7 +234,7 @@ function DecimalFormat(pattern) {
 			}
 
 			p = Math.pow(10, p || 2);
-			return Math.round(n * p) / p + ' ' + UNITS[i];
+			return Math.round(n * p) / p + (s || '') + UNITS[i];
 		};
 	}
 })();
@@ -1016,55 +253,16 @@ function DecimalFormat(pattern) {
 			return h;
 		};
 	}
-	if (typeof String.prototype.isEmpty != "function") {
-		String.prototype.isEmpty = function(s) {
-			return this.length < 1;
-		};
-	}
-	if (typeof String.prototype.contains != "function") {
-		String.prototype.contains = function(s) {
-			return this.indexOf(s) >= 0;
-		};
-	}
-	if (typeof String.prototype.startsWith != "function") {
-		String.prototype.startsWith = function(prefix, toffset) {
-			return this.indexOf(prefix) == (toffset || 0);
-		};
-	}
-	if (typeof String.prototype.endsWith != "function") {
-		String.prototype.endsWith = function(suffix) {
-			return this.startsWith(suffix, this.length - suffix.length);
-		};
-	}
 
-	if (typeof String.prototype.trimLeft != "function") {
-		var re = /^\s+/;
-		String.prototype.trimLeft = function() {
-			return this.replace(re, "");
-		};
-	}
-	if (typeof String.prototype.trimRight != "function") {
-		var re = /\s+$/;
-		String.prototype.trimRight = function() {
-			return this.replace(re, "");
-		};
-	}
-	if (typeof String.prototype.trim != "function") {
-		var re = /^\s+|\s+$/g;
-		String.prototype.trim = function() {
-			return this.replace(re, "");
-		};
-	}
-
-	if (typeof String.prototype.stripLeft != "function") {
+	if (typeof String.prototype.stripStart != "function") {
 		var re = /^[\s\u0085\u00a0\u2000\u3000]+/;
-		String.prototype.stripLeft = function() {
+		String.prototype.stripStart = function() {
 			return this.replace(re, "");
 		};
 	}
-	if (typeof String.prototype.stripRight != "function") {
+	if (typeof String.prototype.stripEnd != "function") {
 		var re = /[\s\u0085\u00a0\u2000\u3000]+$/;
-		String.prototype.stripRight = function() {
+		String.prototype.stripEnd = function() {
 			return this.replace(re, "");
 		};
 	}
@@ -1090,47 +288,6 @@ function DecimalFormat(pattern) {
 		};
 	}
 
-	if (typeof String.prototype.left != "function") {
-		String.prototype.left = function(n) {
-			return this.slice(0, n);
-		};
-	}
-	if (typeof String.prototype.mid != "function") {
-		String.prototype.mid = String.prototype.substr;
-	}
-	if (typeof String.prototype.right != "function") {
-		String.prototype.right = function(n) {
-			var s = this;
-			return s.length <= n ? s : s.slice(s.length - n);
-		};
-	}
-
-	if (typeof String.prototype.padLeft != "function") {
-		String.prototype.padLeft = function(n, c) {
-			c = c || ' ';
-			var s = this;
-			if (s.length >= n) {
-				return s;
-			}
-			while (s.length < n) {
-				s = c + s;
-			}
-			return s.right(n);
-		};
-	}
-	if (typeof String.prototype.padRight != "function") {
-		String.prototype.padRight = function(n, c) {
-			c = c || ' ';
-			var s = this;
-			if (s.length >= n) {
-				return s;
-			}
-			while (s.length < n) {
-				s += c;
-			}
-			return s.left(n);
-		};
-	}
 	if (typeof String.prototype.padCenter != "function") {
 		String.prototype.padCenter = function(n, c) {
 			c = c || ' ';
@@ -1138,8 +295,8 @@ function DecimalFormat(pattern) {
 			if (p <= 0) {
 				return s;
 			}
-			s = s.padLeft(z+p/2, c);
-			s = s.padRight(n, c);
+			s = s.padStart(z+p/2, c);
+			s = s.padEnd(n, c);
 			return s;
 		};
 	}
@@ -1154,7 +311,6 @@ function DecimalFormat(pattern) {
 			return this.charAt(0).toLowerCase() + this.slice(1);
 		};
 	}
-
 
 	if (typeof String.prototype.snakeCase != "function") {
 		String.prototype.snakeCase = function(d) {
@@ -1206,6 +362,12 @@ function DecimalFormat(pattern) {
 			});
 		};
 	}
+
+	if (typeof String.prototype.substr != 'function') {
+		String.prototype.substr = function(i, l) {
+			return this.slice(i, l >= 0 ? i+l : undefined);
+		};
+	}
 	if (typeof String.prototype.substrAfter != 'function') {
 		String.prototype.substrAfter = function(c) {
 			var s = this, i = s.indexOf(c);
@@ -1230,18 +392,19 @@ function DecimalFormat(pattern) {
 			return (i >= 0) ? s.slice(0, i) : s;
 		};
 	}
+
+	/**
+	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length.
+	 */
 	if (typeof String.prototype.ellipsis != 'function') {
 		String.prototype.ellipsis = function(n) {
 			var s = this;
 			return s.length > n ? s.slice(0, n - 3) + "..." : s;
 		};
 	}
-
 	/**
-	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length
+	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length.
 	 * the length of charCodeAt(i) > 0xFF will be treated as 2. 
-	 * @param {Number} n The maximum length to allow before truncating
-	 * @return {String} The converted text
 	 */
 	if (typeof String.prototype.ellipsiz != 'function') {
 		String.prototype.ellipsiz = function(n) {
@@ -1274,24 +437,6 @@ function DecimalFormat(pattern) {
 		String.prototype.escapeHTML = function() {
 			return this.replace(/[&'`"<>]/g, function(c) {
 				return ehm[c];
-			});
-		};
-	}
-	if (typeof String.prototype.unescapeHTML != "function") {
-		// a simple version, complete version: https://stackoverflow.com/questions/994331/how-to-unescape-html-character-entities-in-java
-		var uhm = {
-			'&lt;': '<',
-			'&gt;': '>',
-			'&amp;': '&',
-			'&quot;': '"',
-			'&apos;': "'",
-			'&#x27;': "'",
-			'&#x60;': '`'
-		};
-
-		String.prototype.unescapeHTML = function() {
-			return this.replace(/&(lt|gt|amp|quot|apos|#x27|#x60);/g, function(t) {
-				return uhm[t];
 			});
 		};
 	}
@@ -1340,6 +485,7 @@ function DecimalFormat(pattern) {
 			return o;
 		};
 	}
+
 	if (typeof String.prototype.encodeBase64 != "function") {
 		String.prototype.encodeBase64 = function() {
 			return btoa(this.encodeUTF8());
