@@ -1,13 +1,6 @@
 (function($) {
 	"use strict";
 
-	var E = 'click.checkorder',
-		DS = 'dragstart.checkorder',
-		DE = 'dragend.checkorder',
-		DO = 'dragover.checkorder',
-		DL = 'dragleave.checkorder',
-		DP = 'drop.checkorder';
-
 	var _d;
 	function _dragstart() {
 		_d = this;
@@ -24,23 +17,15 @@
 	}
 
 	function _drop() {
-		var $l = $(this);
-		if (_d && _d !== this) {
+		var el = this, $l = $(el);
+
+		if (_d && _d !== el) {
 			var $d = $(_d), $p = $l.parent(), $ls = $p.children('label');
+
 			if ($ls.filter(function() { return this === _d; }).length) {
 				var c = $l.find(':checkbox').prop('checked');
 
-				var vs = [];
-				$ls.each(function() {
-					if (this !== _d) {
-						if (this === $l[0]) {
-							vs.push({ label: _d, drop: true, check: c });
-						}
-						vs.push({ label: this });
-					}
-				});
-
-				$p.data('checkorder', '').trigger('dropstart.checkorder', vs);
+				$p.data('checkorder', '').trigger('dropstart.checkorder', [ _d, el ]);
 				if ($p.data('checkorder') != 'cancel') {
 					$d.find(':checkbox').prop('checked', c);
 					$d.insertBefore($l);
@@ -54,7 +39,7 @@
 	function _click() {
 		var $c = $(this), $l = $c.closest('label'), $p = $l.parent();
 
-		$p.data('checkorder', '').trigger('checkclick.checkorder', [ $c[0] ]);
+		$p.data('checkorder', '').trigger('clickstart.checkorder', [ $c[0] ]);
 		if ($p.data('checkorder') != 'cancel') {
 			$l.fadeOut(200, function() {
 				var $h = $c.closest('.ui-checks').find('hr');
@@ -63,7 +48,9 @@
 				} else {
 					$l.insertAfter($h);
 				}
-				$l.fadeIn(200);
+				$l.fadeIn(200, function() {
+					$p.trigger('clickend.checkorder');
+				});
 			});
 		}
 	}
@@ -74,12 +61,12 @@
 			$t.prepend($('<hr>'));
 		}
 		$t.off('.checkorder')
-			.on(E, ":checkbox", _click)
-			.on(DS, "label", _dragstart)
-			.on(DE, "label", _dragend)
-			.on(DO, "label", _dragover)
-			.on(DL, "label", _dragleave)
-			.on(DP, "label", _drop);
+			.on('click.checkorder', ":checkbox", _click)
+			.on('dragstart.checkorder', "label", _dragstart)
+			.on('dragend.checkorder', "label", _dragend)
+			.on('dragover.checkorder', "label", _dragover)
+			.on('dragleave.checkorder', "label", _dragleave)
+			.on('drop.checkorder', "label", _drop);
 		$t.children('label').prop('draggable', true);
 		return this;
 	}

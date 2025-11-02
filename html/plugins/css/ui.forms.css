@@ -26,19 +26,19 @@
 
 /** ordered checks */
 .ui-checks {
-	--ui-drag-color: #aaa;
+	--ui-drag-color: var(--bs-primary, #0d6efd);
 }
 .ui-checks hr {
 	margin: 5px 0;
 	border-style: dashed;
 }
 .ui-checks > label.dragover {
-	border-left: dotted 1px var(--ui-drag-color);
+	border-left: dashed 1px var(--ui-drag-color);
 	padding-left: 1.7em;
 }
 .ui-checks.vertical > label.dragover {
-	border-top: dotted 1px var(--ui-drag-color);
 	border-left: none;
+	border-top: dashed 1px var(--ui-drag-color);
 }
 
 /* bootstrap4/5 form row, view row */
