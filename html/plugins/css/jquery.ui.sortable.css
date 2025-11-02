@@ -7,7 +7,7 @@
 	background-color: var(--bs-secondary-bg, #f5fffa);
 }
 
-.ui-sortable .sortable:before, .ui-sortable .sortable:after {
+.ui-sortable .sortable::before, .ui-sortable .sortable::after {
 	border: 4px solid transparent;
 	content: "";
 	display: block;
@@ -17,36 +17,36 @@
 	position: absolute;
 	width: 0;
 }
-.ui-sortable .sortable:before {
+.ui-sortable .sortable::before {
 	border-bottom-color: #888;
 	margin-top: -9px;
 }
-.ui-sortable .sortable:after {
+.ui-sortable .sortable::after {
 	border-top-color: #888;
 	margin-top: 1px;
 }
 
-.ui-sortable .sorted.asc:before {
+.ui-sortable .sorted.asc::before {
 	border-bottom-color: #222;
 }
-.ui-sortable .sorted.asc:after {
+.ui-sortable .sorted.asc::after {
 	border-top-color: transparent;
 }
 
-.ui-sortable .sorted.desc:before {
+.ui-sortable .sorted.desc::before {
 	border-bottom-color: transparent;
 }
-.ui-sortable .sorted.desc:after {
+.ui-sortable .sorted.desc::after {
 	border-top-color: #222;
 }
 
 [data-bs-theme=dark] .ui-sortable .sortable:hover {
 	background-color: #303841;
 }
-[data-bs-theme=dark] .ui-sortable .sorted.asc:before {
+[data-bs-theme=dark] .ui-sortable .sorted.asc::before {
 	border-bottom-color: #ddd;
 }
-[data-bs-theme=dark] .ui-sortable .sorted.desc:after {
+[data-bs-theme=dark] .ui-sortable .sorted.desc::after {
 	border-top-color: #ddd;
 }
 

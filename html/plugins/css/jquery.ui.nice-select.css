@@ -19,6 +19,8 @@
 	line-height: 1.5em;
 	min-height: 2em;
 	transition: all 0.2s ease-in-out;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 	user-select: none;
 }
 .ui-nice-select.multiple {

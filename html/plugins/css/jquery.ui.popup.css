@@ -127,7 +127,7 @@
 .ui-popup-closer:hover {
 	opacity: 1;
 }
-.ui-popup-closer:before, .ui-popup-closer:after {
+.ui-popup-closer::before, .ui-popup-closer::after {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -138,13 +138,13 @@
 	width: 2px;
 	background-color: #000;
 }
-.ui-popup-closer:before {
+.ui-popup-closer::before {
 	transform: rotate(45deg);
 }
-.ui-popup-closer:after {
+.ui-popup-closer::after {
 	transform: rotate(-45deg);
 }
-[data-bs-theme=dark] .ui-popup-closer:before, [data-bs-theme=dark] .ui-popup-closer:after {
+[data-bs-theme=dark] .ui-popup-closer::before, [data-bs-theme=dark] .ui-popup-closer::after {
 	background-color: #fff;
 }
 
