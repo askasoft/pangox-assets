@@ -1,8 +1,8 @@
 /**
  * jQuery lightbox plugin
  * This jQuery plugin was inspired and based on 
- *  Lightbox 2 by Lokesh Dhakar (http://www.huddletogether.com/projects/lightbox2/)
- *  jQuery LightBox by Leandro Vieira Pinho (http://leandrovieira.com/projects/jquery/lightbox/)
+ *  Lightbox 2 by Lokesh Dhakar (https://github.com/lokesh/lightbox2)
+ *  jQuery LightBox by Leandro Vieira Pinho (https://github.com/avioli/jquery-lightbox)
  */
 
 (function($) {

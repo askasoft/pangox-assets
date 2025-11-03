@@ -44,14 +44,14 @@ Pango Assets use or fork the following open source libraries:
 
 | Name                       | Source                                                 | License                                                       |
 |----------------------------|--------------------------------------------------------|---------------------------------------------------------------|
-| Bootstrap                  | http://getbootstrap.com/                               | [MIT](https://github.com/twbs/bootstrap/blob/main/LICENSE)    |
-| bootstrap-datepicker       | http://www.eyecon.ro/bootstrap-datepicker/             | [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)      |
+| Bootstrap                  | https://getbootstrap.com                               | [MIT](https://github.com/twbs/bootstrap/blob/main/LICENSE)    |
+| bootstrap-datepicker       | https://www.eyecon.ro/bootstrap-datepicker             | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)     |
 | Bootswatch                 | https://github.com/thomaspark/bootswatch               | [MIT](https://github.com/thomaspark/bootswatch/blob/v5/LICENSE) |
 | Chart.js                   | https://github.com/chartjs/Chart.js                    | [MIT](https://github.com/chartjs/Chart.js/blob/master/LICENSE.md) |
 | docxjs                     | https://github.com/VolodymyrBaydalka/docxjs            | [Apache 2.0](https://github.com/VolodymyrBaydalka/docxjs/blob/master/LICENSE) |
-| Font Awesome               | http://fontawesome.io/                                 | [Font Awesome](http://fontawesome.io/license/)                |
+| Font Awesome               | https://fontawesome.com/                               | [Font Awesome](https://github.com/FortAwesome/Font-Awesome/blob/7.x/LICENSE.txt)                |
 | jQuery                     | https://jquery.com/                                    | [jQuery](https://jquery.org/license/)                         |
-| jquery-lightbox            | http://leandrovieira.com                               |                                                               |
+| jquery-lightbox            | https://github.com/avioli/jquery-lightbox              |                                                               |
 | jquery-toast               | https://github.com/kamranahmedse/jquery-toast-plugin   |                                                               |
 | jquery-nice-select         | https://github.com/hernansartorio/jquery-nice-select   |                                                               |
 | jquery-simple-color-picker | https://github.com/rachel-carvalho/simple-color-picker | [MIT](https://github.com/rachel-carvalho/simple-color-picker/blob/master/LICENSE) |
