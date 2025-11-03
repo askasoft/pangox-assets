@@ -674,13 +674,6 @@
 (function($) {
 	"use strict";
 
-	var E = 'click.checkorder',
-		DS = 'dragstart.checkorder',
-		DE = 'dragend.checkorder',
-		DO = 'dragover.checkorder',
-		DL = 'dragleave.checkorder',
-		DP = 'drop.checkorder';
-
 	var _d;
 	function _dragstart() {
 		_d = this;
@@ -697,23 +690,15 @@
 	}
 
 	function _drop() {
-		var $l = $(this);
-		if (_d && _d !== this) {
+		var el = this, $l = $(el);
+
+		if (_d && _d !== el) {
 			var $d = $(_d), $p = $l.parent(), $ls = $p.children('label');
+
 			if ($ls.filter(function() { return this === _d; }).length) {
 				var c = $l.find(':checkbox').prop('checked');
 
-				var vs = [];
-				$ls.each(function() {
-					if (this !== _d) {
-						if (this === $l[0]) {
-							vs.push({ label: _d, drop: true, check: c });
-						}
-						vs.push({ label: this });
-					}
-				});
-
-				$p.data('checkorder', '').trigger('dropstart.checkorder', vs);
+				$p.data('checkorder', '').trigger('dropstart.checkorder', [ _d, el ]);
 				if ($p.data('checkorder') != 'cancel') {
 					$d.find(':checkbox').prop('checked', c);
 					$d.insertBefore($l);
@@ -727,7 +712,7 @@
 	function _click() {
 		var $c = $(this), $l = $c.closest('label'), $p = $l.parent();
 
-		$p.data('checkorder', '').trigger('checkclick.checkorder', [ $c[0] ]);
+		$p.data('checkorder', '').trigger('clickstart.checkorder', [ $c[0] ]);
 		if ($p.data('checkorder') != 'cancel') {
 			$l.fadeOut(200, function() {
 				var $h = $c.closest('.ui-checks').find('hr');
@@ -736,7 +721,9 @@
 				} else {
 					$l.insertAfter($h);
 				}
-				$l.fadeIn(200);
+				$l.fadeIn(200, function() {
+					$p.trigger('clickend.checkorder');
+				});
 			});
 		}
 	}
@@ -747,12 +734,12 @@
 			$t.prepend($('<hr>'));
 		}
 		$t.off('.checkorder')
-			.on(E, ":checkbox", _click)
-			.on(DS, "label", _dragstart)
-			.on(DE, "label", _dragend)
-			.on(DO, "label", _dragover)
-			.on(DL, "label", _dragleave)
-			.on(DP, "label", _drop);
+			.on('click.checkorder', ":checkbox", _click)
+			.on('dragstart.checkorder', "label", _dragstart)
+			.on('dragend.checkorder', "label", _dragend)
+			.on('dragover.checkorder', "label", _dragover)
+			.on('dragleave.checkorder', "label", _dragleave)
+			.on('drop.checkorder', "label", _drop);
 		$t.children('label').prop('draggable', true);
 		return this;
 	}
@@ -1037,8 +1024,8 @@
 /**
  * jQuery lightbox plugin
  * This jQuery plugin was inspired and based on 
- *  Lightbox 2 by Lokesh Dhakar (http://www.huddletogether.com/projects/lightbox2/)
- *  jQuery LightBox by Leandro Vieira Pinho (http://leandrovieira.com/projects/jquery/lightbox/)
+ *  Lightbox 2 by Lokesh Dhakar (https://github.com/lokesh/lightbox2)
+ *  jQuery LightBox by Leandro Vieira Pinho (https://github.com/avioli/jquery-lightbox)
  */
 
 (function($) {
@@ -3173,20 +3160,59 @@
 ﻿(function($) {
 	"use strict";
 
-	function init($t) {
-		$t.find('li').removeClass('node leaf').children('.item').each(function() {
-			var $i = $(this), $n = $i.parent();
-			if ($i.next('ul').length) {
-				$n.addClass('node');
-			} else {
-				$n.addClass('leaf');
-			}
-		});
+	function _dragstart(e) {
+		e.stopPropagation();
+		$(this).addClass('dragging').closest('.ui-tree').data('drag', this);
+	}
+	function _dragend(e) {
+		e.stopPropagation();
+		$(this).removeClass('dragging').closest('.ui-tree').data('drag', null);
+	}
+	function _dragover(e) {
+		e.preventDefault();
+		if (_droppable(this)) {
+			$(this).addClass('dragover');
+		}
+	}
+	function _dragleave() {
+		$(this).removeClass('dragover');
+	}
+	function _drop() {
+		var a = _droppable(this);
+		if (a) {
+			var dl = a[0], $l = a[1], $t = a[2];
 
-		$t.off('.treeview').on('click.treeview', '.item', _on_item_click);
+			$t.data('droppable', true).trigger('dropstart.treeview', [ dl,  $l.get(0) ]);
+			if ($t.data('droppable')) {
+				var $ul = $l.children('ul'), $du = $(dl).parent();
+				if (!$ul.length) {
+					$ul = $('<ul>');
+					$l.append($ul).removeClass('leaf').addClass('node');
+				}
+				$ul.append(dl);
+
+				if (!$du.find('li').length) {
+					$du.parent().removeClass('node').addClass('leaf');
+					$du.remove();
+				}
+				$t.trigger('dropend.treeview');
+			}
+		}
+		$(this).removeClass('dragover');
 	}
 
-	function _on_item_click() {
+	function _droppable(el) {
+		var $i = $(el), $l = $i.closest('li'), li = $l.get(0), $t = $l.closest('.ui-tree'), dl = $t.data('drag');
+		if (dl && dl !== li) {
+			// check the drag LI is not drop in it's children
+			if ($(dl).find('.item').filter(function() { return this === el; }).length == 0) {
+				return [ dl, $l, $t ];
+			}
+		}
+		return false;
+	}
+
+	function _click() {
 		var $i = $(this);
 		if ($i.next('ul').length) {
 			_toggle($i.parent());
@@ -3217,15 +3243,43 @@
 		_toggle($n || $t.find('li:not(.leaf)'));
 	}
 
-	function unbind($t) {
-		$t.off('.treeview').find('li').removeClass('node');
+	function dispose($t) {
+		$t.off('.treeview').find('li').removeClass('node leaf').prop('draggable', false);
+	}
+
+	function init($t) {
+		dispose($t);
+
+		$t.addClass('ui-tree').find('li .item').each(function() {
+			var $i = $(this), $n = $i.parent();
+			if ($i.next('ul').length) {
+				$n.addClass('node');
+			} else {
+				$n.addClass('leaf');
+			}
+		});
+
+		if ($t.hasClass('clickable')) {
+			$t.on('click.treeview', '.item', _click);
+		}
+
+		if ($t.hasClass('draggable')) {
+			$t.on('dragstart.treeview', "li", _dragstart)
+				.on('dragend.treeview', "li", _dragend)
+				.on('dragover.treeview', ".item", _dragover)
+				.on('dragleave.treeview', ".item", _dragleave)
+				.on('drop.treeview', ".item", _drop);
+
+			$t.find('li').prop('draggable', true);
+		}
 	}
 
 	var api = {
+		'init': init,
+		'dispose': dispose,
 		'collapse': collapse,
 		'expand': expand,
-		'toggle': toggle,
-		'destroy': unbind
+		'toggle': toggle
 	};
 
 	$.fn.treeview = function(method, target) {

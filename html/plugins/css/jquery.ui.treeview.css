@@ -1,99 +1,110 @@
-ul.ui-tree {
+.ui-tree {
 	--ui-tree-bgcolor: var(--bs-body-bg, #fff);
 	--ui-tree-lined-color: #aaa;
 	--ui-tree-boxed-item-bdcolor: #afafaf;
 	--ui-tree-boxed-item-bgcolor: var(--bs-body-bg, #fff);
-	background-color: var(--ui-tree-bgcolor);
+	--ui-tree-dragover-color: var(--bs-primary, #0d6efd);
+	--ui-tree-dragging-color: var(--bs-info, #0dcaf0);
 	padding: 0;
 	margin: 0 0 1rem 0;
 }
 
-ul.ui-tree, ul.ui-tree ul {
+.ui-tree, .ui-tree ul {
 	list-style: none;
 	position: relative;
 }
-ul.ui-tree ul {
+.ui-tree ul {
 	margin: 0 0 0 1em;
 	padding: 0 0 0 1em;
 }
-ul.ui-tree li {
+.ui-tree li {
 	margin: 0;
 	padding: 0;
 	position: relative;
 }
-ul.ui-tree li > .item {
+.ui-tree li > .item {
 	padding: 0 0.5em;
 	position: relative;
 }
-ul.ui-tree li.node > .item {
+
+/* clickable, draggable */
+.ui-tree.clickable li.node > .item, .ui-tree.draggable .item {
 	cursor: pointer;
 }
 
-/* arrow, lined */
-ul.ui-tree.arrow li:after, ul.ui-tree.lined li:before {
-	content: "";
+/* collapser */
+.ui-tree.collapser {
+	margin-left: 1.5em;
+}
+.ui-tree.collapser li > .item::before {
+	content: ">";
+	font-family: Consolas, monospace, SFMono-Regular, Menlo, Monaco, "Liberation Mono", "Courier New";
 	display: block;
-	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 	position: absolute;
+	margin: -1px 0 0 1px;
+	top: 0.25em;
+	left: -1.5em;
 	width: 1em;
+	height: 1em;
+	line-height: 1em;
+	text-align: center;
+	transition: all 0.2s;
+	transform: rotate(90deg);
+	z-index: 1;
+}
+.ui-tree.collapser li.collapsed > .item::before {
+	transform: rotate(0deg);
+}
+.ui-tree.collapser li.leaf > .item::before {
+	content: "-";
+	transform: rotate(0deg);
 }
 
 /* arrow */
-ul.ui-tree.arrow {
-	margin-left: 1.5em;
-}
-ul.ui-tree.arrow li:after {
-	content: ">";
-	text-align: center;
-	top: 0.25em;
-	left: calc(-1em + 1px);
-	height: 1em;
-	line-height: 1em;
-	transform: rotate(90deg);
-	transition: all 0.2s;
-}
-ul.ui-tree.arrow li.collapsed:after, ul.ui-tree.arrow li.leaf:after {
-	transform: rotate(0deg);
-}
-ul.ui-tree.arrow li.leaf:after {
-	content: "-";
-}
-
-/* lined */
-ul.ui-tree.lined ul:before {
-	border-left: 1px solid var(--ui-tree-lined-color);
+.ui-tree.arrow ul > li > .item::after {
+	border: 6px solid transparent;
+	border-left-color: var(--ui-tree-lined-color);
 	content: "";
 	display: block;
 	position: absolute;
-	left: 0;
-	top: 0;
-	bottom: 0;
 	width: 0;
+	height: 0;
+	top: 0.25em;
+	left: -6px;
+	margin-top: 3px;
+	z-index: 2;
 }
-ul.ui-tree.lined li:before {
-	border-top: 1px solid var(--ui-tree-lined-color);
+
+/* lined */
+.ui-tree.lined ul > li::before, .ui-tree.lined ul > li::after {
+	content: "";
+	display: block;
+	position: absolute;
 	left: -1em;
-	top: 0.75em;
+}
+.ui-tree.lined ul > li::before {
+	border-left: 1px solid var(--ui-tree-lined-color);
 	height: 100%;
 }
-ul.ui-tree.lined > li:before {
-	display: none;
+.ui-tree.lined ul > li::after {
+	border-top: 1px solid var(--ui-tree-lined-color);
+	top: 0.75em;
+	width: 1em;
+	height: 0;
 }
-ul.ui-tree.lined li:last-child:before {
+.ui-tree.lined ul > li:last-child::before {
+	height: 0.75em;
+}
+.ui-tree.lined.collapser li > .item::before {
 	background-color: var(--ui-tree-bgcolor);
-	bottom: 0;
-	height: auto;
+	color: var(--ui-tree-lined-color);
 }
-ul.ui-tree.arrow.lined ul > li:after {
-	background-color: var(--ui-tree-bgcolor);
-	left: calc(-1.5em + 1px);
-}
-ul.ui-tree.arrow.lined li.leaf:after {
+.ui-tree.lined.collapser li.leaf > .item::before {
 	display: none;
 }
 
 /* boxed */
-ul.ui-tree.boxed li > .item {
+.ui-tree.boxed li > .item {
 	background-color: var(--ui-tree-boxed-item-bgcolor);
 	border: 1px solid var(--ui-tree-boxed-item-bdcolor);
 	border-radius: 5px;
@@ -101,34 +112,117 @@ ul.ui-tree.boxed li > .item {
 	width: 15em;
 	padding: 0.5em 1em;
 }
-ul.ui-tree.boxed ul {
+.ui-tree.boxed ul {
 	padding-top: 1em;
 }
-ul.ui-tree.boxed li {
+.ui-tree.boxed li {
 	margin-bottom: 1em;
 }
-ul.ui-tree.lined.boxed li:before {
+.ui-tree.boxed.lined ul > li::before {
+	top: -1em;
+	height: calc(100% + 1em);
+}
+.ui-tree.boxed.lined ul > li::after {
 	top: 1.25em;
 }
-ul.ui-tree.arrow.boxed li:after {
-	top: 0.75em;
-	left: calc(-1.5em + 1px);
+.ui-tree.boxed.lined ul > li:last-child::before {
+	height: 2.25em;
+}
+.ui-tree.boxed.collapser li > .item::before, .ui-tree.boxed.arrow li > .item::after {
+	top: calc(0.75em - 1px);
 }
 
 /* indent */
-ul.ui-tree.indent ul {
+.ui-tree.indent ul {
 	margin: 0 0 0 14em;
 }
 
 /* sticky */
-ul.ui-tree.sticky ul {
+.ui-tree.sticky ul {
 	margin: 0 0 0 14em;
 	z-index: 1;
 }
-ul.ui-tree.sticky li > .item {
+.ui-tree.sticky li > .item {
 	position: sticky;
 	top: 0;
-	width: 100%;
 	max-width: 15em;
 	z-index: 2;
+}
+
+/* topdown */
+.ui-tree.topdown, .ui-tree.topdown ul {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.ui-tree.topdown ul {
+	margin: 0;
+	padding: 0;
+}
+.ui-tree.topdown li {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2em 0 1em 0;
+}
+.ui-tree.topdown li > .item {
+	margin: 0 1em 2em 1em;
+	text-align: center;
+}
+.ui-tree.topdown.lined ul::before {
+	border-top: none;
+	border-left: 1px solid var(--ui-tree-lined-color);
+	content: "";
+	display: block;
+	position: absolute;
+	top: -2em;
+	left: 50%;
+	bottom: 0;
+	width: 0;
+	height: 2em;
+}
+.ui-tree.topdown.lined ul > li::after {
+	border-left: 1px solid var(--ui-tree-lined-color);
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 2em;
+}
+.ui-tree.topdown.lined ul > li::before {
+	border-top: 1px solid var(--ui-tree-lined-color);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 0;
+}
+.ui-tree.topdown.lined ul > li:first-child:not(:last-child)::before {
+	left: 50%;
+	width: 50%;
+}
+.ui-tree.topdown.lined ul > li:last-child:not(:first-child)::before {
+	left: 0;
+	width: 50%;
+}
+.ui-tree.topdown.lined ul > li:first-child:last-child::before {
+	display: none;
+}
+.ui-tree.topdown.lined ul > li:last-child::before {
+	height: 0;
+}
+
+.ui-tree.topdown.arrow ul > li > .item::after {
+	border-left-color: transparent;
+	border-top-color: var(--ui-tree-lined-color);
+	margin-left: -5px;
+	left: 50%;
+	top: -9px;
+}
+
+
+/* draggable */
+.ui-tree li > .item.dragover {
+	border: solid 1px var(--ui-tree-dragover-color);
+}
+.ui-tree li.dragging .item {
+	border: solid 1px var(--ui-tree-dragging-color);
 }
