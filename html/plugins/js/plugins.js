@@ -631,6 +631,45 @@
 (function($) {
 	"use strict";
 
+	$.each({
+		zoomIn: 'show',
+		zoomOut: 'hide',
+		zoomToggle: 'toggle'
+	}, function(fn, op) {
+		$.fn[fn] = function(speed, easing, callback) {
+			var opt = $.speed(speed, easing, callback);
+			var old = opt.step;
+			opt.step = function(s) {
+				$(this).css({ transform: 'scale(' + s + ')' });
+				if (old) {
+					old.call(this, s);
+				}
+			};
+			return this.animate({ opacity: op }, opt);
+		};
+	});
+
+	$.each({
+		slideIn: 'show',
+		slideOut: 'hide',
+		slideToggle: 'toggle'
+	}, function(fn, op) {
+		$.fn[fn] = function(speed, easing, callback) {
+			var props = {
+				width: op,
+				paddingLeft: op,
+				paddingRight: op,
+				marginLeft: op,
+				marginRight: op
+			}
+			return this.animate(props, $.speed(speed, easing, callback));
+		};
+	});
+
+})(jQuery);
+(function($) {
+	"use strict";
+
 	var E = 'change', P = 'checked';
 
 	$.fn.checkall = function(s) {
@@ -3683,27 +3722,6 @@
 	// ==================
 	$(window).on('load', function() {
 		$('[data-spy="uploader"]').uploader();
-	});
-
-})(jQuery);
-(function($) {
-	"use strict";
-
-	$.each({
-		zoomIn: { opacity: 'show' },
-		zoomOut: { opacity: 'hide' },
-	}, function(name, props) {
-		$.fn[name] = function(speed, easing, callback) {
-			var opt = $.speed(speed, easing, callback);
-			var old = opt.step;
-			opt.step = function(s) {
-				$(this).css({ transform: 'scale(' + s + ')' });
-				if (old) {
-					old.call(this, s);
-				}
-			};
-			return this.animate(props, opt);
-		};
 	});
 
 })(jQuery);

@@ -30,16 +30,18 @@
 
 <body>
 	<div style="padding: 20px">
-		<h1 style="text-align: center; margin: 20px 0px;">jQuery Zoom Plugin</h1>
+		<h1 style="text-align: center; margin: 20px 0px;">jQuery Animate Plugin</h1>
 		<hr>
 
-		<div class="text-center">
+		<div class="text-center" id="buttons">
 			<button class="btn btn-primary" id="scaleIn">Css Scale In</button>
 			<button class="btn btn-primary" id="scaleOut">Css Scale Out</button>
-			<button class="btn btn-primary" id="zoomIn">jQuery Zoom In</button>
-			<button class="btn btn-primary" id="zoomOut">jQuery Zoom Out</button>
-			<button class="btn btn-primary" id="fadeIn">jQuery Fade In</button>
-			<button class="btn btn-primary" id="fadeOut">jQuery Fade Out</button>
+			<button class="btn btn-primary" id="zoomIn">jQ Zoom In</button>
+			<button class="btn btn-primary" id="zoomOut">jQ Zoom Out</button>
+			<button class="btn btn-primary" id="zoomToggle">jQ Zoom Toggle</button>
+			<button class="btn btn-primary" id="slideIn">jQ Slide In</button>
+			<button class="btn btn-primary" id="slideOut">jQ Slide Out</button>
+			<button class="btn btn-primary" id="slideToggle">jQ Slide Toggle</button>
 		</div>
 		<hr>
 
@@ -108,40 +110,21 @@
 
 	</div>
 
-	<script src="../../html/jquery/jquery1-1.12.4.js" type="text/javascript"></script>
-	<script src="../../html/plugins/js/jquery.ui.zoom.js" type="text/javascript"></script>
-	<script src="../../html/bootstrap3/js/bootstrap.js" type="text/javascript"></script>
+	<script src="../../html/jquery1/jquery-1.12.4.js"></script>
+	<script src="../../html/plugins/js/jquery.ui.animate.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
 		$(function() {
-			$('#scaleIn').click(function() {
-				$('#table').css('animation', 'zoom-in-anim .5s');
+			$.fn.scaleIn = function() {
+				$(this).css('animation', 'zoom-in-anim .5s');
+			};
+			$.fn.scaleOut = function() {
+				$(this).css('animation', 'zoom-out-anim .5s');
+			};
+
+			$('#buttons').on('click', 'button', function() {
+				$('#table')[$(this).attr('id')]();
 			});
-
-			$('#scaleOut').click(function() {
-				$('#table').css('animation', 'zoom-out-anim .5s');
-			});
-
-			function zoom(s, fn) {
-				$(this).css({transform: 'scale(' + s + ')'});
-			}
-
-			$('#zoomIn').click(function() {
-				$('#table').zoomIn();
-			});
-
-			$('#zoomOut').click(function() {
-				$('#table').zoomOut();
-			});
-
-			$('#fadeIn').click(function() {
-				$('#table').fadeIn();
-			});
-
-			$('#fadeOut').click(function() {
-				$('#table').fadeOut();
-			});
-
 		});
 	</script>
 </body>
