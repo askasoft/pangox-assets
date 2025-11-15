@@ -30,8 +30,8 @@ func TestEmbedFS(t *testing.T) {
 	})
 	sort.Strings(wfs)
 
-	os.WriteFile("_actual.out", []byte(strings.Join(afs, "\n")), os.FileMode(666))
-	os.WriteFile("_expect.out", []byte(strings.Join(wfs, "\n")), os.FileMode(666))
+	os.WriteFile("_actual.out", []byte(strings.Join(afs, "\n")), 0660)
+	os.WriteFile("_expect.out", []byte(strings.Join(wfs, "\n")), 0660)
 
 	fmt.Println("------------------------")
 	for i, a := range afs {
