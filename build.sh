@@ -37,6 +37,9 @@ minjs bootstrap-datetimepicker
 cd $HTMLDIR/docxjs/
 minjs docx-preview
 
+cd $HTMLDIR/domtoimage/
+minjs dom-to-image
+
 cd $HTMLDIR/jszip/
 minjs jszip
 

@@ -25,6 +25,9 @@ call :minjs bootstrap-datetimepicker
 cd /d %HTMLDIR%\docxjs\
 call :minjs docx-preview
 
+cd /d %HTMLDIR%\domtoimage\
+call :minjs dom-to-image
+
 cd /d %HTMLDIR%\jszip\
 call :minjs jszip
 

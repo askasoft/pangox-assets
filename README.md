@@ -49,6 +49,7 @@ Pango Assets use or fork the following open source libraries:
 | Bootswatch                 | https://github.com/thomaspark/bootswatch               | [MIT](https://github.com/thomaspark/bootswatch/blob/v5/LICENSE) |
 | Chart.js                   | https://github.com/chartjs/Chart.js                    | [MIT](https://github.com/chartjs/Chart.js/blob/master/LICENSE.md) |
 | docxjs                     | https://github.com/VolodymyrBaydalka/docxjs            | [Apache 2.0](https://github.com/VolodymyrBaydalka/docxjs/blob/master/LICENSE) |
+| dom-to-image               | https://github.com/tsayen/dom-to-image                 | [MIT](https://github.com/tsayen/dom-to-image/blob/master/LICENSE) |
 | flag-icons                 | https://github.com/lipis/flag-icons                    | [MIT](https://github.com/lipis/flag-icons/blob/main/LICENSE) |
 | Font Awesome               | https://fontawesome.com/                               | [Font Awesome](https://github.com/FortAwesome/Font-Awesome/blob/7.x/LICENSE.txt) |
 | jQuery                     | https://jquery.com/                                    | [jQuery](https://jquery.org/license/)                         |
