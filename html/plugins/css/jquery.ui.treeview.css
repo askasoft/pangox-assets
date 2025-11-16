@@ -154,6 +154,7 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	align-items: start;
 }
 .ui-tree.topdown ul {
 	margin: 0;
@@ -163,7 +164,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 2em 0 1em 0;
+	padding: 2em 0 0 0;
 }
 .ui-tree.topdown li > .item {
 	margin: 0 1em 2em 1em;
