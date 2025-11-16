@@ -2733,8 +2733,15 @@
 	"use strict";
 
 	function _autosize() {
-		var $t = $(this);
-		$t.css('height', 'auto').outerHeight($t.prop('scrollHeight'));
+		var $t = $(this), o = $t.outerHeight();
+
+		$t.css('height', 'auto');
+		var n = $t.prop('scrollHeight');
+		$t.outerHeight(n);
+
+		if (o != n) {
+			$t.trigger('resize');
+		}
 	}
 
 	var E = 'input.autosize';
