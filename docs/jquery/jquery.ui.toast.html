@@ -191,7 +191,7 @@
         'Improve/extend the functionality', 
         'Create a pull request',
     ],
-    hideAfter: false,
+    timeout: false,
     icon: 'info'
 })</code></pre>
 		</div>
@@ -203,7 +203,7 @@
 			<pre><code>$.toast({
     heading: 'Can I add &lt;em&gt;icons&lt;/em&gt;?',
     text: 'Yes! check this &lt;a href="https://github.com/askasoft/pangox-assets/commits/master"&gt;update&lt;/a&gt;.',
-    hideAfter: false,
+    timeout: false,
     icon: 'success',
     html: true
 })</code></pre>
@@ -222,29 +222,29 @@
 
 		<h2 id="sticky-toast"><span class="muted">2.</span> Making them sticky:</h2>
 		<p>There will be times, when you will want to have <strong>sticky toasts</strong>. To make them
-			<strong>sticky</strong>, all you have to do is set the <span class="code">hideAfter</span> to <span
+			<strong>sticky</strong>, all you have to do is set the <span class="code">timeout</span> to <span
 				class="code">false</span>. Here is a sticky toast</p>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
 			<pre><code>$.toast({
-    text: 'Set the `hideAfter` property to false and the toast will become sticky.',
-    hideAfter: false
+    text: 'Set the `timeout` property to false and the toast will become sticky.',
+    timeout: false
 })</code></pre>
 		</div>
 
-		<p><sup>*</sup> <span class="code">hideAfter</span> property is basically used to set the timer after which the
+		<p><sup>*</sup> <span class="code">timeout</span> property is basically used to set the timer after which the
 			toast will get hidden. But you can set it to false in order to achieve the sticky toasts.</p>
 
 		<h2 id="toast-timer"><span class="muted">3.</span> Changing the toast hide timer</h2>
-		<p>You can use the property from the above option i.e. <span class="code">hideAfter</span> to change the timer
+		<p>You can use the property from the above option i.e. <span class="code">timeout</span> to change the timer
 			after which toast gets hidden. You have to specify the timer in milliseconds</p>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
 			<pre><code>$.toast({
-    text: 'Set the `hideAfter` property to milliseconds and the toast will hide after the specified milli seconds.',
-    hideAfter: 5000   // in milli seconds
+    text: 'Set the `timeout` property to milliseconds and the toast will hide after the specified milli seconds.',
+    timeout: 5000   // in milli seconds
 })</code></pre>
 		</div>
 
@@ -340,84 +340,86 @@
 			<li><span class="code">top right</span> value to..</li>
 			<li><span class="code">top left</span> value to..</li>
 			<li><span class="code">top center</span> value to..</li>
-			<li><span class="code">mid center</span> value to..</li>
+			<li><span class="code">center</span> value to..</li>
 			<li><span class="code">{ top: '-', bottom: '-', left: '-', right: '-' }</span> javascript object with
 				positioning properties as you set in CSS</li>
 		</ul>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Specify the custom position object or use one of the predefined ones',
-    position: 'bottom left',
-    stack: false
+    position: 'bottom'
 })</code></pre>
 		</div>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Specify the custom position object or use one of the predefined ones',
-    position: 'bottom right',
-    stack: false
+    position: 'bottom left'
 })</code></pre>
 		</div>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
+    heading: 'Positioning',
+    text: 'Specify the custom position object or use one of the predefined ones',
+    position: 'bottom right'
+})</code></pre>
+		</div>
+
+		<div class="code-runner">
+			<a href="#" class="eval-js">Run Code</a>
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Use the predefined ones, or specify a custom object',
-    position: 'bottom center',
-    stack: false
+    position: 'bottom center'
 })</code></pre>
 		</div>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Use the predefined ones, or specify a custom object',
-    position: 'top left',
-    stack: false
+    position: 'top left'
 })</code></pre>
 		</div>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Use the predefined ones, or specify a custom position object.',
-    position: 'top right',
-    stack: false
+    position: 'top right'
 })</code></pre>
 		</div>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Use the predefined ones, or specify a custom position object.',
-    position: 'top center',
-    stack: false
+    position: 'top center'
 })</code></pre>
 		</div>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Use the predefined ones, or specify a custom position object.',
-    position: 'mid center',
-    stack: false
+    position: 'center'
 })</code></pre>
 		</div>
 
 		<div class="code-runner">
 			<a href="#" class="eval-js">Run Code</a>
-			<pre><code><span class='hidden'>$.toast().reset('all');</span>$.toast({
+			<pre><code>$.toast({
     heading: 'Positioning',
     text: 'Use the predefined ones, or specify a custom position object.',
     position: {
@@ -426,16 +428,6 @@
     },
     stack: false
 })</code></pre>
-		</div>
-
-		<p><strong>Note</strong> It should be noted that, once you change the position of toast by using the `position`
-			property, you'll have to reset the position for the next toasts, if you want them to appear at their default
-			position i.e. the bottom left corner. Or else, each new toast generated will be appearing at the last
-			position i.e. where you displayed the last positioned toast. You can reset the toast position by.</p>
-
-		<div class="code-runner">
-			<a href="#" class="eval-js">Run Code</a>
-			<pre><code>$.toast().reset('all');</code></pre>
 		</div>
 
 		<h2 id="toasts-icons"><span class="muted">8.</span> Messages with icons</h2>
@@ -544,7 +536,7 @@
 		</ul>
 
 		<div class="code-runner">
-			<a href="#" class="eval-js"><span class='hidden'>$.toast().reset('all');</span>Run Code</a>
+			<a href="#" class="eval-js">Run Code</a>
 			<pre><code>$.toast({
     text: 'Triggers the events',
 
@@ -577,7 +569,7 @@ var myToast = $.toast({
     heading: 'Information',
     text: 'Here is some information that will be later on turned to an error',
     icon: 'info',
-    hideAfter: false,
+    timeout: false,
     afterShown: function() {
         alert('Toast has appeared.');
     },
@@ -592,7 +584,7 @@ window.setTimeout(function(){
         heading: 'Error',
         text: 'Here is an information that changed to error',
         icon: 'error',
-        hideAfter: false,
+        timeout: false,
         afterShown: function() {
             alert('Toast has appeared!');
         },
@@ -689,7 +681,7 @@ $.toast.clear();
 					<option value="top center">Top Center</option>
 					<option value="top left">Top Left</option>
 					<option value="top right">Top Right</option>
-					<option value="mid center">Mid Center</option>
+					<option value="center">Center</option>
 					<option value="custom position">Custom</option>
 				</select>
 			</p>
@@ -786,10 +778,10 @@ $.toast.clear();
     <span class="toast-icon-line"><span class="k">icon</span>: '<span class="toast-icon s">warning</span>', <span class="c">// Type of toast icon</span></span>
     <span class="toast-transition-line"><span class="k">transition</span>: '<span class="toast-transition s">fade</span>', <span class="c">// fade, slide or plain</span></span>
     <span class="toast-closeable-line"><span class="k">closeable</span>: <spna class="kt toast-closeable">true</spna>, <span class="c">// Boolean value <span class="kt">true</span> or <span class="kt">false</span></span></span>
-    <span class="toast-hideAfter-line"><span class="k">hideAfter</span>: <span class="n toast-hideAfter">3000</span>, <span class="c">// <span class="kt">false</span> to make it sticky or number representing the miliseconds as time after which toast needs to be hidden</span></span>
+    <span class="toast-timeout-line"><span class="k">timeout</span>: <span class="n toast-timeout">3000</span>, <span class="c">// <span class="kt">false</span> to make it sticky or number representing the miliseconds as time after which toast needs to be hidden</span></span>
     <span class="toast-stackLength-line"><span class="k">stack</span>: <span class="n toast-stackLength">5</span>, <span class="c">// <span class="kt">false</span> if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time</span></span>
-    <span class="toast-position-string-line"><span class="k">position</span>: '<span class="s toast-position">bottom left</span>', <span class="c">// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values</span></span>
-    <span class="toast-position-string-obj"><span class="k">position</span>: <span class="s toast-position">{ <span class="k">left</span> : <span class="n toast-position-left">20</span>, <span class="k">right</span> : <span class="n toast-position-right">20</span>, <span class="k">top</span> : <span class="n toast-position-top">20</span>, <span class="k">bottom</span> : <span class="n toast-position-bottom">20</span> }</span>, <span class="c">// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values</span></span>
+    <span class="toast-position-string-line"><span class="k">position</span>: '<span class="s toast-position">bottom left</span>', <span class="c">// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or center or an object representing the left, right, top, bottom values</span></span>
+    <span class="toast-position-string-obj"><span class="k">position</span>: <span class="s toast-position">{ <span class="k">left</span> : <span class="n toast-position-left">20</span>, <span class="k">right</span> : <span class="n toast-position-right">20</span>, <span class="k">top</span> : <span class="n toast-position-top">20</span>, <span class="k">bottom</span> : <span class="n toast-position-bottom">20</span> }</span>, <span class="c">// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or center or an object representing the left, right, top, bottom values</span></span>
     <span class="toast-bgColor-line" style="display: none;"><span class="k">bgColor</span>: '<span class="s toast-bgColor">#444</span>', <span class="c"> // Background color of the toast</span></span>
     <span class="toast-textColor-line" style="display: none;"><span class="k">textColor</span>: '<span class="s toast-textColor">#eee</span>', <span class="c"> // Text color of the toast</span></span>
     <span class="toast-textAlign-line"><span class="k">textAlign</span>: '<span class="s toast-textAlign">left</span>', <span class="c"> // Text alignment i.e. left, right or center</span></span>
@@ -892,12 +884,12 @@ $.toast.clear();
 							}
 
 							if (autoHide && (autoHide == 'false')) {
-								$('.toast-hideAfter-line').show();
-								$('.toast-hideAfter-line .toast-hideAfter').text('false');
+								$('.toast-timeout-line').show();
+								$('.toast-timeout-line .toast-timeout').text('false');
 								$('.autohide-after').hide();
 							} else {
-								$('.toast-hideAfter-line').show();
-								$('.toast-hideAfter-line .toast-hideAfter').text($('#autohide-after').val() ? $('#autohide-after').val() : 3000);
+								$('.toast-timeout-line').show();
+								$('.toast-timeout-line .toast-timeout').text($('#autohide-after').val() ? $('#autohide-after').val() : 3000);
 								$('.autohide-after').show();
 							}
 
@@ -987,7 +979,6 @@ $.toast.clear();
 						$('#left-position').on('change', function () { $('#right-position').val('auto'); });
 						$('#right-position').on('change', function () { $('#left-position').val('auto'); });
 						$('.plugin-options :input').on('change', function () {
-							$.toast().reset('all');
 							generateCode();
 						});
 
@@ -1015,8 +1006,8 @@ $.toast.clear();
 								options.closeable = ($('.toast-closeable-line .toast-closeable').text() === 'true') ? true : false;
 							};
 
-							if ($('.toast-hideAfter-line').is(':visible')) {
-								options.hideAfter = parseInt($('.toast-hideAfter-line .toast-hideAfter').text(), 10) || false;
+							if ($('.toast-timeout-line').is(':visible')) {
+								options.timeout = parseInt($('.toast-timeout-line .toast-timeout').text(), 10) || false;
 							};
 
 							if ($('.toast-stackLength-line').is(':visible')) {

@@ -870,13 +870,13 @@ div.ui-simple-color-picker ul li {
 /**
  * jQuery toast plugin created by Kamran Ahmed copyright MIT license 2014 (modified by Frank Wang)
  */
-.ui-toast-wrap {
+.ui-toast-stack {
 	display: block;
 	position: fixed;
 	min-width: 250px;
 	pointer-events: none;
 	margin: 0;
-	padding: 0;
+	padding: 5px 20px;
 	letter-spacing: normal;
 	z-index: 10900;
 }
@@ -901,12 +901,12 @@ div.ui-simple-color-picker ul li {
 .ui-toast-loader {
 	display: block;
 	position: absolute;
-	top: -2px;
-	height: 5px;
-	width: 0%;
 	left: 0;
-	border-radius: 5px;
-	background: red;
+	top: 0;
+	height: 2px;
+	width: 0%;
+	border-radius: 2px;
+	background: #ccc;
 }
 
 .ui-toast-close {

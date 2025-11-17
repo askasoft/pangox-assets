@@ -67,68 +67,10 @@
 		return $t;
 	}
 
-	function position(os) {
-		var $c = $(".ui-toast-wrap"),
-			sp = os.position,
-			op = {
-				left: 'auto',
-				top: 'auto',
-				right: 'auto',
-				bottom: 'auto'
-			};
-
-		if (typeof(sp) == 'object') {
-			$.extend(op, sp);
-		} else {
-			switch (sp) {
-			case 'mid center':
-				op.left = ($(window).outerWidth() / 2) - $c.outerWidth() / 2;
-				op.top = ($(window).outerHeight() / 2) - $c.outerHeight() / 2;
-				break;
-			case 'bottom':
-				op.bottom = 5;
-				op.left = 20;
-				op.right = 20;
-				break;
-			case 'bottom center':
-				op.bottom = 5;
-				op.left = ($(window).outerWidth() / 2) - $c.outerWidth() / 2;
-				break;
-			case 'bottom left':
-				op.bottom = 5;
-				op.left = 20;
-				break;
-			case 'bottom right':
-				op.bottom = 5;
-				op.right = 20;
-				break;	
-			case 'top':
-				op.top = 5;
-				op.left = 20;
-				op.right = 20;
-				break;
-			case 'top right':
-				op.top = 5;
-				op.right = 20;
-				break;
-			case 'top left':
-				op.top = 5;
-				op.left = 20;
-				break;
-			// case 'top center':
-			default:
-				op.top = 5;
-				op.left = ($(window).outerWidth() / 2) - $c.outerWidth() / 2;
-				break;
-			}
-		}
-		$c.css(op);
-	}
-
 	function bindToast($t, os) {
 		$t.unbind();
 
-		if (canAutoHide(os)) {
+		if (os.timeout) {
 			$t.on('shown.toast', function() {
 				showLoader($t, os);
 				bindHover($t, os);
@@ -171,45 +113,105 @@
 		}
 	}
 
-	function addToDom($t, os) {
-		var $c = $('.ui-toast-wrap'),
-			sn = os.stack;
-
+	function stack(p, $t, os) {
+		var id = ('ui-toast-stack-' + p), $c = $('#'+id);
 		if ($c.length === 0) {
-			$c = $('<div></div>', {
-				"class": "ui-toast-wrap",
+			$c = $('<div>', {
+				"id": id,
+				"class": "ui-toast-stack",
 				"role": "alert",
 				"aria-live": "polite"
 			});
 			$('body').append($c);
-
-		} else if (!sn || isNaN(parseInt(sn, 10))) {
+		} else if (!os.stack) {
 			$c.empty();
 		}
 
 		$c.find('.ui-toast-single:hidden').remove();
-
+		
 		$c.append($t);
 
-		if (sn && !isNaN(parseInt(sn), 10)) {
-			var _prevToastCount = $c.find('.ui-toast-single').length,
-				_nextToastCount = _prevToastCount - sn;
-
-			if (_nextToastCount > 0) {
-				$c.find('.ui-toast-single').slice(0, _nextToastCount).remove();
+		if (os.stack) {
+			var $tss = $c.find('.ui-toast-single'), cnt = $tss.length - os.stack;
+			if (cnt > 0) {
+				$tss.slice(0, cnt).remove();
 			}
 		}
+
+		return $c;
 	}
 
-	function canAutoHide(os) {
-		return (os.hideAfter !== false) && !isNaN(parseInt(os.hideAfter, 10));
+	function position($t, os) {
+		var sp = os.position;
+
+		if (typeof(sp) == 'object') {
+			return stack('c', $t, os).css(sp);
+		}
+
+		var $c, op = {
+			left: 'auto',
+			top: 'auto',
+			right: 'auto',
+			bottom: 'auto'
+		};
+
+		switch (sp) {
+		case 'center':
+			$c = stack('c', $t, os);
+			op.left = ($(window).outerWidth() / 2) - $c.outerWidth() / 2;
+			op.top = ($(window).outerHeight() / 2) - $c.outerHeight() / 2;
+			return $c.css(op);
+		case 'bottom':
+			op.bottom = 0;
+			op.left = 0;
+			op.right = 0;
+			return stack('b', $t, os).css(op);
+		case 'bottom left':
+		case 'left bottom':
+			op.bottom = 0;
+			op.left = 0;
+			return stack('bl', $t, os).css(op);
+		case 'bottom right':
+		case 'right bottom':
+			op.bottom = 0;
+			op.right = 0;
+			return stack('br', $t, os).css(op);
+		case 'bottom center':
+		case 'center bottom':
+			$c = stack('bc', $t, os);
+			op.bottom = 0;
+			op.left = ($(window).outerWidth() / 2) - $c.outerWidth() / 2;
+			return $c.css(op);
+		case 'top':
+			op.top = 0;
+			op.left = 0;
+			op.right = 0;
+			return stack('t', $t, os).css(op);
+		case 'top right':
+		case 'right top':
+			op.top = 0;
+			op.right = 0;
+			return stack('tr', $t, os).css(op);
+		case 'top left':
+		case 'left top':
+			op.top = 0;
+			op.left = 0;
+			return stack('tl', $t, os).css(op);
+		case 'top center':
+		case 'center top':
+		default:
+			$c = stack('tc', $t, os);
+			op.top = 0;
+			op.left = ($(window).outerWidth() / 2) - $c.outerWidth() / 2;
+			return $c.css(op);
+		}
 	}
 
 	function showLoader($t, os) {
 		if (os.loader) {
 			// 400 is the default time that jquery uses for fade/slide
 			// Divide by 1000 for milliseconds to seconds conversion
-			var transition = 'width ' + (os.hideAfter - 400) / 1000 + 's ease-in';
+			var transition = 'width ' + (os.timeout - 400) / 1000 + 's ease-in';
 
 			$t.find('.ui-toast-loader').css({
 				'width': '100%',
@@ -232,7 +234,7 @@
 		$t.data('timer', setTimeout(function() {
 			$t.off('mouseenter mouseleave').removeData('timer');
 			transitionOut($t, os);
-		}, os.hideAfter));
+		}, os.timeout));
 	}
 
 	function clearHideTimer($t) {
@@ -285,6 +287,10 @@
 
 		$t.trigger('hide.toast')[tm](function() {
 			$t.trigger('hidden.toast');
+
+			if (os.removeAfterHidden) {
+				$t.remove();
+			}
 		});
 	}
 
@@ -294,12 +300,11 @@
 
 		setOptions(os, $.toast.defaults, options);
 		$t = setup($t, os);
-		addToDom($t, os);
-		position(os);
+		position($t, os);
 		bindToast($t, os);
 		transitionIn($t, os);
 
-		if (canAutoHide(os)) {
+		if (os.timeout) {
 			setHideTimer($t, os);
 		}
 
@@ -307,11 +312,9 @@
 			hide: function() {
 				transitionOut($t, os);
 			},
-
 			remove: function() {
 				$t.remove();
 			},
-
 			update: function(options) {
 				setOptions(os, {}, options);
 				setup($t, os);
@@ -325,7 +328,7 @@
 	$.toast = Toast;
 
 	$.toast.clear = function() {
-		$('.ui-toast-wrap').remove();
+		$('.ui-toast-stack').remove();
 	}
 
 	$.toast.defaults = {
@@ -333,17 +336,18 @@
 		html: false,
 		heading: '',
 		message: '',
-		loader: true,
 		transition: 'fade',
 		closeable: true,
-		hideAfter: 5000,
-		stopHideOnHover: true,
+		timeout: 5000,
 		stack: 5,
 		position: 'top center',
 		bgColor: false,
 		textColor: false,
 		textAlign: 'left',
-		loaderBg: '#9EC600'
+		loader: true,
+		loaderBg: '#ccc',
+		stopHideOnHover: true,
+		removeAfterHidden: true
 	};
 
 })(jQuery);
