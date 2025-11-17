@@ -2,13 +2,12 @@
 	"use strict";
 
 	$.each({
-		zoomIn: 'show',
-		zoomOut: 'hide',
-		zoomToggle: 'toggle'
+		scaleIn: 'show',
+		scaleOut: 'hide',
+		scaleToggle: 'toggle'
 	}, function(fn, op) {
 		$.fn[fn] = function(speed, easing, callback) {
-			var opt = $.speed(speed, easing, callback);
-			var old = opt.step;
+			var opt = $.speed(speed, easing, callback), old = opt.step;
 			opt.step = function(s) {
 				$(this).css({ transform: 'scale(' + s + ')' });
 				if (old) {
@@ -20,9 +19,19 @@
 	});
 
 	$.each({
+		zoomIn: 'show',
+		zoomOut: 'hide',
+		zoomToggle: 'toggle'
+	}, function(fn, op) {
+		$.fn[fn] = function(speed, easing, callback) {
+			return this.animate({ zoom: op }, $.speed(speed, easing, callback));
+		};
+	});
+
+	$.each({
 		slideIn: 'show',
 		slideOut: 'hide',
-		slideToggle: 'toggle'
+		slideInOut: 'toggle'
 	}, function(fn, op) {
 		$.fn[fn] = function(speed, easing, callback) {
 			var props = {
