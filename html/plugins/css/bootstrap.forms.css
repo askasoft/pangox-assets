@@ -33,14 +33,30 @@ label {
 	}
 }
 
-/** required **/
-.required {
+/** required, informed **/
+.required, .informed {
 	padding-right: 1em;
 }
-.required:after {
-	color: #f00;
-	content: '\ff0a';
+.required::after, .informed::after {
 	position: absolute;
+	text-align: center;
+	width: 1.1em;
+	font-size: 0.9em;
+}
+.required::after {
+	content: '\273b';
+	color: var(--bs-danger, #dc3545);
+}
+.informed::after {
+	--ui-informed-color: var(--bs-primary, #0d6efd);
+	content: 'i';
+	color: var(--ui-informed-color);
+	border: 1px solid var(--ui-informed-color);
+	border-radius: 50%;
+	height: 1.1em;
+	line-height: 1.1em;
+	margin: 0.3em 0.1em;
+	font-family: Consolas, monospace;
 }
 
 /** controls **/
