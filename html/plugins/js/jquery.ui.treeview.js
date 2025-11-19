@@ -116,11 +116,11 @@
 	}
 
 	var api = {
-		'init': init,
-		'dispose': dispose,
-		'collapse': collapse,
-		'expand': expand,
-		'toggle': toggle
+		init: init,
+		dispose: dispose,
+		collapse: collapse,
+		expand: expand,
+		toggle: toggle
 	};
 
 	$.fn.treeview = function(method, target) {

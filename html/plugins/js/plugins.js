@@ -3334,11 +3334,11 @@
 	}
 
 	var api = {
-		'init': init,
-		'dispose': dispose,
-		'collapse': collapse,
-		'expand': expand,
-		'toggle': toggle
+		init: init,
+		dispose: dispose,
+		collapse: collapse,
+		expand: expand,
+		toggle: toggle
 	};
 
 	$.fn.treeview = function(method, target) {
@@ -3713,7 +3713,7 @@
 				audio: 'fa fa-file-audio-o far fa-file-audio',
 				video: 'fa fa-file-video-o far fa-file-video',
 				error: 'fa fa-exclamation-circle fas fa-circle-exclamation',
-				waiting: 'fa fas fa-refresh',
+				waiting: 'fa fas fa-refresh text-muted',
 				loading: 'fa fas fa-refresh fa-spin'
 			},
 
