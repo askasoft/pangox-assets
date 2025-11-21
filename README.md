@@ -21,16 +21,17 @@ A HTML/CSS/JavaScript library.
    | jquery.cookie.js             | cookie plugin                       |
    | jquery.disable.js            | $.disable function                  |
    | jquery.jscript.js            | dynamic load javascript             |
+   | [jquery.ui.connector.js](./docs/jquery/jquery.ui.connector.html)   | draw bezier curve to connect two element |
    | jquery.ui.focusme.js         | focus element on window load        |
    | [jquery.ui.loadmask.js](./docs/jquery/jquery.ui.loadmask.html)     | loader mask plugin |
-   | [jquery.ui.popup.js](./docs/bootstrap5/jquery.ui.popup.html)           | popup plugin   |
+   | [jquery.ui.popup.js](./docs/bootstrap5/jquery.ui.popup.html)       | popup plugin   |
    | jquery.ui.scrollIntoView.js  | $.scrollIntoView function           |
    | jquery.ui.selecttext.js      | $.selectText function               |
    | jquery.ui.textarea.js        | textarea auto expand and fire event on Ctrl+Enter   |
    | [jquery.ui.nice-select.js](./docs/jquery/jquery.ui.nice-select.html) | nice select plugin |
    | [jquery.ui.lightbox.js](./docs/jquery/jquery.ui.lightbox.html)     | LightBox Plugin  |
    | [jquery.ui.simple-color-picker.js](./docs/jquery/jquery.ui.simple-color-picker.html)           | simple color picker plugin |
-   | [jquery.ui.treeview.js](./docs/bootstrap5/jquery.ui.treeview.html)     | simple treeview plugin |
+   | [jquery.ui.treeview.js](./docs/bootstrap5/jquery.ui.treeview.html) | simple treeview plugin |
    | [jquery.ui.toast.js](./docs/jquery/jquery.ui.toast.html)           | notification (toast) plugin |
 
 

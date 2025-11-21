@@ -1029,8 +1029,8 @@ div.ui-simple-color-picker ul li {
 	position: relative;
 }
 
-/* clickable, draggable */
-.ui-tree.clickable li.node > .item, .ui-tree.draggable .item {
+/* collapsible, draggable */
+.ui-tree.collapsible li.node > .item, .ui-tree.draggable .item {
 	cursor: pointer;
 }
 

@@ -100,7 +100,7 @@
 			}
 		});
 
-		if ($t.hasClass('clickable')) {
+		if ($t.hasClass('collapsible')) {
 			$t.on('click.treeview', '.item', _click);
 		}
 

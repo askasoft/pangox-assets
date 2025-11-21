@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>JQuery Connector Plugin</title>
+	<link href="../../html/bootstrap5/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="../../html/fontawesome6/css/all.css" rel="stylesheet" type="text/css" />
+	<link href="../../html/plugins/css/jquery.ui.treeview.css" rel="stylesheet" type="text/css" />
+	<style>
+		.ui-tree.boxed li > .item {
+			opacity: 0.7;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1 style="text-align: center; margin: 20px 0px;">JQuery Connector Plugin</h1>
+		<hr>
+
+		<div id="themes" class="text-center">
+			Theme:
+			<button id="light" class="btn btn-primary">Light</button>
+			<button id="dark" class="btn btn-secondary">Dark</button>
+		</div>
+		<hr>
+
+		<div id="zoomscale" class="d-flex">
+			<div class="ms-auto">Zoom: </div>
+			<div id="zoom" class="btn-group btn-group-sm" data-zoom="100">
+				<button class="btn btn-outline-primary zoom-out"><i class="fas fa-fw fa-minus"></i></button>
+				<label class="btn btn-outline-primary">100%</label>
+				<button class="btn btn-outline-primary zoom-in"><i class="fas fa-fw fa-plus"></i></button>
+			</div>
+			<div class="ms-4">Scale: </div>
+			<div id="scale" class="btn-group btn-group-sm me-auto" data-scale="100">
+				<button class="btn btn-outline-primary scale-out"><i class="fas fa-fw fa-minus"></i></button>
+				<label class="btn btn-outline-primary">100%</label>
+				<button class="btn btn-outline-primary scale-in"><i class="fas fa-fw fa-plus"></i></button>
+			</div>
+		</div>
+		<hr>
+
+		<div id="styles" class="mb-4 text-center">
+			<label><input type="radio" name="style" value="bt" checked> bottom-&gt;top</label>
+			<label><input type="radio" name="style" value="lr"> left-&gt;right</label>
+			<label><input type="radio" name="style" value="rl"> right-&gt;left</label>
+		</div>
+
+		<div id="methods" class="text-center">
+			<button id="connect" class="btn btn-primary">connect</button>
+			<button id="clear" class="btn btn-secondary">clear</button>
+			<button id="dispose" class="btn btn-secondary">dispose</button>
+		</div>
+		<hr>
+
+		<ul id="treeview" class="ui-tree draggable lined boxed topdown arrow" data-spy="treeview">
+			<li>
+				<div class="item"><b>Animals</b></div>
+				<ul>
+					<li>
+						<div class="item">Birds</div>
+						<ul>
+							<li>
+								<div id="pigeon" class="item">Pigeon</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div class="item">Mammals</div>
+						<ul>
+							<li>
+								<div class="item">Elephant</div>
+								<ul>
+									<li>
+										<div id="lion" class="item">Lion</div>
+										<ul>
+											<li>
+												<div id="tiger" class="item">Tiger</div>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<div class="item">Mouse</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div class="item">Reptiles</div>
+						<ul>
+							<li>
+								<div id="cat" class="item">Cat</div>
+								<ul>
+									<li>
+										<div id="dog" class="item">Dog</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<hr>
+	</div>
+
+	<script src="../../html/jquery3/jquery-3.7.1.js"></script>
+	<script src="../../html/bootstrap5/js/bootstrap.bundle.js"></script>
+	<script src="../../html/plugins/js/jquery.ui.treeview.js"></script>
+	<script src="../../html/plugins/js/jquery.ui.connector.js"></script>
+	<script>
+		$(window).on('load', function() {
+			$.connector.defaults.color = '#045C92';
+
+			$('#light, #dark').click(function() {
+				$('body').attr('data-bs-theme', $(this).attr('id'));
+			});
+
+			function zoomIn() {
+				var $z = $('#zoom'), zm = parseInt($z.data('zoom')) + 10;
+				if (zm <= 200) {
+					$('#treeview').css('zoom', zm + '%');
+					$z.data('zoom', zm).find('label').text(zm + '%');
+				}
+				return false;
+			}
+			function zoomOut() {
+				var $z = $('#zoom'), zm = $z.data('zoom') - 10;
+				if (zm >= 10) {
+					$('#treeview').css('zoom', zm + '%');
+					$z.data('zoom', zm).find('label').text(zm + '%');
+				}
+				return false;
+			}
+			function scaleIn() {
+				var $z = $('#scale'), zm = parseInt($z.data('scale')) + 10;
+				if (zm <= 200) {
+					$('#treeview').css('transform', 'scale(' + (zm / 100) +')');
+					$z.data('scale', zm).find('label').text(zm + '%');
+				}
+				return false;
+			}
+			function scaleOut() {
+				var $z = $('#scale'), zm = $z.data('scale') - 10;
+				if (zm >= 10) {
+					$('#treeview').css('transform', 'scale(' + (zm / 100) + ')');
+					$z.data('scale', zm).find('label').text(zm + '%');
+				}
+				return false;
+			}
+
+			$('#zoomscale')
+				.on('click', '.zoom-in', zoomIn)
+				.on('click', '.zoom-out', zoomOut)
+				.on('click', '.scale-in', scaleIn)
+				.on('click', '.scale-out', scaleOut)
+				;
+
+			$('#methods > button').click(function() {
+				switch ($(this).attr('id')) {
+				case 'connect':
+					$('#treeview').connector(
+						{ style: $('#styles :checked').val() },
+						[ '#tiger', '#cat' ],
+						[ '#lion', '#dog' ],
+						[ '#dog', '#cat' ],
+						[ '#dog', '#pigeon' ]
+					);
+					break;
+				case 'clear':
+					$('#treeview').connector('clear');
+					break;
+				case 'dispose':
+					$('#treeview').connector('dispose');
+					break;
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>
