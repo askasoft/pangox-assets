@@ -1926,7 +1926,7 @@ form.lined > .form-group:last-of-type, form.lined > .row:last-of-type {
 	}
 }
 
-/** text **/
+/** label **/
 .ui-label, .ui-value {
 	word-break: break-all;
 }
@@ -1945,3 +1945,14 @@ form.lined > .form-group:last-of-type, form.lined > .row:last-of-type {
 	word-break: break-all;
 }
 
+/** text **/
+.text-prewrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.text-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

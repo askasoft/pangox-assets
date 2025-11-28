@@ -1,0 +1,11 @@
+/** text **/
+.text-prewrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.text-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
