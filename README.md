@@ -32,6 +32,7 @@ A HTML/CSS/JavaScript library.
    | [jquery.ui.treeview.js](./docs/bootstrap5/jquery.ui.treeview.html) | simple treeview plugin |
    | [jquery.ui.toast.js](./docs/jquery/jquery.ui.toast.html)           | notification (toast) plugin |
 
+ - [jsonview](./docs/jquery/jquery.jsonview.html)
  - [lightbox](./docs/jquery/jquery.lightbox.html)
  - [simple-color-picker](./docs/jquery/jquery.simple-color-picker.html)
  - [summernote](./docs/summernote.html)
@@ -53,10 +54,11 @@ Pango Assets use or fork the following open source libraries:
 | flag-icons                 | https://github.com/lipis/flag-icons                    | [MIT](https://github.com/lipis/flag-icons/blob/main/LICENSE) |
 | Font Awesome               | https://fontawesome.com/                               | [Font Awesome](https://github.com/FortAwesome/Font-Awesome/blob/7.x/LICENSE.txt) |
 | jQuery                     | https://jquery.com/                                    | [jQuery](https://jquery.org/license/)                         |
+| jquery-json-viewer         | https://github.com/abodelot/jquery.json-viewer         | [MIT](https://github.com/abodelot/jquery.json-viewer/blob/master/LICENSE) |
 | jquery-lightbox            | https://github.com/avioli/jquery-lightbox              |                                                               |
-| jquery-toast               | https://github.com/kamranahmedse/jquery-toast-plugin   |                                                               |
 | jquery-nice-select         | https://github.com/hernansartorio/jquery-nice-select   |                                                               |
 | jquery-simple-color-picker | https://github.com/rachel-carvalho/simple-color-picker | [MIT](https://github.com/rachel-carvalho/simple-color-picker/blob/master/LICENSE) |
+| jquery-toast               | https://github.com/kamranahmedse/jquery-toast-plugin   |                                                               |
 | jzip                       | https://github.com/Stuk/jszip                          | [MIT GPLv3](https://github.com/Stuk/jszip/blob/main/LICENSE.markdown) |
 | pdfjs                      | https://github.com/mozilla/pdf.js                      | [Apache 2.0](https://github.com/mozilla/pdf.js/blob/master/LICENSE) |
 | summernote                 | https://summernote.org                                 | [MIT](https://github.com/summernote/summernote/blob/main/LICENSE) |

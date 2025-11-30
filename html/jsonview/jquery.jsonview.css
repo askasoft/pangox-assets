@@ -1,0 +1,62 @@
+/* Root element */
+.json-document {
+	padding: 1em 2em;
+}
+
+/* Syntax highlighting for JSON objects */
+ul.json-dict, ol.json-array {
+	list-style-type: none;
+	margin: 0 0 0 1px;
+	border-left: 1px dotted #ccc;
+	padding-left: 2em;
+}
+.json-string {
+	color: #0B7500;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+.json-literal {
+	color: #1A01CC;
+	font-weight: bold;
+}
+
+/* Toggle button */
+a.json-toggle {
+	position: relative;
+	color: inherit;
+	text-decoration: none;
+}
+a.json-toggle:focus {
+	outline: none;
+}
+a.json-toggle:before {
+	border: 5px solid transparent;
+	border-top-color: #ccc;
+	content: "";
+	display: inline-block;
+	position: absolute;
+	transition: all 0.2s;
+	width: 0;
+	height: 0;
+	left: -16px;
+	top: 50%;
+	margin-top: -2px;
+}
+a.json-toggle.collapsed:before {
+	transform: rotate(-90deg);
+	left: -14px;
+	margin-top: -5px;
+}
+a.json-toggle:hover:before {
+	color: #aaa;
+}
+
+/* Collapsable placeholder links */
+a.json-placeholder {
+	color: #aaa;
+	padding: 0 1em;
+	text-decoration: none;
+}
+a.json-placeholder:hover {
+	text-decoration: underline;
+}

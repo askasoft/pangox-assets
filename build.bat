@@ -8,17 +8,20 @@ set HTMLDIR=%BASEDIR%\html
 cd /d %HTMLDIR%\datetimepicker\
 call :mincss bootstrap-datetimepicker
 
-cd /d %HTMLDIR%\plugins\css\
-type jquery.*.css    >  plugins.css
-type bootstrap.*.css >> plugins.css
-type ui.*.css        >> plugins.css
-call :mincss plugins
+cd /d %HTMLDIR%\jsonview\
+call :mincss jquery.jsonview
 
 cd /d %HTMLDIR%\lightbox\
 call :mincss jquery.lightbox
 
 cd /d %HTMLDIR%\simplecolorpicker\
 call :mincss jquery.simple-color-picker
+
+cd /d %HTMLDIR%\plugins\css\
+type jquery.*.css    >  plugins.css
+type bootstrap.*.css >> plugins.css
+type ui.*.css        >> plugins.css
+call :mincss plugins
 
 
 cd /d %HTMLDIR%\corejs\
@@ -33,6 +36,9 @@ call :minjs docx-preview
 
 cd /d %HTMLDIR%\domtoimage\
 call :minjs dom-to-image
+
+cd /d %HTMLDIR%\jsonview\
+call :minjs jquery.jsonview
 
 cd /d %HTMLDIR%\jszip\
 call :minjs jszip

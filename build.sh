@@ -20,17 +20,20 @@ mincss() {
 cd $HTMLDIR/datetimepicker/
 mincss bootstrap-datetimepicker
 
-cd $HTMLDIR/plugins/css/
-cat jquery.*.css    >  plugins.css
-cat bootstrap.*.css >> plugins.css
-cat ui.*.css        >> plugins.css
-mincss plugins
+cd $HTMLDIR/jsonview
+mincss jquery.jsonview
 
 cd $HTMLDIR/lightbox/
 mincss jquery.lightbox
 
 cd $HTMLDIR/simplecolorpicker/
 mincss jquery.simple-color-picker
+
+cd $HTMLDIR/plugins/css/
+cat jquery.*.css    >  plugins.css
+cat bootstrap.*.css >> plugins.css
+cat ui.*.css        >> plugins.css
+mincss plugins
 
 
 
@@ -46,6 +49,9 @@ minjs docx-preview
 
 cd $HTMLDIR/domtoimage/
 minjs dom-to-image
+
+cd $HTMLDIR/jsonview/
+minjs jquery.jsonview
 
 cd $HTMLDIR/jszip/
 minjs jszip
