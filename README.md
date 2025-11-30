@@ -29,12 +29,11 @@ A HTML/CSS/JavaScript library.
    | jquery.ui.selecttext.js      | $.selectText function               |
    | jquery.ui.textarea.js        | textarea auto expand and fire event on Ctrl+Enter   |
    | [jquery.ui.nice-select.js](./docs/jquery/jquery.ui.nice-select.html) | nice select plugin |
-   | [jquery.ui.lightbox.js](./docs/jquery/jquery.ui.lightbox.html)     | LightBox Plugin  |
-   | [jquery.ui.simple-color-picker.js](./docs/jquery/jquery.ui.simple-color-picker.html)           | simple color picker plugin |
    | [jquery.ui.treeview.js](./docs/bootstrap5/jquery.ui.treeview.html) | simple treeview plugin |
    | [jquery.ui.toast.js](./docs/jquery/jquery.ui.toast.html)           | notification (toast) plugin |
 
-
+ - [lightbox](./docs/jquery/jquery.lightbox.html)
+ - [simple-color-picker](./docs/jquery/jquery.simple-color-picker.html)
  - [summernote](./docs/summernote.html)
 
 

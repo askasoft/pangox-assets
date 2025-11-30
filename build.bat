@@ -14,6 +14,12 @@ type bootstrap.*.css >> plugins.css
 type ui.*.css        >> plugins.css
 call :mincss plugins
 
+cd /d %HTMLDIR%\lightbox\
+call :mincss jquery.lightbox
+
+cd /d %HTMLDIR%\simplecolorpicker\
+call :mincss jquery.simple-color-picker
+
 
 cd /d %HTMLDIR%\corejs\
 copy /b core.*.js corejs.js
@@ -30,6 +36,12 @@ call :minjs dom-to-image
 
 cd /d %HTMLDIR%\jszip\
 call :minjs jszip
+
+cd /d %HTMLDIR%\lightbox\
+call :minjs jquery.lightbox
+
+cd /d %HTMLDIR%\simplecolorpicker\
+call :minjs jquery.simple-color-picker
 
 cd /d %HTMLDIR%\plugins\js\
 type jquery.*.js    >  plugins.js
