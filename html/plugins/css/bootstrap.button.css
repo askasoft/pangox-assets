@@ -1,7 +1,13 @@
 /** bootstrap buttons */
 .btn-group-xs > .btn, .btn-xs {
-	--bs-btn-padding-y: 0.15rem;
+	--bs-btn-padding-y: 0.125rem;
 	--bs-btn-padding-x: 0.25rem;
 	--bs-btn-font-size: 0.75rem;
+	--bs-btn-border-radius: var(--bs-border-radius-sm);
+}
+.btn-group-xxs > .btn, .btn-xxs {
+	--bs-btn-padding-y: 0.125rem;
+	--bs-btn-padding-x: 0.25rem;
+	--bs-btn-font-size: 0.625rem;
 	--bs-btn-border-radius: var(--bs-border-radius-sm);
 }
