@@ -7,16 +7,6 @@
 		left: '-9999px'
 	};
 
-	var _xhrOK = (function() {
-		var input = document.createElement('input'),
-			xhr = new XMLHttpRequest();
-		input.type = 'file';
-		return ('multiple' in input)
-			&& typeof (xhr.upload) != 'undefined'
-			&& typeof (FileList) != 'undefined'
-			&& typeof (File) != 'undefined';
-	})();
-
 	function addFiles(fs, fadd) {
 		if (fs) {
 			if (typeof (fs) == "string") {
@@ -65,8 +55,7 @@
 		}
 	}
 
-	// jquery ajax wrapper
-	function ajax(s) {
+	function ajaf(s) {
 		var data = new FormData();
 
 		addParams(s.data, function(n, v) {
@@ -93,7 +82,7 @@
 			});
 		});
 
-		s = $.extend({}, s, {
+		s = $.extend({method: 'POST'}, s, {
 			cache: false,
 			contentType: false,
 			processData: false,
@@ -179,217 +168,6 @@
 
 		return $.ajax(s);
 	}
-
-	function createIFrame(s) {
-		var id = "ajaf_if_" + s.id;
-		return $('<iframe>', { id: id, name: id, src: s.secureUrl }).css(_cssHidden).appendTo('body');
-	}
-
-	function createForm(s) {
-		var id = 'ajaf_form_' + s.id;
-
-		var $form = $('<form>', {
-			id: id,
-			name: id,
-			action: s.url,
-			method: s.method,
-			target: 'ajaf_if_' + s.id
-		}).css(_cssHidden).appendTo('body');
-
-		addParams(s.data, function(n, v) {
-			$('<input type="hidden">')
-				.attr('name', n)
-				.val(v)
-				.appendTo($form);
-		});
-
-		$form.files = [];
-		if (s.file) {
-			$form.attr({
-				method: 'POST',
-				encoding: 'multipart/form-data',
-				enctype: 'multipart/form-data'
-			});
-
-			addFiles(s.file, function(f, n) {
-				var $f = $(f), $c = $f.clone().insertAfter($f);
-
-				n = n || $f.attr('name');
-				$f.attr({
-					id: '',
-					name: n
-				}).appendTo($form);
-
-				$form.files.push({ real: $f, copy: $c });
-			});
-		}
-
-		return $form;
-	}
-
-	function httpData(xhr, type) {
-		var data = type == "xml" ? xhr.responseXML : xhr.responseText;
-
-		switch (type) {
-		case "script":
-			// If the type is "script", eval it in global context
-			$.globalEval(data);
-			break;
-		case "json":
-			// Get the JavaScript object, if JSON is used.
-			data = $.parseJSON(data);
-			break;
-		case "html":
-			// evaluate scripts within html
-			$("<div>").html(data).evalScripts();
-			break;
-		}
-
-		return data;
-	}
-
-	function ajaf(s) {
-		s = $.extend({
-			method: 'POST',
-			forceAjaf: false,
-			forceAjax: false
-		}, s);
-
-		if (s.forceAjax || ((_xhrOK) && !s.forceAjaf)) {
-			return ajax(s);
-		}
-
-		s = $.extend({
-			id: new Date().getTime(),
-			secureUrl: 'javascript:false',
-		}, s);
-
-		var $if = createIFrame(s),
-			$form = createForm(s),
-			done = false, xhr = {};
-
-		// Wait for a response to come back
-		function callback(timeout) {
-			if (done) {
-				return;
-			}
-			done = true;
-
-			var status = timeout == "timeout" ? "error" : "success";
-			try {
-				var ioe = $if.get(0);
-				var doc = ioe.contentWindow.document || ioe.contentDocument || window.frames[ioe.id].document;
-				if (doc && doc.body) {
-					if (s.selector) {
-						xhr.responseText = $(doc.body).find(s.selector).html();
-					} else {
-						var fc = doc.body.firstChild;
-						var tn = (fc && fc.tagName) ? fc.tagName.toUpperCase() : "";
-						if (tn == "TEXTAREA") {
-							xhr.responseText = fc.value;
-						} else if (tn == "PRE") {
-							xhr.responseText = $(fc).text();
-						} else {
-							xhr.responseText = doc.body.innerHTML;
-						}
-					}
-				}
-				xhr.responseXML = (doc && doc.XMLDocument) ? doc.XMLDocument : doc;
-			} catch (e) {
-				status = "error";
-				if (s.error) {
-					s.error(xhr, status, e);
-				}
-			}
-
-			// Recover real files
-			$.each($form.files, function(i, f) {
-				f.real.attr({
-					id: f.copy.attr('id'),
-					name: f.copy.attr('name')
-				}).insertAfter(f.copy);
-				f.copy.remove();
-			});
-			$form.remove();
-
-			switch (status) {
-			case "timeout":
-				if (s.error) {
-					s.error(xhr, status);
-				}
-				break;
-			case "success":
-				// Make sure that the request was successful or not modified
-				try {
-					// process the data (runs the xhr through httpData regardless of callback)
-					var data = httpData(xhr, s.dataType);
-
-					// If a local callback was specified, fire it and pass it the data
-					if (s.success) {
-						s.success(data, xhr);
-					}
-				} catch (e) {
-					if (s.error) {
-						s.error(xhr, status, e);
-					}
-				}
-				break;
-			}
-
-			try {
-				// The request was completed
-				if (s.complete) {
-					s.complete(xhr, status);
-				}
-			} finally {
-				//clear up the created iframe after file uploaded.
-				$if.unbind();
-				setTimeout(function() {
-					$if.remove();
-				}, 100);
-				xhr = null;
-			}
-		};
-
-		// timeout checker
-		if (s.timeout > 0) {
-			setTimeout(function() {
-				// Check to see if the request is still happening
-				if (!done) {
-					callback("timeout");
-				}
-			}, s.timeout);
-		}
-
-		// fake progress
-		var fudp = s.uprogress || s.dprogress;
-		if (fudp) {
-			var loaded = 0;
-			function _fake_progress() {
-				fudp(loaded < 95 ? ++loaded : loaded, 100);
-				if (!done) {
-					setTimeout(_fake_progress, 10 + loaded);
-				}
-			}
-			setTimeout(_fake_progress, 10);
-		}
-
-		if (s.beforeSend) {
-			s.beforeSend(xhr, s);
-		}
-
-		// submit
-		try {
-			$form.submit();
-		} catch (e) {
-			if (s.error) {
-				s.error(xhr, "send", e);
-			}
-		}
-
-		$if.on('load', callback);
-		return xhr;
-	};
 
 	$.ajaf = ajaf;
 
