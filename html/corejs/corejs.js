@@ -397,22 +397,22 @@
 	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length.
 	 */
 	if (typeof String.prototype.ellipsis != 'function') {
-		String.prototype.ellipsis = function(n) {
-			var s = this;
-			return s.length > n ? s.slice(0, n - 3) + "..." : s;
+		String.prototype.ellipsis = function(n, x) {
+			var s = this, x = x || '...';;
+			return s.length > n ? s.slice(0, n) + x : s;
 		};
 	}
 	/**
-	 * Truncate a string and add an ellipsiz ('...') to the end if it exceeds the specified length.
+	 * Truncate a string and add an ellipsiz ('…') to the end if it exceeds the specified length.
 	 * the length of charCodeAt(i) > 0xFF will be treated as 2. 
 	 */
 	if (typeof String.prototype.ellipsiz != 'function') {
-		String.prototype.ellipsiz = function(n) {
-			var s = this, z = 0;
+		String.prototype.ellipsiz = function(n, x) {
+			var s = this, z = 0, x = x || '…';
 			for (var i = 0; i < s.length; i++) {
 				z += (s.charCodeAt(i) > 0xFF ? 2 : 1);
 				if (z > n) {
-					return s.slice(0, i) + '...';
+					return s.slice(0, i) + x;
 				}
 			}
 			return s;
