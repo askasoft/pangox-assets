@@ -78,7 +78,7 @@
 	height: 0.35em;
 	transform: rotate(135deg);
 	transform-origin: 66% 66%;
-	transition: all 0.2s ease-in-out;
+	transition: all 0.4s ease-in-out;
 }
 
 .ui-fieldset.collapsed {
@@ -92,19 +92,16 @@
 .ui-fieldset.collapsed > legend {
 	display: block;
 }
-.ui-fieldset.collapsed > legend::before {
+.ui-fieldset.collapsed > legend::before, .ui-fieldset.collapsing > legend::before {
 	margin-top: -0.15em;
 	transform: rotate(45deg);
-}
-
-.ui-fieldset.collapsed.expanding {
-	padding: 1em;
 }
 .ui-fieldset.collapsing {
 	height: auto;
 	padding: 0 1em;
 	transition: padding 0.4s ease;
-}.ui-loadmask-mask {
+}
+.ui-loadmask-mask {
 	background-color: #ccc;
 	opacity: .25;
 	position: absolute;

@@ -808,8 +808,8 @@
 
 	function _expand($f, t) {
 		t = t || $f.data('fieldset').showTransition;
-		$f.addClass('expanding').trigger('expand.fieldset').children(':not(legend)')[t](function() {
-			$f.removeClass('expanding collapsed').trigger('expanded.fieldset');
+		$f.removeClass('collapsed').addClass('expanding').trigger('expand.fieldset').children(':not(legend)')[t](function() {
+			$f.removeClass('expanding').trigger('expanded.fieldset');
 		});
 	}
 
