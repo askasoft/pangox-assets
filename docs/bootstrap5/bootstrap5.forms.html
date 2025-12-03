@@ -38,44 +38,48 @@ form.grey {
 				<label><input type="checkbox" id="check_grey">Grey</label>
 				<label><input type="checkbox" id="check_lined">Lined</label>
 			</div>
+			<div class="ui-radios" id="label_aligns">
+				<label><input type="radio" name="labela" value="label-left">Label Left</label>
+				<label><input type="radio" name="labela" value="label-right" checked>Label Right</label>
+			</div>
 		</form>
 		<hr>
 
 		<form id="form" class="ui-form grey lined" autocomplete="off">
 			<div class="row">
-				<label for="tags_viewfield" class="col-md-3 col-form-label">View Field:</label>
-				<div class="col-md-9 col-form-value"><pre>Earth is the third planet from the Sun and the only astronomical object known to harbor life.
+				<label for="tags_viewfield" class="col-md-2 col-form-label">View Field (LongLongLongLong LongLongLongLong LongLongLongLong):</label>
+				<div class="col-md-10 col-form-value"><pre>Earth is the third planet from the Sun and the only astronomical object known to harbor life.
 This is enabled by Earth being a water world, the only one in the Solar System sustaining liquid surface water.
 Almost all of Earth's water is contained in its global ocean, covering 70.8% of Earth's crust.
 The remaining 29.2% of Earth's crust is land, most of which is located in the form of continental landmasses within one hemisphere, Earth's land hemisphere.</pre></div>
 			</div>
 			<div class="row">
-				<label for="tags_textfield" class="col-md-3 col-form-label required">Text Field:</label>
-				<div class="col-md-9">
+				<label for="tags_textfield" class="col-md-2 col-form-label required">Text Field:</label>
+				<div class="col-md-10">
 					<input type="text" id="tags_textfield" name="textfield" class="form-control" textclear/>
 				</div>
 			</div>
 			<div class="row">
-				<label for="tags_rofield" class="col-md-3 col-form-label informed" title="a readonly text field">Text Field readonly:</label>
-				<div class="col-md-9">
+				<label for="tags_rofield" class="col-md-2 col-form-label informed" title="a readonly text field">Text Field readonly (LongLongLongLong LongLongLongLong):</label>
+				<div class="col-md-10">
 					<input type="text" id="tags_rofield" name="rofield" class="form-control" readonly/>
 				</div>
 			</div>
 			<div class="row">
-				<label for="tags_disfield" class="col-md-3 col-form-label">Text Field disabled:</label>
-				<div class="col-md-9">
+				<label for="tags_disfield" class="col-md-2 col-form-label">Text Field disabled:</label>
+				<div class="col-md-10">
 					<input type="text" id="tags_disfieldd" name="disfieldd" class="form-control" disabled textclear value="test"/>
 				</div>
 			</div>
 			<div class="row">
-				<label for="tags_textfield" class="col-md-3 col-form-label required">Number Field:</label>
-				<div class="col-md-9">
+				<label for="tags_textfield" class="col-md-2 col-form-label required">Number Field:</label>
+				<div class="col-md-10">
 					<input type="number" id="tags_numberfield" name="numberfield" size="8" class="form-control" textclear/>
 				</div>
 			</div>
 			<div class="row">
-				<label for="tags_inputgroup" class="col-md-3 col-form-label required">Input Group:</label>
-				<div class="col-md-9">
+				<label for="tags_inputgroup" class="col-md-2 col-form-label required">Input Group:</label>
+				<div class="col-md-10">
 					<div class="input-group" style="width: 400px;">
 						<span class="input-group-text">Search</span>
 						<input type="text" class="form-control" name="k" value="" textclear>
@@ -87,41 +91,41 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 				<legend>Date Time Fields:</legend>
 				<div class="ui-form">
 					<div class="row">
-						<label for="tags_datefield" class="col-md-3 col-form-label required">Date Field:</label>
-						<div class="col-md-9">
+						<label for="tags_datefield" class="col-md-2 col-form-label required">Date Field:</label>
+						<div class="col-md-10">
 							<input type="date" id="tags_datefield" name="datefield"class="form-control"/>
 						</div>
 					</div>
 					<div class="row">
-						<label for="tags_timefield" class="col-md-3 col-form-label required">Time Field:</label>
-						<div class="col-md-9">
+						<label for="tags_timefield" class="col-md-2 col-form-label required">Time Field:</label>
+						<div class="col-md-10">
 							<input type="time" id="tags_timefield" name="timefield" class="form-control"/>
 						</div>
 					</div>
 					<div class="row">
-						<label for="tags_datetimefield" class="col-md-3 col-form-label required">DateTime Field:</label>
-						<div class="col-md-9">
+						<label for="tags_datetimefield" class="col-md-2 col-form-label required">DateTime Field:</label>
+						<div class="col-md-10">
 							<input type="datetime-local" id="tags_datetimefield" name="datetimefield" class="form-control"/>
 						</div>
 					</div>
 					<div class="row">
-						<label for="tags_monthfield" class="col-md-3 col-form-label required">Month Field:</label>
-						<div class="col-md-9">
+						<label for="tags_monthfield" class="col-md-2 col-form-label required">Month Field:</label>
+						<div class="col-md-10">
 							<input type="month" id="tags_monthfield" name="monthfield" class="form-control"/>
 						</div>
 					</div>
 				</div>
 			</fieldset>
 			<div class="row">
-				<label for="tags_rangefield" class="col-md-3 col-form-label required">Range Field:</label>
-				<div class="col-md-9">
+				<label for="tags_rangefield" class="col-md-2 col-form-label required">Range Field:</label>
+				<div class="col-md-10">
 					<input type="range" id="tags_rangefield" name="rangefield" class="form-range mt-2"
 						min="0" max="100" value="90" step="10"/>
 				</div>
 			</div>
 			<div class="row">
-				<label for="tags_select" class="col-md-3 col-form-label required">Select:</label>
-				<div class="col-md-9">
+				<label for="tags_select" class="col-md-2 col-form-label required">Select:</label>
+				<div class="col-md-10">
 					<select id="tags_select" name="select" class="form-select">
 						<option selected="true"></option>
 						<option value="a">aaa</option>
@@ -133,8 +137,8 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 				<legend class="circle">Radios:</legend>
 				<div class="ui-form">
 					<div class="row">
-						<label for="tags_hradios" class="col-md-3 col-form-label required">Horizontal Radio List:</label>
-						<div class="col-md-9">
+						<label for="tags_hradios" class="col-md-2 col-form-label required">Horizontal Radio List:</label>
+						<div class="col-md-10">
 							<div id="tags_hradios" class="ui-radios">
 								<label><input type="radio" name="hradio" id="tags_hradio_1" value="a">Abc</label>
 								<label><input type="radio" name="hradio" id="tags_hradio_2" value="b">Xyz</label>
@@ -142,8 +146,8 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 						</div>
 					</div>
 					<div class="row">
-						<label for="tags_vradios" class="col-md-3 col-form-label required">Vertical Radio List:</label>
-						<div class="col-md-9">
+						<label for="tags_vradios" class="col-md-2 col-form-label required">Vertical Radio List:</label>
+						<div class="col-md-10">
 							<div id="tags_vradios" class="ui-radios vertical">
 								<label><input type="radio" name="vradio" id="tags_vradio_1" value="a">Abc</label>
 								<label><input type="radio" name="vradio" id="tags_vradio_2" value="b">Xyz</label>
@@ -156,8 +160,8 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 				<legend>Checks:</legend>
 				<div class="ui-form lined">
 					<div class="row">
-						<label for="tags_hcheckboxlist" class="col-md-3 col-form-label required">Horizontal Checkbox List:</label>
-						<div class="col-md-9">
+						<label for="tags_hcheckboxlist" class="col-md-2 col-form-label required">Horizontal Checkbox List:</label>
+						<div class="col-md-10">
 							<div id="tags_hcheckboxlist" class="ui-checks">
 								<label><input type="checkbox" name="hcheckboxlist" id="tags_hcheckboxlist_1" value="a">Abc</label>
 								<label><input type="checkbox" name="hcheckboxlist" id="tags_hcheckboxlist_2" value="b">Xyz</label>
@@ -165,8 +169,8 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 						</div>
 					</div>
 					<div class="row">
-						<label for="tags_ohcheckboxlist" class="col-md-3 col-form-label required">Ordered Checkbox List:</label>
-						<div class="col-md-9">
+						<label for="tags_ohcheckboxlist" class="col-md-2 col-form-label required">Ordered Checkbox List:</label>
+						<div class="col-md-10">
 							<div id="tags_ohcheckboxlist" class="ui-checks ordered">
 								<label><input type="checkbox" name="ohcheckboxlist" checked value="a">Abc</label>
 								<label><input type="checkbox" name="ohcheckboxlist" checked value="d">Def</label>
@@ -177,8 +181,8 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 						</div>
 					</div>
 					<div class="row">
-						<label for="tags_vcheckboxlist" class="col-md-3 col-form-label required">Vertical Checkbox List:</label>
-						<div class="col-md-9">
+						<label for="tags_vcheckboxlist" class="col-md-2 col-form-label required">Vertical Checkbox List:</label>
+						<div class="col-md-10">
 							<div id="tags_vcheckboxlist" class="ui-checks vertical">
 								<label><input type="checkbox" name="vcheckboxlist" id="tags_vcheckboxlist_1" value="a">Abc</label>
 								<label><input type="checkbox" name="vcheckboxlist" id="tags_vcheckboxlist_2" value="b">Xyz</label>
@@ -186,8 +190,8 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 						</div>
 					</div>
 					<div class="row">
-						<label for="tags_ovcheckboxlist" class="col-md-3 col-form-label required">Ordered Checkbox List:</label>
-						<div class="col-md-9">
+						<label for="tags_ovcheckboxlist" class="col-md-2 col-form-label required">Ordered Checkbox List:</label>
+						<div class="col-md-10">
 							<div id="tags_ovcheckboxlist" class="ui-checks vertical ordered">
 								<label><input type="checkbox" name="ovcheckboxlist" checked value="a">Abc</label>
 								<label><input type="checkbox" name="ovcheckboxlist" checked value="d">Def</label>
@@ -200,29 +204,29 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 				</div>
 			</fieldset>
 			<div class="row">
-				<label for="tags_file" class="col-md-3 col-form-label required">File:</label>
-				<div class="col-md-9"><input type="file" id="tags_file" name="file" class="form-control"></div>
+				<label for="tags_file" class="col-md-2 col-form-label required">File:</label>
+				<div class="col-md-10"><input type="file" id="tags_file" name="file" class="form-control"></div>
 			</div>
 			<div class="row">
-				<label for="tags_textarea" class="col-md-3 col-form-label required">Textarea:</label>
-				<div class="col-md-9">
+				<label for="tags_textarea" class="col-md-2 col-form-label required">Textarea:</label>
+				<div class="col-md-10">
 					<textarea id="tags_textarea" name="textarea" class="form-control font-monospace" maxlength="100" autosize textclear enterfire></textarea>
 				</div>
 			</div>
 			<div class="row">
-				<label for="tags_textarea" class="col-md-3 col-form-label">Textarea readonly:</label>
-				<div class="col-md-9">
+				<label for="tags_textarea" class="col-md-2 col-form-label">Textarea readonly:</label>
+				<div class="col-md-10">
 					<textarea id="tags_textarear" name="textarear" class="form-control" maxlength="100" autosize readonly></textarea>
 				</div>
 			</div>
 			<div class="row">
-				<label for="tags_textaread" class="col-md-3 col-form-label">Textarea disabled:</label>
-				<div class="col-md-9">
+				<label for="tags_textaread" class="col-md-2 col-form-label">Textarea disabled:</label>
+				<div class="col-md-10">
 					<textarea id="tags_textaread" name="textaread" class="form-control" maxlength="100" disabled autosize textclear enterfire></textarea>
 				</div>
 			</div>
 			<div class="row">
-				<div class="offset-md-3 col-md-9">
+				<div class="offset-md-3 col-md-10">
 					<button type="submit" class="btn btn-primary" value="Submit"><i class="fas fa-fw fa-upload"></i> Submit</button>
 					<button type="reset" class="btn btn-secondary" value="Reset"><i class="fas fa-fw fa-rotate-left"></i> Reset</button>
 					<button type="reset" class="btn btn-sm btn-secondary" value="Reset"><i class="fas fa-fw fa-rotate-left"></i> Reset (sm)</button>
@@ -243,6 +247,10 @@ The remaining 29.2% of Earth's crust is land, most of which is located in the fo
 		$(function() {
 			$('#light, #dark').click(function() {
 				$('body').attr('data-bs-theme', $(this).attr('id'));
+			});
+
+			$('#label_aligns').on('change', 'input', function() {
+				$('#form').removeClass('label-left label-right').addClass($(this).val());
 			});
 
 			$('#check_grey').click(function() {

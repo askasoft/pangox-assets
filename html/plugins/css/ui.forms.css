@@ -97,7 +97,7 @@
 
 /** label **/
 .ui-label, .ui-value {
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 .ui-label > pre, .ui-value > pre {
@@ -106,11 +106,5 @@
 	margin: 0;
 	padding: 0;
 	white-space: pre-wrap;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
-
-.text-prewrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-

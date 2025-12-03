@@ -103,9 +103,9 @@
 	z-index: 9;
 }
 
-.ui-nice-select.wrap > ul {
+.ui-nice-select.wrap > ul, .ui-nice-select.wrap > .current {
 	white-space: normal;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 .ui-nice-select > ul > li {
@@ -118,6 +118,7 @@
 	padding: 0 2.25em 0 .75em;
 	text-align: left;
 	transition: all 0.2s;
+	overflow-wrap: anywhere;
 }
 .ui-nice-select > ul > li:hover,
 .ui-nice-select > ul > li.focus,

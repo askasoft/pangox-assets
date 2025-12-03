@@ -94,14 +94,14 @@ select.form-control, select.form-select {
 .control-label, .col-form-label {
 	padding-right: 1em;
 	position: relative;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 /** view only control value */
 .control-value, .col-form-value {
 	padding-top: var(--ui-input-py);
 	padding-bottom: var(--ui-input-py);
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 /** text */
@@ -112,7 +112,7 @@ select.form-control, select.form-select {
 	margin: 0;
 	padding: 0;
 	white-space: pre-wrap;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 /** disable bootstrap not-allowed cursor */

@@ -276,9 +276,9 @@
 	z-index: 9;
 }
 
-.ui-nice-select.wrap > ul {
+.ui-nice-select.wrap > ul, .ui-nice-select.wrap > .current {
 	white-space: normal;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 .ui-nice-select > ul > li {
@@ -291,6 +291,7 @@
 	padding: 0 2.25em 0 .75em;
 	text-align: left;
 	transition: all 0.2s;
+	overflow-wrap: anywhere;
 }
 .ui-nice-select > ul > li:hover,
 .ui-nice-select > ul > li.focus,
@@ -1305,14 +1306,14 @@ select.form-control, select.form-select {
 .control-label, .col-form-label {
 	padding-right: 1em;
 	position: relative;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 /** view only control value */
 .control-value, .col-form-value {
 	padding-top: var(--ui-input-py);
 	padding-bottom: var(--ui-input-py);
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 /** text */
@@ -1323,7 +1324,7 @@ select.form-control, select.form-select {
 	margin: 0;
 	padding: 0;
 	white-space: pre-wrap;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 /** disable bootstrap not-allowed cursor */
@@ -1758,7 +1759,7 @@ form.lined > .form-group:last-of-type, form.lined > .row:last-of-type {
 
 /** label **/
 .ui-label, .ui-value {
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 .ui-label > pre, .ui-value > pre {
@@ -1767,18 +1768,12 @@ form.lined > .form-group:last-of-type, form.lined > .row:last-of-type {
 	margin: 0;
 	padding: 0;
 	white-space: pre-wrap;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
-
-.text-prewrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
 /** text **/
 .text-prewrap {
 	white-space: pre-wrap;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 
 .text-ellipsis {
