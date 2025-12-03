@@ -10,7 +10,7 @@
 	 * Check if arg is either an array with at least 1 element, or a dict with at least 1 key
 	 * @return boolean
 	 */
-	function isCollapsable(arg) {
+	function isCollapsible(arg) {
 		return arg instanceof Object && Object.keys(arg).length > 0;
 	}
 
@@ -58,11 +58,11 @@
 			json = htmlEscape(json);
 
 			if (options.withLinks && isUrl(json)) {
-				html += '<a href="' + json + '" class="json-string" target="_blank">' + json + '</a>';
+				html += '"<a href="' + json + '" class="json-string" target="_blank">' + json + '</a>"';
 			} else {
 				// Escape double quotes in the rendered non-URL string.
 				json = json.replace(/&quot;/g, '\\&quot;');
-				html += '<span class="json-string">"' + json + '"</span>';
+				html += '"<span class="json-string">' + json + '</span>"';
 			}
 		} else if (typeof json === 'number' || typeof json === 'bigint') {
 			html += '<span class="json-literal">' + json + '</span>';
@@ -75,8 +75,8 @@
 				html += '[<ol class="json-array">';
 				for (var i = 0; i < json.length; ++i) {
 					html += '<li>';
-					// Add toggle button if item is collapsable
-					if (isCollapsable(json[i])) {
+					// Add toggle button if item is collapsible
+					if (isCollapsible(json[i])) {
 						html += '<a href class="json-toggle"></a>';
 					}
 					html += json2html(json[i], options);
@@ -106,11 +106,11 @@
 							let jsonElement = json[key];
 							key = htmlEscape(key);
 							var keyRepr = options.withQuotes ?
-								'<span class="json-string">"' + key + '"</span>' : key;
+								'"<span class="json-string">' + key + '</span>"' : key;
 
 							html += '<li>';
-							// Add toggle button if item is collapsable
-							if (isCollapsable(jsonElement)) {
+							// Add toggle button if item is collapsible
+							if (isCollapsible(jsonElement)) {
 								html += '<a href class="json-toggle">' + keyRepr + '</a>';
 							} else {
 								html += keyRepr;
@@ -141,7 +141,7 @@
 		// Merge user options with default options
 		options = Object.assign({}, {
 			collapsed: false,
-			rootCollapsable: true,
+			rootCollapsible: true,
 			withQuotes: false,
 			withLinks: true,
 			bigNumbers: false
@@ -161,7 +161,7 @@
 
 			// Transform to HTML
 			var html = json2html(data, options);
-			if (options.rootCollapsable && isCollapsable(data)) {
+			if (options.rootCollapsible && isCollapsible(data)) {
 				html = '<a href class="json-toggle"></a>' + html;
 			}
 

@@ -1,5 +1,6 @@
 /* Root element */
 .json-document {
+	font-family: Consolas, monospace;
 	padding: 1em 2em;
 }
 
@@ -13,11 +14,10 @@ ul.json-dict, ol.json-array {
 .json-string {
 	color: #0B7500;
 	white-space: pre-wrap;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 .json-literal {
 	color: #1A01CC;
-	font-weight: bold;
 }
 
 /* Toggle button */

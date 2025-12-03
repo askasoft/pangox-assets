@@ -1,14 +1,11 @@
 <!doctype HTML>
 <html>
-  <head>
-    <title>jQuery jsonview</title>
-    <meta charset="utf-8" />
+<head>
+	<title>jQuery jsonview</title>
+	<meta charset="utf-8" />
 	<link href="../../html/bootstrap5/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <link href="../../html/jsonview/jquery.jsonview.css" type="text/css" rel="stylesheet">
-    <script src="../../html/jquery3/jquery-3.7.1.js"></script>
-    <script src="../../html/jsonview/jquery.jsonview.js"></script>
-
-    <style type="text/css">
+	<link href="../../html/jsonview/jquery.jsonview.css" type="text/css" rel="stylesheet">
+	<style type="text/css">
 p.options label {
   margin-right: 10px;
 }
@@ -22,37 +19,9 @@ textarea#json-input {
 #json-renderer {
   border: 1px solid #aaa;
 }
-    </style>
-
-    <script>
-$(function() {
-  function renderJson() {
-    try {
-      var input = eval('(' + $('#json-input').val() + ')');
-    }
-    catch (error) {
-      return alert("Cannot eval JSON: " + error);
-    }
-    var options = {
-      collapsed: $('#collapsed').is(':checked'),
-      rootCollapsable: $('#root-collapsable').is(':checked'),
-      withQuotes: $('#with-quotes').is(':checked'),
-      withLinks: $('#with-links').is(':checked')
-    };
-    $('#json-renderer').jsonview(input, options);
-  }
-
-  // Generate on click
-  $('#btn-jsonview').click(renderJson);
-
-  // Generate on option change
-  $('p.options input[type=checkbox]').click(renderJson);
-
-  // Display JSON sample on page load
-  renderJson();
-});
-    </script>
+	</style>
 </head>
+
 <body>
 	<h1 class="text-center">jQuery jsonview</h1>
 	<div class="container">
@@ -61,9 +30,12 @@ $(function() {
   "id": 1001,
   "type": "donut",
   "name": "Cake",
-  "description": "https://en.wikipedia.org/wiki/Doughnut",
+  "url": "https://en.wikipedia.org/wiki/Doughnut",
+  "comment": "a LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong LongLongLongLong and LongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLong comment.",
   "price": 2.55,
   "available": {
+	none: null,
+	bool: true,
     store: 42,
     warehouse: 600
   },
@@ -83,10 +55,10 @@ $(function() {
 		<p class="options">
 		Options:
 		<label title="Generate node as collapsed">
-			<input type="checkbox" id="collapsed">Collapse nodes
+			<input id="collapsed" type="checkbox">Collapse nodes
 		</label>
 		<label title="Allow root element to be collasped">
-			<input type="checkbox" id="root-collapsable" checked>Root collapsable
+			<input type="checkbox" id="root-collapsible" checked>Root collapsible
 		</label>
 		<label title="Surround keys with quotes">
 			<input type="checkbox" id="with-quotes">Keys with quotes
@@ -101,5 +73,37 @@ $(function() {
 		<div id="json-renderer" class="my-3"></div>
 
 	</div>
+
+	<script src="../../html/jquery3/jquery-3.7.1.js"></script>
+	<script src="../../html/jsonview/jquery.jsonview.js"></script>
+	<script>
+	$(function() {
+		function renderJson() {
+			try {
+				var input = eval('(' + $('#json-input').val() + ')');
+			}
+			catch (error) {
+				return alert("Cannot eval JSON: " + error);
+			}
+
+			var options = {
+				collapsed: $('#collapsed').is(':checked'),
+				rootCollapsible: $('#root-collapsible').is(':checked'),
+				withQuotes: $('#with-quotes').is(':checked'),
+				withLinks: $('#with-links').is(':checked')
+			};
+			$('#json-renderer').jsonview(input, options);
+		}
+
+		// Generate on click
+		$('#btn-jsonview').click(renderJson);
+
+		// Generate on option change
+		$('p.options input[type=checkbox]').click(renderJson);
+
+		// Display JSON sample on page load
+		renderJson();
+	});
+	</script>
 </body>
 </html>
