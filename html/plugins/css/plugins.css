@@ -1251,24 +1251,16 @@ label {
 }
 .required::after, .informed::after {
 	position: absolute;
-	text-align: center;
-	width: 1.1em;
 	font-size: 0.9em;
+	margin: 0.1em;
 }
 .required::after {
 	content: '\273b';
 	color: var(--bs-danger, #dc3545);
 }
 .informed::after {
-	--ui-informed-color: var(--bs-primary, #0d6efd);
-	content: 'i';
-	color: var(--ui-informed-color);
-	border: 1px solid var(--ui-informed-color);
-	border-radius: 50%;
-	height: 1.1em;
-	line-height: 1.1em;
-	margin: 0.3em 0.1em;
-	font-family: Consolas, monospace;
+	content: '\24D8'; /* 1F6C8 */
+	color: var(--bs-primary, #0d6efd);
 }
 
 /** controls **/
