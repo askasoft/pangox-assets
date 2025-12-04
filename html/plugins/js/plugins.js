@@ -1464,7 +1464,7 @@
 				.addClass('selected')
 				.each(function() {
 					var $t = $(this);
-					$dropdown.append($('<span>', { 'class': 'current', 'value': $t.attr('value')}).text($t.attr('display') || $t.text()));
+					$dropdown.append($('<span>', { 'class': 'current', 'value': $t.attr('value')}).html($t.attr('display') || $t.html()));
 				});
 		});
 	}
@@ -1539,7 +1539,7 @@
 
 		$selected.each(function() {
 			var $op = $(this);
-			$dropdown.append($('<span>', { 'class': 'current', 'value': $op.val()}).text($op.attr('display') || $op.text()));
+			$dropdown.append($('<span>', { 'class': 'current', 'value': $op.val()}).html($op.attr('display') || $op.html()));
 		});
 
 		$options.each(function() {
@@ -1552,7 +1552,7 @@
 					($option.is(':selected') ? ' selected' : '') +
 					($option.is(':disabled') ? ' disabled' : ''))
 				.attr('tabindex', $option.is(':disabled') ? null : '0')
-				.text($option.text())
+				.html($option.html())
 			);
 		});
 
