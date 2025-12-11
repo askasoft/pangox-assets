@@ -202,6 +202,6 @@
 	// JSONVIEW DATA-API
 	// ==================
 	$(window).on('load', function() {
-		$('ul[data-spy="jsonview"]').jsonview();
+		$('[data-spy="jsonview"]').jsonview();
 	});
 })(jQuery);
