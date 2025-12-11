@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>JQuery ListDrag Plugin</title>
+	<link href="../../html/bootstrap5/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="../../html/fontawesome6/css/all.css" rel="stylesheet" type="text/css" />
+	<link href="../../html/plugins/css/jquery.ui.listdrag.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="container">
+		<h1 style="text-align: center; margin: 20px 0px;">JQuery ListDrag Plugin</h1>
+		<hr>
+
+		<div id="themes" class="text-center">
+			Theme:
+			<button id="light" class="btn btn-primary">Light</button>
+			<button id="dark" class="btn btn-secondary">Dark</button>
+		</div>
+		<hr>
+
+		<div>Basic:</div>
+		<ul class="list-group" data-spy="listdrag">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+
+		<br><br>
+
+		<div>Flush:</div>
+		<ul class="list-group list-group-flush" data-spy="listdrag">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+
+		<br><br>
+
+		<div>Horizontal:</div>
+		<ul class="list-group list-group-horizontal horizontal" data-spy="listdrag">
+			<li class="list-group-item">An item</li>
+			<li class="list-group-item">A second item</li>
+			<li class="list-group-item">A third item</li>
+			<li class="list-group-item">A fourth item</li>
+			<li class="list-group-item">And a fifth one</li>
+		</ul>
+	</div>
+
+	<script src="../../html/jquery3/jquery-3.7.1.js"></script>
+	<script src="../../html/bootstrap5/js/bootstrap.bundle.js"></script>
+	<script src="../../html/plugins/js/jquery.ui.listdrag.js"></script>
+	<script>
+		$(window).on('load', function() {
+			$('#light, #dark').click(function() {
+				$('body').attr('data-bs-theme', $(this).attr('id'));
+			});
+
+		});
+	</script>
+</body>
+
+</html>

@@ -101,6 +101,16 @@
 	padding: 0 1em;
 	transition: padding 0.4s ease;
 }
+.ui-listdrag > li {
+	--ui-dragover-color: var(--bs-primary, #0d6efd);
+	cursor: default;
+}
+.ui-listdrag.vertical > li.dragover {
+	border-top: dashed 1px var(--ui-dragover-color);
+}
+.ui-listdrag.horizontal > li.dragover {
+	border-left: dashed 1px var(--ui-dragover-color);
+}
 .ui-loadmask-mask {
 	background-color: #ccc;
 	opacity: .25;

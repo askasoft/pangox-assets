@@ -1,0 +1,10 @@
+.ui-listdrag > li {
+	--ui-dragover-color: var(--bs-primary, #0d6efd);
+	cursor: default;
+}
+.ui-listdrag.vertical > li.dragover {
+	border-top: dashed 1px var(--ui-dragover-color);
+}
+.ui-listdrag.horizontal > li.dragover {
+	border-left: dashed 1px var(--ui-dragover-color);
+}

@@ -39,10 +39,10 @@
 		if (!$f.data('fieldset')) {
 			c = $.extend({}, $.fieldset.defaults, c);
 
-			var h = c.collapsed || $f.hasClass('collapsed'), e = 'click.fieldset';
+			var h = c.collapsed || $f.hasClass('collapsed'), E = 'click.fieldset';
 	
 			$f.data('fieldset', c).addClass('ui-fieldset collapsible' + (h ? ' collapsed' : ''));
-			$f.children('legend').off(e).on(e, _click);
+			$f.children('legend').off(E).on(E, _click);
 			$f.children(':not(legend)').toggle(!h);
 		}
 	}
