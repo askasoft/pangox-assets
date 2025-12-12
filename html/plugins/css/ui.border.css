@@ -6,6 +6,6 @@
 }
 
 .ui-bordered {
-	border: solid 1px var(--ui-border-color);
+	border: 1px solid var(--ui-border-color);
 }
 

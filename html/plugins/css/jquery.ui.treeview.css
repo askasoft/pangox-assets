@@ -222,8 +222,8 @@
 
 /* draggable */
 .ui-tree li > .item.dragover {
-	border: solid 1px var(--ui-tree-dragover-color);
+	border: 1px solid var(--ui-tree-dragover-color);
 }
 .ui-tree li.dragging .item {
-	border: solid 1px var(--ui-tree-dragging-color);
+	border: 1px solid var(--ui-tree-dragging-color);
 }

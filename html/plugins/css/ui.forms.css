@@ -33,12 +33,12 @@
 	border-style: dashed;
 }
 .ui-checks > label.dragover {
-	border-left: dashed 1px var(--ui-dragover-color);
+	border-left: 1px dashed var(--ui-dragover-color);
 	padding-left: 1.7em;
 }
 .ui-checks.vertical > label.dragover {
 	border-left: none;
-	border-top: dashed 1px var(--ui-dragover-color);
+	border-top: 1px dashed var(--ui-dragover-color);
 }
 
 /* bootstrap4/5 form row, view row */

@@ -2,89 +2,49 @@
 .ui-sidenavi > .panel, .ui-sidenavi > .card {
 	background-color: transparent;
 	border: none;
-	margin-bottom: 1rem;
+	margin-bottom: 1em;
 }
 .ui-sidenavi > .panel > .panel-heading, .ui-sidenavi > .card > .card-header {
 	background-color: transparent;
-	padding: 0.25rem 0;
+	padding: 0.25em 0;
 	position: relative;
+}
+.ui-sidenavi > .panel > .panel-heading > *, .ui-sidenavi > .card > .card-header > * {
+	padding: 0.25em 0.5em;
 }
 .ui-sidenavi > .panel > .panel-body, .ui-sidenavi > .card > .card-body {
 	background-color: transparent;
 	padding: 2px 0;
 }
 
-.ui-sidenavi ul.nav > li > * {
-	align-items: center;
+.ui-sidenavi .nav {
 	display: flex;
-	padding: 0.25rem 0.5rem;
+	flex-direction: column;
+	flex-wrap: nowrap;
 }
-.ui-sidenavi ul.nav > li.active {
-	font-weight: bold;
+.ui-sidenavi .nav.collapse:not(.show) {
+	display: none;
+}
+.ui-sidenavi a {
+	display: flex;
+	align-items: baseline;
+	padding: 0.25em 0.5em;
+}
+.ui-sidenavi i {
+	line-height: 1.5em;
+}
+.ui-sidenavi i + span {
+	margin-left: 0.5em;
 }
 
-.ui-sidenavi .panel i + span, .ui-sidenavi .card i + span {
-	margin-left: 0.5rem;
-}
-
-/* mininav */
-.ui-sidenavi.mininav {
-	text-align: right;
-}
-.ui-sidenavi.mininav > .panel, .ui-sidenavi.mininav > .card {
-	text-align: center;
-}
-.ui-sidenavi.mininav > .panel i + span, .ui-sidenavi.mininav > .card i + span {
+/* mininavi */
+.ui-sidenavi.mininavi i + span {
 	display: none;
 }
 
 /* minimal */
 @media (max-width: 991px) {
-	.ui-sidenavi.minimal {
-		text-align: right;
-	}
-	.ui-sidenavi.minimal > .panel, .ui-sidenavi.minimal > .card {
-		text-align: center;
-	}
-	.ui-sidenavi.minimal > .panel i + span, .ui-sidenavi.minimal > .card i + span {
+	.minimal .ui-sidenavi i + span {
 		display: none;
-	}
-}
-
-/* flatbar */
-.ui-sidenavi.flatbar {
-	text-align: left;
-}
-.ui-sidenavi.flatbar > .panel, .ui-sidenavi.flatbar > .card {
-	display: inline-block;
-	text-align: left;
-	margin-bottom: 0.5rem;
-	width: auto;
-}
-.ui-sidenavi.flatbar > .panel > .panel-heading, .ui-sidenavi.flatbar > .card > .card-header {
-	display: none;
-}
-.ui-sidenavi.flatbar > .panel-body, .ui-sidenavi.flatbar > .panel ul.nav, .ui-sidenavi.flatbar > .panel ul.nav > li,
-.ui-sidenavi.flatbar > .card-body,  .ui-sidenavi.flatbar > .card ul.nav,  .ui-sidenavi.flatbar > .card ul.nav > li {
-	display: inline-block;
-}
-
-/* barable */
-@media (max-width: 767px) {
-	.ui-sidenavi.barable {
-		text-align: left;
-	}
-	.ui-sidenavi.barable > .panel, .ui-sidenavi.barable > .card {
-		display: inline-block;
-		text-align: left;
-		margin-bottom: 0.5rem;
-		width: auto;
-	}
-	.ui-sidenavi.barable > .panel > .panel-heading, .ui-sidenavi.barable > .card > .card-header {
-		display: none;
-	}
-	.ui-sidenavi.barable > .panel-body, .ui-sidenavi.barable > .panel ul.nav, .ui-sidenavi.barable > .panel ul.nav > li,
-	.ui-sidenavi.barable > .card-body,  .ui-sidenavi.barable > .card ul.nav,  .ui-sidenavi.barable > .card ul.nav > li {
-		display: inline-block;
 	}
 }

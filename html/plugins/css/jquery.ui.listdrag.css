@@ -3,8 +3,8 @@
 	cursor: default;
 }
 .ui-listdrag.vertical > li.dragover {
-	border-top: dashed 1px var(--ui-dragover-color);
+	border-top: 1px dashed var(--ui-dragover-color);
 }
 .ui-listdrag.horizontal > li.dragover {
-	border-left: dashed 1px var(--ui-dragover-color);
+	border-left: 1px dashed var(--ui-dragover-color);
 }

@@ -1,6 +1,6 @@
 .ui-fieldset {
 	--ui-arrow-color: #999;
-	border: solid 1px var(--ui-border-color, #ccc);
+	border: 1px solid var(--ui-border-color, #ccc);
 	margin: 0 0 1em 0;
 	padding: 1em;
 }
@@ -18,7 +18,7 @@
 	cursor: pointer;
 } 
 .ui-fieldset > legend.circle {
-	border: solid 1px var(--ui-border-color, #ccc);
+	border: 1px solid var(--ui-border-color, #ccc);
 	border-radius: 1em;
 	padding-top: 0.25em;
 	padding-bottom: 0.25em;
