@@ -61,11 +61,11 @@
 	}
 
 	function _collapse($n) {
-		$n.addClass('collapsed').children('.item').next().slideUp();
+		$n.addClass('collapsed').children('ul').slideUp();
 	}
 
 	function _expand($n) {
-		$n.removeClass('collapsed').children('.item').next().slideDown();
+		$n.removeClass('collapsed').children('ul').slideDown();
 	}
 
 	function _toggle($n) {
@@ -73,7 +73,7 @@
 	}
 
 	function collapse($t, $n) {
-		_collapse($n || $t.find('li:not(.collapsed .leaf)'));
+		_collapse($n || $t.find('li:not(.collapsed, .leaf)'));
 	}
 
 	function expand($t, $n) {
@@ -91,7 +91,7 @@
 	function init($t) {
 		dispose($t);
 
-		$t.addClass('ui-tree').find('li .item').each(function() {
+		$t.addClass('ui-tree').find('.item').each(function() {
 			var $i = $(this), $n = $i.parent();
 			if ($i.next('ul').length) {
 				$n.addClass('node');
