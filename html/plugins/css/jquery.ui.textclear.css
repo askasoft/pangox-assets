@@ -14,7 +14,7 @@
 	margin: 8px 8px 0 -24px !important;
 }
 
-.ui-has-textclear:disabled + .ui-textclear.ui-close {
+.ui-has-textclear:disabled + .ui-textclear.ui-close, .ui-has-textclear:read-only + .ui-textclear.ui-close {
 	display: none;
 }
 
