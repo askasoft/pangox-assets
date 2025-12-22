@@ -19,7 +19,7 @@
 	 * This doesn't attempt to validate URLs, there's no use and syntax can be too complex
 	 * @return boolean
 	 */
-	function isUrl(s) {
+	function isURL(s) {
 		for (var i = 0; i < protocols.length; ++i) {
 			if (s.startsWith(protocols[i])) {
 				return true;
@@ -57,11 +57,9 @@
 			// Escape tags and quotes
 			json = htmlEscape(json);
 
-			if (options.withLinks && isUrl(json)) {
+			if (options.withLinks && isURL(json)) {
 				html += '"<a href="' + json + '" class="json-string" target="_blank">' + json + '</a>"';
 			} else {
-				// Escape double quotes in the rendered non-URL string.
-				json = json.replace(/&quot;/g, '\\&quot;');
 				html += '"<span class="json-string">' + json + '</span>"';
 			}
 		} else if (typeof json === 'number' || typeof json === 'bigint') {
