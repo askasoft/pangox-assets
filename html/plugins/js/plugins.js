@@ -509,37 +509,47 @@
 	}
 	function _dragover(e) {
 		e.preventDefault();
-		$(this).addClass('dragover');
+		if (_droppable(this)) {
+			$(this).addClass('dragover');
+		}
 	}
 	function _dragleave() {
 		$(this).removeClass('dragover');
 	}
-
 	function _drop() {
-		var el = this, $l = $(el);
+		var a = _droppable(this);
+		if (a) {
+			var $l = a[0], $p = a[1], $d = $(_d);
 
+			$p.data('checkorder', true).trigger('dropstart.checkorder', [ _d, this ]);
+			if ($p.data('checkorder')) {
+				$d.find(':checkbox').prop('checked', $l.find(':checkbox').prop('checked'));
+				$d.insertBefore($l);
+				$p.trigger('dropend.checkorder');
+			}
+		}
+		$(this).removeClass('dragover');
+	}
+
+	function _droppable(el) {
 		if (_d && _d !== el) {
-			var $d = $(_d), $p = $l.parent(), $ls = $p.children('label');
+			var $l = $(el), $p = $l.parent(), $ls = $p.children('label');
 
 			if ($ls.filter(function() { return this === _d; }).length) {
-				var c = $l.find(':checkbox').prop('checked');
-
-				$p.data('checkorder', '').trigger('dropstart.checkorder', [ _d, el ]);
-				if ($p.data('checkorder') != 'cancel') {
-					$d.find(':checkbox').prop('checked', c);
-					$d.insertBefore($l);
-					$p.trigger('dropend.checkorder');
+				$p.data('checkorder', true).trigger('dropstart.checkorder', [ _d, el ]);
+				if ($p.data('checkorder')) {
+					return [ $l, $p ];
 				}
 			}
 		}
-		$l.removeClass('dragover');
+		return false;
 	}
 
 	function _click() {
 		var $c = $(this), $l = $c.closest('label'), $p = $l.parent();
 
-		$p.data('checkorder', '').trigger('clickstart.checkorder', [ $c[0] ]);
-		if ($p.data('checkorder') != 'cancel') {
+		$p.data('checkorder', true).trigger('clickstart.checkorder', [ $c[0] ]);
+		if ($p.data('checkorder')) {
 			$l.fadeOut(200, function() {
 				var $h = $c.closest('.ui-checks').find('hr');
 				if ($c.prop('checked')) {
@@ -2837,7 +2847,10 @@
 		if (dl && dl !== li) {
 			// check the drag LI is not drop in it's children
 			if ($(dl).find('.item').filter(function() { return this === el; }).length == 0) {
-				return [ dl, $l, $t ];
+				$t.data('droppable', true).trigger('droppable.treeview', [ dl,  $l.get(0) ]);
+				if ($t.data('droppable')) {
+					return [ dl, $l, $t ];
+				}
 			}
 		}
 		return false;

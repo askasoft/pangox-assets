@@ -47,7 +47,10 @@
 		if (dl && dl !== li) {
 			// check the drag LI is not drop in it's children
 			if ($(dl).find('.item').filter(function() { return this === el; }).length == 0) {
-				return [ dl, $l, $t ];
+				$t.data('droppable', true).trigger('droppable.treeview', [ dl,  $l.get(0) ]);
+				if ($t.data('droppable')) {
+					return [ dl, $l, $t ];
+				}
 			}
 		}
 		return false;
