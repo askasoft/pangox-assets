@@ -151,7 +151,8 @@
 		}
 
 		uc.name ||= $uf.attr('name');
-		uc.uploadName ||= $uf.attr('name') || uc.name;
+		uc.uploadName ||= uc.name;
+		$uf.attr('name', '');
 
 		function __start_upload($fit) {
 			var f = $fit.data('file');
@@ -198,10 +199,6 @@
 					if (uc.uploadRemover) {
 						$fit.find('.ui-close').show();
 					}
-					if (!$u.find('.ui-uploader-file').prop('multiple')) {
-						$ub.prop('disabled', false);
-						$uf.prop('disabled', false);
-					}
 					__proc_uploads();
 				}
 			});
@@ -214,10 +211,8 @@
 		}
 
 		function __append_uploads(f) {
-			if (!$u.find('.ui-uploader-file').prop('multiple')) {
+			if (!$uf.prop('multiple')) {
 				$u.find('.ui-uploader-item').remove();
-				$ub.prop('disabled', true);
-				$uf.prop('disabled', true);
 			}
 
 			var ufs = [];
@@ -287,41 +282,24 @@
 	function _options($u) {
 		var ds = ['uploadData'],
 			fs = ['ajaxDone', 'ajaxFail'],
-			bs = ['dnloadEncode'],
-			ps = [
-				'name',
-				'uploadUrl',
-				'uploadName',
-				'uploadLimit',
-				'uploadRemover',
-				'dnloadUrl',
-				'dnloadHolder',
-				'dnloadTarget',
-				'dnloadView',
-				'pgbarFgcolor',
-				'pgbarBgcolor'
-			],
-			ks = [].concat(ds, fs, bs, ps);
+			bs = ['dnloadEncode'];
 
 		var c = {};
-		$.each(ks, function(i, k) {
-			var v = $u.data(k);
-			if (v) {
-				if ($.inArray(k, ds) >= 0) {
-					if (typeof (v) == 'string') {
-						try {
-							v = JSON.parse(v);
-						} catch (e) {
-							return;
-						}
+		$.each($u.data(), function(k, v) {
+			if ($.inArray(k, ds) >= 0) {
+				if (typeof (v) == 'string') {
+					try {
+						v = JSON.parse(v);
+					} catch (e) {
+						return;
 					}
-				} else if ($.inArray(k, fs) >= 0) {
-					v = new Function(v);
-				} else if ($.inArray(k, bs) >= 0) {
-					v = (v === 'true');
 				}
-				c[k] = v;
+			} else if ($.inArray(k, fs) >= 0) {
+				v = new Function(v);
+			} else if ($.inArray(k, bs) >= 0) {
+				v = (v === 'true');
 			}
+			c[k] = v;
 		});
 		return c;
 	}
@@ -330,20 +308,18 @@
 	// ==================
 	$.uploader = {
 		defaults: {
-			// max concurrent upload files
-			uploadLimit: 1,
+			name: '',				// field name
 
-			// show uploader remover icon
-			uploadRemover: false,
+			uploadUrl: '',			// upload URL
+			uploadName: '',			// upload file field name
+			uploadLimit: 1,			// max concurrent upload files
+			uploadRemover: true,	// show uploader remover icon
 
-			// download link target
-			dnloadTarget: '_blank',
-
-			// download file id/name placeholder
-			dnloadHolder: '$',
-
-			// show image download view
-			dnloadView: false,
+			dnloadUrl: '',			// download URL
+			dnloadTarget: '_blank',	// download link target
+			dnloadHolder: '$',		// download file id/name placeholder
+			dnloadEncode: false,	// encode download parameter
+			dnloadView: false,		// show image download view
 
 			// fontawesome4/5/6 css
 			cssIcons: {
