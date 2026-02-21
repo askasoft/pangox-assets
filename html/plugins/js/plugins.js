@@ -2954,6 +2954,10 @@
 
 	var UNITS = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 	function _filesize(n, p) {
+		if (n === undefined || n === null) {
+			return '';
+		}
+
 		var i = 0, l = UNITS.length - 1;
 		while (n >= 1024 && i < l) {
 			n = n / 1024
@@ -2961,7 +2965,7 @@
 		}
 
 		p = Math.pow(10, p || 2);
-		return '(' + Math.round(n * p) / p + UNITS[i] + ')';
+		return ' (' + Math.round(n * p) / p + UNITS[i] + ')';
 	}
 
 	function _filename(fn) {
@@ -2971,13 +2975,17 @@
 		return fn.substr(i + 1);
 	}
 
-	function _filetype(t, e) {
+	function _filetype(e, t) {
 		if (t) {
 			var i = t.indexOf('/'), c = (i >= 0) ? t.slice(0, i) : t;
 			return ($.inArray(c, ['image', 'audio', 'video', 'file']) >= 0) ? c : 'file';
 		}
 		if (e) {
 			e = e.toLowerCase();
+			var dot = e.lastIndexOf('.');
+			if (dot > 0) {
+				e = e.substring(dot);
+			}
 			if ($.inArray(e, ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff', '.svg', '.bmp', '.webp']) >= 0) {
 				return 'image';
 			}
@@ -2991,70 +2999,85 @@
 		return 'file';
 	}
 
-	function _item_on_remove() {
-		$(this).closest('.ui-uploader-item').removeData('file').fadeOut(function() {
-			$(this).remove();
-		});
-		return false;
+	function _create_item($u, fid, fnm, fct, fsz) {
+		var uc = $u.data('uploader'), $i = $('<div>', { 'class': 'ui-uploader-item' });
+
+		$i.append(
+			$('<input>', { type: 'hidden', name: uc.name, 'class': 'ui-uploader-fid' }).val(fid),
+			$('<i>', { 'class': 'ui-close' }).on('click', _item_on_remove),
+			$('<span>', { 'class': 'ui-uploader-info' })
+				.append($('<i>', { 'class': uc.cssIcons[fct] + ' ui-uploader-icon' }))
+				.append($('<span>', { 'class': 'ui-uploader-text' }).text(fnm + _filesize(fsz))),
+		);
+		_update_item_dnload(uc, $i, fid, fct);
+
+		var $e = $u.find('.ui-uploader-item:first');
+		if ($e.length) {
+			$i.insertBefore($e);
+		} else {
+			$u.append($i);
+		}
+
+		$u.find('.ui-uploader-empty').prop('disabled', true);
+		return $i;
 	}
 
-	function _create_item($u, f) {
-		var uc = $u.data('uploader'),
-			fnm = _filename(f.name || f.path || f.id),
-			fsz = f.size;
-
-		var $fit = $('<div>', { 'class': 'ui-uploader-item' }).data('file', f);
-
-		$('<input>', { type: 'hidden', name: uc.name, 'class': 'ui-uploader-fid' }).appendTo($fit);
-		$('<i>', { 'class': 'ui-close' }).click(_item_on_remove).appendTo($fit);
-
-		$('<span>', { 'class': 'ui-uploader-info' })
-			.append($('<i>', { 'class': uc.cssIcons.waiting + ' ui-uploader-icon' }))
-			.append($('<span>', { 'class': 'ui-uploader-text' }).text(fnm + ' ' + _filesize(fsz)))
-			.appendTo($fit);
-
-		$u.find('.ui-uploader-items').prepend($fit);
-
-		return $fit;
-	}
-
-	function _update_item($fit, fi) {
-		var $u = $fit.closest('.ui-uploader'),
-			uc = $u.data('uploader'),
-			fid = fi.id || fi.path || fi.name,
+	function _update_item($i, fi) {
+		var $u = $i.closest('.ui-uploader'), uc = $u.data('uploader'),
+			fid = fi.id || fi.path || fi.name || '',
 			fnm = _filename(fi.name || fi.path || fi.id),
-			fsz = fi.size,
-			fct = _filetype(fi.type, fi.ext);
+			fct = _filetype(fi.ext || fnm, fi.type);
 
-		$fit.find('.ui-uploader-fid').val(fid || '');
+		$i.find('.ui-uploader-fid').val(fid);
+		$i.find('.ui-uploader-icon').attr('class', uc.cssIcons[fct] + ' ui-uploader-icon');
 
+		if (fnm) {
+			$i.find('.ui-uploader-text').text(fnm + _filesize(fi.size));
+		}
+
+		_update_item_dnload(uc, $i, fid, fct);
+	}
+
+	function _update_item_dnload(uc, $i, fid, fct) {
 		var durl;
 		if (uc.dnloadUrl && fid) {
 			durl = uc.dnloadUrl.replace(uc.dnloadHolder, uc.dnloadEncode ? encodeURIComponent(fid) : fid);
 		}
+		if (durl) {
+			var $fif = $i.find('.ui-uploader-info');
+			$('<a>', { href: durl, target: uc.dnloadTarget }).append($fif).appendTo($i);
 
-		$fit.find('.ui-uploader-icon').prop('className', uc.cssIcons[fct] + ' ui-uploader-icon');
-
-		if (fnm) {
-			$fit.find('.ui-uploader-text').text(fnm + ' ' + _filesize(fsz));
-			if (durl) {
-				var $fif = $fit.find('.ui-uploader-info');
-				$('<a>', { href: durl, target: uc.dnloadTarget }).append($fif).appendTo($fit);
+			if (uc.preview && fct == 'image') {
+				var $fim = $('<div>').addClass('ui-uploader-preview').appendTo($i);
+				$('<a>', { href: durl, target: uc.dnloadTarget }).append($('<img>', { src: durl })).appendTo($fim).fadeIn();
 			}
-		}
-
-		if (uc.dnloadView && durl && fct == 'image') {
-			var $fim = $('<div>').addClass('ui-uploader-image').appendTo($fit);
-			$('<a>', { href: durl, target: uc.dnloadTarget }).append($('<img>', { src: durl })).appendTo($fim).fadeIn();
 		}
 	}
 
-	function _item_progress($fit, p) {
+	function _append_upload($u, f, closer) {
+		var fnm = _filename(f.name || f.path), fsz = f.size;
+
+		return _create_item($u, '', fnm, 'waiting', fsz, closer).data('file', f);
+	}
+
+	function _item_on_remove() {
+		$(this).closest('.ui-uploader-item').removeData('file').fadeOut(function() {
+			var $i = $(this), $u = $i.closest('.ui-uploader');
+
+			$i.remove();
+			if (!$u.find('.ui-uploader-item').length) {
+				$u.find('.ui-uploader-empty').prop('disabled', false);
+			}
+		});
+		return false;
+	}
+
+	function _item_progress($i, p) {
 		if (p < 100) {
-			var uc = $fit.closest('.ui-uploader').data('uploader');
-			$fit.css('background', 'linear-gradient(to right, ' + uc.pgbarFgcolor + + ' ' + p + '%, ' + uc.pgbarBgcolor + ' ' + (100 - p) + '%)');
+			var uc = $i.closest('.ui-uploader').data('uploader');
+			$i.css('background', 'linear-gradient(to right, ' + uc.pgbarFgcolor + + ' ' + p + '%, ' + uc.pgbarBgcolor + ' ' + (100 - p) + '%)');
 		} else {
-			$fit.css('background', '').addClass('blinking');
+			$i.css('background', '').addClass('blinking');
 		}
 	}
 
@@ -3086,64 +3109,49 @@
 	function _init($u, uc) {
 		$u.addClass('ui-uploader').data('uploader', uc);
 
-		var uploads = [],
-			$uf = $u.find('.ui-uploader-file'),
-			$ub = $u.find('.ui-uploader-btn'),
-			$us = $u.find('.ui-uploader-items');
-
-		if ($us.length < 1) {
-			$us = $('<div class="ui-uploader-items"></div>');
-			$u.append($us);
-		}
+		var uploads = [], $uf = $u.find('.ui-uploader-file'), $ub = $u.find('.ui-uploader-btn');
 
 		uc.name ||= $uf.attr('name');
 		uc.uploadName ||= uc.name;
 		$uf.attr('name', '');
 
-		function __start_upload($fit) {
-			var f = $fit.data('file');
+		function __start_upload($i) {
+			var f = $i.data('file');
 			if (!f) {
 				return;
 			}
 
-			$fit.addClass('loading');
-			$fit.find('.ui-uploader-icon').prop('className', uc.cssIcons.loading + ' ui-uploader-icon');
+			$i.addClass('loading');
+			$i.find('.ui-uploader-icon').attr('class', uc.cssIcons.loading + ' ui-uploader-icon');
 
-			$u.trigger('upload.uploader', { item: $fit, file: f });
+			$u.trigger('upload.uploader', { item: $i, file: f });
 
-			$fit.find('.ui-close').hide();
-
-			var data = {};
-			$u.find('.ui-uploader-data').each(function() {
-				var $i = $(this);
-				data[$i.attr('name')] = $i.val();
-			});
-			$.extend(data, uc.uploadData);
+			$i.find('.ui-close').hide();
 
 			var file = {}; file[uc.uploadName] = f;
 
 			$.ajaf({
 				url: uc.uploadUrl,
-				data: data,
+				data: uc.uploadData,
 				file: file,
 				dataType: 'json',
 				uprogress: function(loaded, total) {
-					_item_progress($fit, Math.round(loaded * 100 / total));
+					_item_progress($i, Math.round(loaded * 100 / total));
 				},
 				success: function(data, status, xhr) {
-					$fit.css('background', '').addClass('success');
-					uc.ajaxDone.call($fit, data, status, xhr);
-					$u.trigger('uploaded.uploader', { item: $fit, data: data });
+					$i.css('background', '').addClass('success');
+					uc.ajaxDone.call($i, data, status, xhr);
+					$u.trigger('uploaded.uploader', { item: $i, data: data });
 				},
 				error: function(xhr, status, e) {
-					$fit.addClass('error');
-					$fit.find('.ui-uploader-icon').prop('className', uc.cssIcons['error'] + ' ui-uploader-icon');
-					uc.ajaxFail.call($fit, xhr, status, e);
+					$i.addClass('error');
+					$i.find('.ui-uploader-icon').attr('class', uc.cssIcons['error'] + ' ui-uploader-icon');
+					uc.ajaxFail.call($i, xhr, status, e);
 				},
 				complete: function() {
-					$fit.removeClass('loading blinking').removeData('file');
-					if (uc.uploadRemover) {
-						$fit.find('.ui-close').show();
+					$i.removeClass('loading blinking').removeData('file');
+					if (uc.remover) {
+						$i.find('.ui-close').show();
 					}
 					__proc_uploads();
 				}
@@ -3164,13 +3172,13 @@
 			var ufs = [];
 			if (f instanceof FileList) {
 				$.each(f, function(i, f) {
-					ufs.push(_create_item($u, f));
+					ufs.push(_append_upload($u, f));
 				});
 			} else if (f instanceof File) {
-				ufs.push(_create_item($u, f));
+				ufs.push(_append_upload($u, f));
 			} else {
 				$.each(f.prop('files'), function(i, f) {
-					ufs.push(_create_item($u, f));
+					ufs.push(_append_upload($u, f));
 				});
 			}
 
@@ -3196,6 +3204,13 @@
 				}
 			}
 		}
+
+		// initial values
+		(uc.values || []).concat([ uc.value ]).forEach(function(v) {
+			if (v) {
+				_create_item($u, v, _filename(v), _filetype(v));
+			}
+		});
 
 		// event handler
 		$uf.change(function() {
@@ -3226,24 +3241,12 @@
 	}
 
 	function _options($u) {
-		var ds = ['uploadData'],
-			fs = ['ajaxDone', 'ajaxFail'],
-			bs = ['dnloadEncode'];
+		var fs = ['ajaxDone', 'ajaxFail'];
 
 		var c = {};
 		$.each($u.data(), function(k, v) {
-			if ($.inArray(k, ds) >= 0) {
-				if (typeof (v) == 'string') {
-					try {
-						v = JSON.parse(v);
-					} catch (e) {
-						return;
-					}
-				}
-			} else if ($.inArray(k, fs) >= 0) {
+			if ($.inArray(k, fs) >= 0) {
 				v = new Function(v);
-			} else if ($.inArray(k, bs) >= 0) {
-				v = (v === 'true');
 			}
 			c[k] = v;
 		});
@@ -3255,17 +3258,17 @@
 	$.uploader = {
 		defaults: {
 			name: '',				// field name
+			remover: true,	// show uploader remover icon
+			preview: false,		// show image preview
 
 			uploadUrl: '',			// upload URL
 			uploadName: '',			// upload file field name
 			uploadLimit: 1,			// max concurrent upload files
-			uploadRemover: true,	// show uploader remover icon
 
 			dnloadUrl: '',			// download URL
 			dnloadTarget: '_blank',	// download link target
 			dnloadHolder: '$',		// download file id/name placeholder
 			dnloadEncode: false,	// encode download parameter
-			dnloadView: false,		// show image download view
 
 			// fontawesome4/5/6 css
 			cssIcons: {

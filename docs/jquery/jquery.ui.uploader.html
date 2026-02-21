@@ -15,63 +15,64 @@
 		<h1 style="text-align: center; margin: 20px 0px;">JQuery Uploader Plugin</h1>
 
 		<hr>
-		<p>Single File upload via ajax</p>
-		<div id="single"
+		<div id="themes" class="text-center">
+			Theme:
+			<button id="light" class="btn btn-primary">Light</button>
+			<button id="dark" class="btn btn-secondary">Dark</button>
+		</div>
+
+		<hr>
+		<p>Single File upload</p>
+		<div data-spy="uploader"
 			data-upload-url="https://xdemo.aska-soft.com/files/upload"
-			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$"
-			data-spy="uploader">
+			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$">
 			
-			<input type="hidden" name="token" class="ui-uploader-data" value="single"/>
-			<input type="file" name="file" class="ui-uploader-file" accept="audio/*" style="display:none"/>
+			<input type="file" name="file" class="ui-uploader-file" accept="audio/*"/>
 			<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
 		</div>
 
 		<hr>
-		<p>Multiple Files upload via ajax</p>
-		<div id="multi"
+		<p>Multiple Files upload</p>
+		<div data-spy="uploader"
 			data-upload-url="https://xdemo.aska-soft.com/files/upload"
-			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$"
-			data-spy="uploader">
+			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$">
 
-			<input type="hidden" name="token" class="ui-uploader-data" value="multi"/>
-			<input type="file" name="file" multiple class="ui-uploader-file" accept="video/*" style="display:none"/>
-			<div class="text-center">
-				<p>Drag and drop files to this area</p>
-				<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
-			</div>
+			<input type="file" name="file" multiple class="ui-uploader-file" accept="video/*"/>
+			<p class="w-100">Drag and drop files to this area</p>
+			<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
 		</div>
 
 		<hr>
-		<p>Multiple Files upload via ajax (image preview)</p>
-		<div id="multi2"
+		<p>Multiple Files upload (image preview)</p>
+		<div data-spy="uploader" data-remover="false" data-preview="true"
 			data-upload-url="https://xdemo.aska-soft.com/files/upload"
-			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$"
-			data-upload-remover="true"
-			data-dnload-view="true"
-			data-spy="uploader">
+			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$">
 
-			<input type="hidden" name="token" class="ui-uploader-data" value="multi"/>
-			<input type="file" name="file" multiple class="ui-uploader-file" accept="image/*" style="display:none"/>
-			<div class="text-center">
-				<p>Drag and drop files to this area</p>
-				<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
-			</div>
+			<input type="file" name="file" multiple class="ui-uploader-file" accept="image/*"/>
+			<p class="w-100">Drag and drop files to this area</p>
+			<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
 		</div>
 
 		<hr>
-		<p>Multiple Files upload via ajax (concurrent: 5)</p>
-		<div id="multi2"
+		<p>Multiple Files upload (concurrent: 5)</p>
+		<div data-spy="uploader" data-upload-limit="5"
 			data-upload-url="https://xdemo.aska-soft.com/files/upload"
-			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$"
-			data-upload-limit="5"
-			data-spy="uploader">
+			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$">
 
-			<input type="hidden" name="token" class="ui-uploader-data" value="multi"/>
-			<input type="file" name="file" multiple class="ui-uploader-file" style="display:none"/>
-			<div class="text-center">
-				<p>Drag and drop files to this area</p>
-				<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
-			</div>
+			<input type="file" name="file" multiple class="ui-uploader-file"/>
+			<p class="w-100">Drag and drop files to this area</p>
+			<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
+		</div>
+
+		<hr>
+		<p>Multiple Files upload (errors)</p>
+		<div data-spy="uploader"
+			data-upload-url="https://xdemo.aska-soft.com/files/error"
+			data-dnload-url="https://xdemo.aska-soft.com/files/dnload$">
+
+			<input type="file" name="file" multiple class="ui-uploader-file"/>
+			<p class="w-100">Drag and drop files to this area</p>
+			<a class="btn btn-sm btn-primary ui-uploader-btn">Browse...</a>
 		</div>
 	</div>
 
@@ -79,5 +80,12 @@
 	<script src="../../html/bootstrap5/js/bootstrap.bundle.js"></script>
 	<script src="../../html/plugins/js/jquery.ajaf.js"></script>
 	<script src="../../html/plugins/js/jquery.ui.uploader.js"></script>
+	<script>
+		$(window).on('load', function() {
+			$('#light, #dark').click(function() {
+				$('body').attr('data-bs-theme', $(this).attr('id'));
+			});
+		});
+	</script>
 </body>
 </html>
