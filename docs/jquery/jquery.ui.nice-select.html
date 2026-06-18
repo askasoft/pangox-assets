@@ -5,8 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<title>jQuery Nice Select</title>
-	<link href="../../html/bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css" />
-	<link href="../../html/fontawesome4/css/font-awesome.css" rel="stylesheet" type="text/css" />
+	<link href="../../html/bootstrap5/css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="../../html/plugins/css/jquery.ui.nice-select.css" rel="stylesheet">
 	<style>
 		/* Code blocks */
@@ -103,7 +102,6 @@
 			-moz-osx-font-smoothing: grayscale;
 			color: #445870;
 			font-family: 'Work Sans', sans-serif;
-			font-size: 14px;
 			font-weight: normal;
 			letter-spacing: -0.25px;
 			margin: 0;
@@ -192,84 +190,15 @@
 			text-transform: uppercase;
 			vertical-align: middle;
 		}
-
 		label.right {
 			float: right;
-		}
-
-		.button {
-			-webkit-tap-highlight-color: transparent;
-			background-color: #55a1fb;
-			border-radius: 5px;
-			border: none;
-			box-sizing: border-box;
-			color: #fff;
-			cursor: pointer;
-			display: inline-block;
-			font-weight: 600;
-			height: 42px;
-			line-height: 42px;
-			outline: none;
-			padding: 0 24px;
-			text-align: center;
-			text-decoration: none;
-			-webkit-transition: all 0.2s ease-in-out;
-			transition: all 0.2s ease-in-out;
-			white-space: nowrap;
-			width: auto;
-		}
-
-		.button:hover,
-		.button:focus {
-			background-color: #4196fb;
-		}
-
-		.button:active,
-		.button.nice-select.open {
-			background-color: #2d8bfa;
-		}
-
-		.button.light {
-			background-color: #fff;
-			border: 1px solid #e0e7ee;
-			color: #55a1fb;
-			line-height: 40px;
-			margin-left: 24px;
-		}
-
-		.button.light:hover {
-			border-color: #d0dae5;
-		}
-
-		.button.light:active,
-		.button.light.nice-select.open,
-		.button.light:focus {
-			border-color: #88bfff;
-		}
-
-		@media screen and (max-width: 360px) {
-			.button {
-				width: 100%;
-			}
-
-			.button.light {
-				margin: 18px 0 0;
-			}
 		}
 
 		.header {
 			text-align: center;
 			margin-bottom: 60px;
 		}
-
-		@media screen and (min-width: 600px) {
-			.header {
-				padding: 0 18px;
-			}
-		}
-
 		.header p {
-			color: #90a1b5;
 			font-size: 18px;
 			margin-bottom: 36px;
 		}
@@ -277,16 +206,8 @@
 		.footer {
 			text-align: center;
 		}
-
 		.footer p {
 			margin-bottom: 90px;
-		}
-
-		.credit {
-			color: #90a1b5;
-			clear: both;
-			font-size: 12px;
-			margin-top: 90px;
 		}
 	</style>
 </head>
@@ -297,6 +218,12 @@
 			<h1>jQuery Nice Select</h1>
 
 			<p>A lightweight jQuery plugin that replaces native select elements with customizable dropdowns.</p>
+		</div>
+
+		<hr>
+		<div class="text-center">
+			<button id="light" class="btn btn-primary">Light</button>
+			<button id="dark" class="btn btn-secondary">Dark</button>
 		</div>
 
 		<h2>Usage</h2>
@@ -324,7 +251,7 @@
 
 		<div class="box">
 			<label>Label: </label>
-			<select class="ignore form-control" style="display: inline; width: auto;">
+			<select class="ignore form-select" style="display: inline; width: auto;">
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
 				<option value="3" disabled>A disabled option</option>
@@ -558,7 +485,11 @@
 	<script src="../../html/plugins/js/jquery.ui.nice-select.js"></script>
 
 	<script>
-		$(document).ready(function () {
+		$(function() {
+			$('#light, #dark').click(function() {
+				$('body').attr('data-bs-theme', $(this).attr('id'));
+			});
+
 			$('select').each(function() {
 				var $s = $(this);
 				for (var i = 100; i < 200; i++) {

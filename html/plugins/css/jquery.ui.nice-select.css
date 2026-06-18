@@ -15,7 +15,7 @@
 	vertical-align: middle;
 	width: auto;
 	height: auto;
-	padding: .25em 2.25em .25em .75em;
+	padding: .25em 2.5em .25em .75em;
 	line-height: 1.5em;
 	min-height: 2em;
 	transition: all 0.2s ease-in-out;
@@ -38,28 +38,28 @@
 	box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(102 175 233 / 60%);
 }
 
-.ui-nice-select:after {
-	border-bottom: 2px solid #999;
-	border-right: 2px solid #999;
+.ui-nice-select::after {
+	border-bottom: 1px solid #333;
+	border-right: 1px solid #333;
 	content: '';
 	display: block;
-	height: 5px;
-	margin-top: -4px;
+	height: 0.375em;
+	margin-top: -0.35em;
 	pointer-events: none;
 	position: absolute;
-	right: 12px;
+	right: 1em;
 	top: 50%;
 	transform-origin: 66% 66%;
 	transform: rotate(45deg);
 	transition: all 0.15s ease-in-out;
-	width: 5px;
+	width: 0.375em;
 }
 
 .ui-nice-select.disabled {
 	background-color: #eee;
 	pointer-events: none;
 }
-.ui-nice-select.disabled:after {
+.ui-nice-select.disabled::after {
 	border-color: #ccc;
 }
 
@@ -70,14 +70,14 @@
 .ui-nice-select.multiple .current {
 	border: 1px solid #ccc;
 	border-radius: 5px;
-	padding: 2px 10px;
 	margin: 2px 5px;
+	padding: 2px 10px;
 }
-.ui-nice-select.multiple .current:after {
+.ui-nice-select.multiple .current::after {
 	content: "\00d7";
 	padding: 0 0 0 5px;
 }
-.ui-nice-select.multiple.disabled .current:after {
+.ui-nice-select.multiple.disabled .current::after {
 	display: none;
 }
 
@@ -104,21 +104,21 @@
 }
 
 .ui-nice-select.wrap > ul, .ui-nice-select.wrap > .current {
-	white-space: normal;
 	overflow-wrap: anywhere;
+	white-space: normal;
 }
 
 .ui-nice-select > ul > li {
 	cursor: pointer;
 	font-weight: 400;
-	line-height: 40px;
+	line-height: 2.5em;
 	list-style: none;
-	min-height: 40px;
+	min-height: 2.5em;
 	outline: none;
+	overflow-wrap: anywhere;
 	padding: 0 2.25em 0 .75em;
 	text-align: left;
 	transition: all 0.2s;
-	overflow-wrap: anywhere;
 }
 .ui-nice-select > ul > li:hover,
 .ui-nice-select > ul > li.focus,
@@ -135,7 +135,7 @@
 	cursor: default;
 }
 
-.ui-nice-select.open:after {
+.ui-nice-select.open::after {
 	transform: rotate(-135deg);
 }
 .ui-nice-select.open > ul {
@@ -160,26 +160,14 @@
 	right: 0;
 }
 
-.ui-nice-select.small.multiple {
-	min-height: 40px;
-}
 .ui-nice-select.small {
 	font-size: .75rem;
-	min-height: 30px;
-}
-.ui-nice-select.small:after {
-	height: 4px;
-	width: 4px;
-}
-.ui-nice-select.small > ul > li {
-	line-height: 34px;
-	min-height: 34px;
 }
 
 .ui-nice-select.col2 > ul {
-	width: 600px;
 	display: flex;
 	flex-wrap: wrap;
+	width: 600px;
 }
 .ui-nice-select.col2.open > ul {
 	overflow-x: hidden;
@@ -192,9 +180,9 @@
 }
 
 .ui-nice-select.col3 > ul {
-	width: 750px;
 	display: flex;
 	flex-wrap: wrap;
+	width: 750px;
 }
 .ui-nice-select.col3.open > ul {
 	overflow-x: hidden;
