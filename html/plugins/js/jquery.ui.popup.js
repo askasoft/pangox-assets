@@ -312,10 +312,12 @@
 				}
 			},
 			complete: function() {
-				$p.removeClass('loading');
-				if (seq == c.sequence && c.showing) {
-					_show($p, $c, c, c.showing);
-					delete c.showing;
+				if (seq == c.sequence) {
+					$p.removeClass('loading');
+					if (c.showing) {
+						_show($p, $c, c, c.showing);
+						delete c.showing;
+					}
 				}
 			}
 		}));
