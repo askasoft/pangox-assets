@@ -17,7 +17,7 @@
 
 		:not(pre)>code[class*="language-"],
 		pre[class*="language-"] {
-			background: #f6f7f9;
+			background-color: var(--bs-secondary-bg);
 		}
 
 		/* Inline code */
@@ -25,149 +25,13 @@
 			padding: 0 2px 1px;
 		}
 
-		.token.comment,
-		.token.prolog,
-		.token.doctype,
-		.token.cdata {
-			color: #90a1b5;
-		}
-
-		.token.punctuation {
-			color: #999;
-		}
-
-		.namespace {
-			opacity: .7;
-		}
-
-		.token.property,
-		.token.tag,
-		.token.boolean,
-		.token.number,
-		.token.constant,
-		.token.symbol,
-		.token.deleted {
-			color: #EC4444;
-		}
-
-		.token.selector,
-		.token.attr-name,
-		.token.string,
-		.token.char,
-		.token.builtin,
-		.token.inserted {
-			color: #4ABF60;
-		}
-
-		.token.operator,
-		.token.entity,
-		.token.url,
-		.language-css .token.string,
-		.style .token.string {
-			color: #a67f59;
-			background: rgba(255, 255, 255, 0.5);
-		}
-
-		.token.atrule,
-		.token.attr-value,
-		.token.keyword {
-			color: #55a1fb;
-		}
-
-		.token.function {
-			color: #DD4A68;
-		}
-
-		.token.regex,
-		.token.important,
-		.token.variable {
-			color: #e90;
-		}
-
-		.token.important,
-		.token.bold {
-			font-weight: bold;
-		}
-
-		.token.italic {
-			font-style: italic;
-		}
-
-		.token.entity {
-			cursor: help;
-		}
-
-		body {
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			color: #445870;
-			font-family: 'Work Sans', sans-serif;
-			font-weight: normal;
-			letter-spacing: -0.25px;
-			margin: 0;
-			padding: 0 18px;
-		}
-
-		p {
-			line-height: 1.6;
-			margin: 0 0 1.6em;
-		}
-
-		h1 {
-			font-size: 36px;
-			font-weight: 300;
-			letter-spacing: -2px;
-			margin: 0 0 24px;
-		}
-
-		h2 {
-			font-size: 22px;
-			font-weight: 400;
-			margin: 0 0 12px;
-			padding-top: 48px;
-		}
-
-		h3 {
-			font-size: 18px;
-			font-weight: 400;
-			margin: 0 0 12px;
-			padding-top: 12px;
-		}
-
 		ul {
 			margin: 0;
 			padding-left: 16px;
 		}
 
-		a:not(.button) {
-			color: #55a1fb;
-			outline: none;
-			text-decoration: none;
-			-webkit-transition: all 0.2s ease-in-out;
-			transition: all 0.2s ease-in-out;
-			border-bottom: 1px solid transparent;
-		}
-
-		a:not(.button):hover,
-		a:not(.button):focus {
-			border-bottom: 1px solid #88bfff;
-		}
-
-		::-moz-selection {
-			background: #f3f4f7;
-		}
-
-		::selection {
-			background: #f3f4f7;
-		}
-
-		.container {
-			margin: 96px auto 60px;
-			max-width: 40em;
-		}
-
 		.box {
-			background-color: #f6f7f9;
+			background-color: var(--bs-secondary-bg);
 			border-radius: 2px;
 			margin-bottom: 30px;
 			padding: 24px 30px;
@@ -236,14 +100,9 @@
 
 		<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;path/to/nice-select.css&quot;&gt;</code></pre>
 
-		<p>...or, ideally, import the SASS source (if you use SASS) in your main stylesheet for easier customization.
-		</p>
-
-		<pre><code class="language-scss">@import 'nice-select'; // Or 'nice-select-prefixed'. See 'Notes' section.</code></pre>
-
 		<p><strong>3.</strong> Finally, initialize the plugin.</p>
 
-		<pre><code class="language-js">$(document).ready(function() {
+		<pre><code class="language-js">$(function() {
   $('select').niceSelect();
 });</code></pre>
 
@@ -251,10 +110,10 @@
 
 		<div class="box">
 			<label>Label: </label>
-			<select class="ignore form-select" style="display: inline; width: auto;">
+			<select id="ignore" class="ignore form-select" style="display: inline; width: auto;">
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -263,10 +122,10 @@
 
 		<div class="box">
 			<label>Label: </label>
-			<select>
+			<select id="sample" >
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -284,7 +143,7 @@
   &lt;option display=&quot;Select&quot;&gt;Nothing&lt;/option&gt;
   &lt;option value=&quot;1&quot;&gt;Some option&lt;/option&gt;
   &lt;option value=&quot;2&quot;&gt;Another option&lt;/option&gt;
-  &lt;option value=&quot;3&quot; disabled&gt;A disabled option&lt;/option&gt;
+  &lt;option value=&quot;3&quot; disabled&gt;Disabled option&lt;/option&gt;
   &lt;option value=&quot;4&quot;&gt;Potato&lt;/option&gt;
 &lt;/select&gt;</code></pre>
 
@@ -293,7 +152,7 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -306,23 +165,12 @@
 		<p>These are some examples included in the plugin stylesheet:</p>
 
 		<div class="box">
-			<label>Wide</label>
-			<select class="wide" id="sw">
-				<option display="Select">Nothing</option>
-				<option value="1">Some option</option>
-				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
-				<option value="4">Potato</option>
-			</select>
-		</div>
-
-		<div class="box">
 			<label>Right</label>
 			<select class="right">
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -333,7 +181,7 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -344,7 +192,7 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -355,7 +203,40 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wide</label>
+			<select class="wide" id="sw">
+				<option display="Select">Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wide 2 Columns</label>
+			<select class="wide col2">
+				<option display="Select">Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wide 3 Columns</label>
+			<select class="wide col3">
+				<option display="Select">Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -368,7 +249,7 @@
 		<pre><code class="language-html">&lt;select multiple&gt;
   &lt;option value=&quot;1&quot;&gt;Some option&lt;/option&gt;
   &lt;option value=&quot;2&quot;&gt;Another option&lt;/option&gt;
-  &lt;option value=&quot;3&quot; disabled&gt;A disabled option&lt;/option&gt;
+  &lt;option value=&quot;3&quot; disabled&gt;Disabled option&lt;/option&gt;
   &lt;option value=&quot;4&quot;&gt;Potato&lt;/option&gt;
 &lt;/select&gt;</code></pre>
 
@@ -377,18 +258,7 @@
 				<option>Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
-				<option value="4">Potato</option>
-			</select>
-		</div>
-
-		<div class="box">
-			<label>Wide</label>
-			<select multiple class="wide" id="mw">
-				<option display="Select">Nothing</option>
-				<option value="1">Some option</option>
-				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -399,7 +269,7 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -410,7 +280,7 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -421,7 +291,7 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -432,7 +302,18 @@
 				<option display="Select">Nothing</option>
 				<option value="1">Some option</option>
 				<option value="2">Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wide</label>
+			<select multiple class="wide" id="mw">
+				<option display="Select">Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
@@ -443,10 +324,180 @@
 				<option display="Select">Nothing</option>
 				<option value="1" selected>Some option</option>
 				<option value="2" selected>Another option</option>
-				<option value="3" disabled>A disabled option</option>
+				<option value="3" disabled>Disabled option</option>
 				<option value="4">Potato</option>
 			</select>
 		</div>
+
+
+		<h2>Wrap and nowrap</h2>
+		<p>Enable wrapable item.</p>
+
+		<p>Add a <code class="language-html">wrap</code> class to the desired select. For example:</p>
+
+		<pre><code class="language-html">&lt;select class=&quot;wrap&quot;&gt;
+  &lt;option value=&quot;1&quot;&gt;Some option&lt;/option&gt;
+  &lt;option value=&quot;2&quot;&gt;Another option&lt;/option&gt;
+  &lt;option value=&quot;3&quot; disabled&gt;Disabled option&lt;/option&gt;
+  &lt;option value=&quot;4&quot;&gt;Potato&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+
+		<div class="box">
+			<label>Wrap</label>
+			<select class="wrap">
+				<option>Wrap</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wrap wide</label>
+			<select class="wrap wide">
+				<option>Wrap</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wrap col 2</label>
+			<select class="wrap col2">
+				<option>Wrap</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wrap col 3</label>
+			<select class="wrap col3">
+				<option>Wrap</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Nowrap (default)</label>
+			<select class="nowrap">
+				<option>Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Nowrap (wide)</label>
+			<select class="nowrap wide">
+				<option>Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Nowrap col 2</label>
+			<select class="nowrap col2">
+				<option>Wrap</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Nowrap col 3</label>
+			<select class="nowrap col3">
+				<option>Wrap</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+
+		<h2>Editable</h2>
+		<p>Enable editable select.</p>
+
+		<p>Add a <code class="language-html">editable</code> attribute to the desired select. For example:</p>
+
+		<pre><code class="language-html">&lt;select editable&gt;
+  &lt;option value=&quot;1&quot;&gt;Some option&lt;/option&gt;
+  &lt;option value=&quot;2&quot;&gt;Another option&lt;/option&gt;
+  &lt;option value=&quot;3&quot; disabled&gt;Disabled option&lt;/option&gt;
+  &lt;option value=&quot;4&quot;&gt;Potato&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+
+		<div class="box">
+			<select editable>
+				<option>Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Wide</label>
+			<select class="wide" editable>
+				<option>Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Multiple</label>
+			<select editable multiple>
+				<option>Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+		<div class="box">
+			<label>Dynamic source</label>
+			<select class="dynamic" editable>
+				<option>Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
+
+		<div class="box">
+			<label>Dynamic source Multiple</label>
+			<select id="mdynamic" class="dynamic" editable multiple>
+				<option>Nothing</option>
+				<option value="1">Some option</option>
+				<option value="2">Another option</option>
+				<option value="3" disabled>Disabled option</option>
+				<option value="4">Potato</option>
+			</select>
+		</div>
+
 
 		<h2>Methods</h2>
 
@@ -490,13 +541,36 @@
 				$('body').attr('data-bs-theme', $(this).attr('id'));
 			});
 
-			$('select').each(function() {
+			$('select:not(.ignore, .dynamic)').each(function() {
 				var $s = $(this);
-				for (var i = 100; i < 200; i++) {
-					$s.append($('<option>').val(i).text('option ' + i));
+				for (var i = 5; i < 100; i++) {
+					$s.append($('<option>').val(i).text('#' + i + ' option'));
+				}
+
+				if ($s.hasClass('wrap') || $s.hasClass('nowrap')) {
+					for (var i = 100; i < 110; i++) {
+						$s.append($('<option>').val(i).text('#' + i + ' ' + 'longlong'.repeat(i / 5)));
+					}
+				}
+
+				var $o = $s.children('option:not(:disabled)');
+				$o.eq(Math.floor(Math.random() * $o.length)).prop('selected', true);
+			}).niceSelect();
+
+
+			$('select.dynamic').niceSelect({
+				source: function(s, callback) {
+					if (!(/\d/g.test(s))) {
+						setTimeout(function() {
+							var a = [], b = new Date().getDate() % 100;
+							for (var i = 0; i < 30; i++) {
+								a.push(s + (b+i));
+							}
+							callback(a);
+						}, 200);
+					}
 				}
 			});
-			$('select:not(.ignore)').niceSelect();
 		});
 	</script>
 </body>
