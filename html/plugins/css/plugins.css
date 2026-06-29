@@ -124,6 +124,7 @@
 }
 .ui-loadmask-mask.fullscreen {
 	position: fixed;
+	opacity: 0;
 }
 
 .ui-loadmask {
