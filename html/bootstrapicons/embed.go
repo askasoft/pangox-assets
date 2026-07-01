@@ -4,5 +4,5 @@ import (
 	"embed"
 )
 
-//go:embed fonts bootstrap-icons.*
+//go:embed fonts *.css
 var FS embed.FS
