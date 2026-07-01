@@ -65,7 +65,7 @@ exit /b
 :minjs
 echo --------------------------------------
 echo --  minify js: %1
-call uglifyjs.cmd %1.js --warn --compress --mangle --source-map url=%1.min.js.map -o %1.min.js
+call uglifyjs.cmd %1.js --warn --compress --mangle -o %1.min.js
 exit /b
 
 :mincss

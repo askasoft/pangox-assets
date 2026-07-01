@@ -4,7 +4,7 @@ import (
 	"embed"
 )
 
-//go:embed */* *.css *.js *.map
+//go:embed */* *.css *.js
 var FS embed.FS
 
 var Languages = map[string]string{
