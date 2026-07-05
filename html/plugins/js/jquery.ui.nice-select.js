@@ -221,18 +221,19 @@
 				});
 
 				_build_options($s, $d);
-			}
+				_filter_items($d, $t, 1);
+			};
 
 			var fetch = function() {
 				fs.call($s, $t.text(), callback);
-			}
+			};
 
 			clearTimeout($d.data('stimer'));
 			$d.data('stimer', setTimeout(fetch, $d.data('debounce') || 0));
 		}
 	}
 
-	function _filter_items($d, $t) {
+	function _filter_items($d, $t, debounce) {
 		var ff = $d.data('filter');
 
 		if (ff) {
@@ -255,10 +256,10 @@
 					$a = $i.not('.filtered').first();
 				}
 				_focus_item($d, $a);
-			}
+			};
 
 			clearTimeout($d.data('ftimer'));
-			$d.data('ftimer', setTimeout(filter, $d.data('debounce') || 0));
+			$d.data('ftimer', setTimeout(filter, debounce || $d.data('debounce') || 0));
 		}
 	}
 
