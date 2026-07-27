@@ -353,6 +353,18 @@
 		$d.append($('<div>', { 'class': 'input', 'value': '', 'contenteditable': 'plaintext-only' }));
 	}
 
+	function _build_styles($s, $d) {
+		var sc = $d.data();
+
+		$d.attr('tabindex', sc.disabled ? "-1" : ($s.attr('tabindex') || '0'));
+		$d.attr('class', 'ui-nice-select')
+			.addClass($s.attr('class') || '')
+			.removeClass('ui-nice-select-hidden')
+			.addClass(sc.disabled ? 'disabled' : '')
+			.addClass(sc.multiple ? 'multiple' : '')
+			.addClass(sc.editable ? 'editable' : '');
+	}
+
 	function _build_labels($s, $d) {
 		$s.find('option:selected').each(function() {
 			var $op = $(this);
@@ -374,23 +386,15 @@
 		});
 	}
 
-	function init($s, sc) {
-		var $ul = $('<ul tabindex="-1">'),
-			$d = $('<div>')
-				.addClass('ui-nice-select')
-				.addClass($s.attr('class') || '')
-				.addClass(sc.disabled ? 'disabled' : '')
-				.addClass(sc.multiple ? 'multiple' : '')
-				.attr('tabindex', sc.disabled ? "-1" : ($s.attr('tabindex') || '0'))
-				.append($ul);
-
-		if (sc.editable) {
-			$d.addClass('editable');
-		}
+	function init($s, c) {
+		var sc = $.extend({}, $.niceSelect.defaults, _options($s), c),
+			$ul = $('<ul tabindex="-1">'),
+			$d = $('<div>').append($ul);
 
 		// save config
 		$d.data(sc);
 
+		_build_styles($s, $d);
 		_build_labels($s, $d);
 		_build_options($s, $d);
 
@@ -418,14 +422,19 @@
 
 			$s.on('close.nice_select', __select_change);
 		}
+
+		return $d;
 	}
 
 	function update($s, c) {
 		var $d = $s.next('.ui-nice-select');
 
 		if ($d.length) {
-			$d.data($.extend({}, $d.data(), c));
-			_build_options($s, $d);
+			$d.remove();
+			$d = init($s, c);
+			if ($d.hasClass('open')) {
+				$d.trigger('click');
+			}
 		}
 	}
 
@@ -482,7 +491,7 @@
 			if ($s.next().hasClass('ui-nice-select')) {
 				update($s, c);
 			} else {
-				init($s, $.extend({}, $.niceSelect.defaults, _options($s), c));
+				init($s, c);
 			}
 		}).addClass('ui-nice-select-hidden');
 		return this;
