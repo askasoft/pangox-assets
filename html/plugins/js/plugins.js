@@ -3191,24 +3191,29 @@
 		return fn.substr(i + 1);
 	}
 
+	function _fileext(fn) {
+		var e = fn.toLowerCase(), i = e.lastIndexOf('.');
+		if (i >= 0) {
+			e = e.substring(i+1);
+		}
+		return e;
+	}
+
 	function _filetype(e, t) {
 		if (t) {
-			var i = t.indexOf('/'), c = (i >= 0) ? t.slice(0, i) : t;
-			return ($.inArray(c, ['image', 'audio', 'video', 'file']) >= 0) ? c : 'file';
+			var i = t.indexOf('/');
+			return (i >= 0) ? t.slice(0, i) : t;
 		}
 		if (e) {
-			e = e.toLowerCase();
-			var dot = e.lastIndexOf('.');
-			if (dot > 0) {
-				e = e.substring(dot);
-			}
-			if ($.inArray(e, ['.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff', '.svg', '.bmp', '.webp']) >= 0) {
+			e = _fileext(e);
+
+			if ($.inArray(e, ['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'svg', 'bmp', 'webp']) >= 0) {
 				return 'image';
 			}
-			if ($.inArray(e, ['.mp3', '.flac', '.weba', '.wav', '.mid', '.oga', '.wma']) >= 0) {
+			if ($.inArray(e, ['mp3', 'flac', 'weba', 'wav', 'mid', 'oga', 'wma']) >= 0) {
 				return 'audio';
 			}
-			if ($.inArray(e, ['.avi', '.mpg', '.mpeg', '.mp4', '.m4v', 'mov', '.webm', '.wmv']) >= 0) {
+			if ($.inArray(e, ['avi', 'mpg', 'mpeg', 'mp4', 'm4v', 'mov', 'webm', 'wmv']) >= 0) {
 				return 'video';
 			}
 		}
@@ -3216,14 +3221,18 @@
 	}
 
 	function _create_item($u, fid, fnm, fct, fsz) {
-		var uc = $u.data('uploader'), $i = $('<div>', { 'class': 'ui-uploader-item' });
+		var uc = $u.data('uploader'),
+			fex = _fileext(fnm),
+			fic = uc.cssIcons['.' + fex] || uc.cssIcons[fct],
+			$i = $('<div>', { 'class': 'ui-uploader-item ' + fct + ' file-' + fex });
 
 		$i.append(
 			$('<input>', { type: 'hidden', name: uc.name, 'class': 'ui-uploader-fid' }).val(fid),
-			$('<i>', { 'class': 'ui-close' }).on('click', _item_on_remove),
-			$('<span>', { 'class': 'ui-uploader-info' })
-				.append($('<i>', { 'class': uc.cssIcons[fct] + ' ui-uploader-icon' }))
-				.append($('<span>', { 'class': 'ui-uploader-text' }).text(fnm + _filesize(fsz))),
+			$('<i>', { 'class': 'ui-close' }),
+			$('<span>', { 'class': 'ui-uploader-info' }).append(
+				$('<i>', { 'class': fic + ' ui-uploader-icon' }),
+				$('<span>', { 'class': 'ui-uploader-text' }).text(fnm + _filesize(fsz))
+			),
 		);
 		_update_item_dnload(uc, $i, fid, fct);
 
@@ -3242,10 +3251,12 @@
 		var $u = $i.closest('.ui-uploader'), uc = $u.data('uploader'),
 			fid = fi.id || fi.path || fi.name || '',
 			fnm = _filename(fi.name || fi.path || fi.id),
-			fct = _filetype(fi.ext || fnm, fi.type);
+			fct = _filetype(fi.ext || fnm, fi.type),
+			fex = _fileext(fi.ext || fnm),
+			fic = uc.cssIcons['.' + fex] || uc.cssIcons[fct];
 
 		$i.find('.ui-uploader-fid').val(fid);
-		$i.find('.ui-uploader-icon').attr('class', uc.cssIcons[fct] + ' ui-uploader-icon');
+		$i.find('.ui-uploader-icon').attr('class', fic + ' ui-uploader-icon');
 
 		if (fnm) {
 			$i.find('.ui-uploader-text').text(fnm + _filesize(fi.size));
@@ -3263,11 +3274,25 @@
 			var $fif = $i.find('.ui-uploader-info');
 			$('<a>', { href: durl, target: uc.dnloadTarget }).append($fif).appendTo($i);
 
-			if (uc.preview && fct == 'image') {
-				var $fim = $('<div>').addClass('ui-uploader-preview').appendTo($i);
-				$('<a>', { href: durl, target: uc.dnloadTarget }).append($('<img>', { src: durl })).appendTo($fim).fadeIn();
+			if (uc.preview) {
+				switch (fct) {
+				case 'image':
+					_append_preview($i, $('<a>', { href: durl, target: uc.dnloadTarget }).append($('<img>', { src: durl })));
+					break;
+				case 'video':
+					_append_preview($i, $('<video controls>').append($('<source>', { src: durl })));
+					break;
+				case 'audio':
+					_append_preview($i, $('<audio controls>').append($('<source>', { src: durl })));
+					break;
+				}
 			}
 		}
+	}
+
+	function _append_preview($i, $p) {
+		$('<div>').addClass('ui-uploader-preview').append($p).appendTo($i);
+		$p.fadeIn();
 	}
 
 	function _append_upload($u, f, closer) {
@@ -3323,7 +3348,7 @@
 	}
 
 	function _init($u, uc) {
-		$u.addClass('ui-uploader').data('uploader', uc);
+		$u.addClass('ui-uploader').data('uploader', uc).on('click', 'i.ui-close', _item_on_remove);
 
 		var uploads = [], $uf = $u.find('.ui-uploader-file'), $ub = $u.find('.ui-uploader-btn');
 
@@ -3337,7 +3362,7 @@
 				return;
 			}
 
-			$i.addClass('loading');
+			$i.removeClass('waiting').addClass('loading');
 			$i.find('.ui-uploader-icon').attr('class', uc.cssIcons.loading + ' ui-uploader-icon');
 
 			$u.trigger('upload.uploader', { item: $i, file: f });
@@ -3469,6 +3494,14 @@
 		return c;
 	}
 
+	function loading($u) {
+		return $u.find('.ui-uploader-item.loading').length;
+	}
+
+	function waiting($u) {
+		return $u.find('.ui-uploader-item.waiting').length;
+	}
+
 	// UPLOADER FUNCTION
 	// ==================
 	$.uploader = {
@@ -3505,7 +3538,16 @@
 		}
 	};
 
+	var api = {
+		loading: loading,
+		waiting: waiting
+	};
+
 	$.fn.uploader = function(c) {
+		if (typeof c == 'string') {
+			return api[c](this);
+		}
+
 		return this.each(function() {
 			var $u = $(this), uc = $u.data('uploader');
 			if (uc) {

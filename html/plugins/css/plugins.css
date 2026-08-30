@@ -1095,7 +1095,8 @@
 	right: 4px;
 }
 .ui-uploader-icon {
-	margin: 0 0.5em 0 -1.5em;
+	width: 1.25em;
+	margin: 0 0.25em 0 -1.5em;
 }
 .ui-uploader-preview img {
 	margin: 5px 0;
@@ -1106,6 +1107,13 @@
 	display: inline-block;
 	max-width: 100%;
 	height: auto;
+}
+.ui-uploader-preview video {
+	margin: 5px 0;
+	width: 100%;
+}
+.ui-uploader-preview audio {
+	margin: 5px 0;
 }
 .ui-uploader-error {
 	color: #a94442;
