@@ -1223,8 +1223,7 @@
 			$el.addClass("ui-loadmasked-relative");
 		}
 		if (c.mask) {
-			var $m = $('<div>', { 'class': "ui-loadmask-mask" + fs });
-			$el.append($m);
+			$el.append($('<div>', { 'class': "ui-loadmask-mask" + fs }));
 		}
 
 		$el.append($lm).addClass("ui-loadmasked");
